@@ -1,0 +1,5 @@
+rootProject.name = 'Crud-Ecommerce-App'
+include 'domain'
+include 'application'
+include 'infrastructure'
+
