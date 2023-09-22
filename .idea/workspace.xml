@@ -4,59 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c86271d-fed1-4cdc-8bed-3c6402fddda3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/ICreateOrderUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/ICreateOrderUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/ICustomerUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/ICustomerUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/INotifierOrderUserCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/INotifierOrderUserCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/INotifierUserCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/INotifierUserCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IOrderAddItemUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IOrderAddItemUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IOrderChangeItemUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IOrderChangeItemUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IOrderPaymentUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IOrderPaymentUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IOrderPlaceUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IOrderPlaceUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IOrderRemoveItemUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IOrderRemoveItemUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IOrderShippingUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IOrderShippingUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IProductUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/IProductUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/factory/CustomerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/factory/CustomerFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/factory/OrderFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/factory/OrderFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/factory/ProductFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/factory/ProductFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/CustomerUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/CustomerUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderAddItemUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderAddItemUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderChangeItemUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderChangeItemUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderCreateUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderCreateUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderPaymentUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderPaymentUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderPlaceUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderPlaceUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderRemoveItemUseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderRemoveItemUseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderShippingUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/OrderShippingUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/ProductUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/impl/ProductUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/database/MemoryDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/database/MemoryDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/email/CustomerEmailNotifierImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/email/CustomerEmailNotifierImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/email/OrderEmailNotifierImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/email/OrderEmailNotifierImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/email/SendEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/email/SendEmail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/memoryrepository/CustomerMemoryRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/memoryrepository/CustomerMemoryRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/memoryrepository/OrderEntityMerge.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/memoryrepository/OrderEntityMerge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/memoryrepository/OrderMemoryRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/memoryrepository/OrderMemoryRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/memoryrepository/ProductMemoryRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/memoryrepository/ProductMemoryRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/sms/CustomerSmsNotifierImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/sms/CustomerSmsNotifierImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/sms/OrderSmsNotifierImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/sms/OrderSmsNotifierImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/sms/SendSms.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/integration/sms/SendSms.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/repository/CrudRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/repository/CrudRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/repository/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/repository/CustomerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/repository/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/repository/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/repository/RepositoryException.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/com/crud/ecommerce/app/application/repository/RepositoryException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/src/main/java/com/crud/ecommerce/app/domain/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/domain/src/main/java/com/crud/ecommerce/app/domain/OrderItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/src/main/java/com/crud/ecommerce/app/domain/OrderStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/domain/src/main/java/com/crud/ecommerce/app/domain/OrderStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/src/test/java/com/crud/ecommerce/app/domain/ProductTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/domain/src/test/java/com/crud/ecommerce/app/domain/ProductTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-    </list>
+    <list default="true" id="8c86271d-fed1-4cdc-8bed-3c6402fddda3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,21 +50,21 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/rsecchim/Documentos/Development/crud-Ecommerce-App&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "feature-add-mavem",
+    "last_opened_file_path": "/home/rsecchim/Documentos/Development/crud-Ecommerce-App",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="CrudApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.crud.crud.CrudApplication" />
@@ -162,6 +110,7 @@
       <workItem from="1695339390675" duration="196000" />
       <workItem from="1695339603968" duration="7000" />
       <workItem from="1695339622551" duration="6000" />
+      <workItem from="1695339700734" duration="79000" />
     </task>
     <servers />
   </component>
