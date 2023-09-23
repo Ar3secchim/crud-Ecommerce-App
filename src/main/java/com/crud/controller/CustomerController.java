@@ -1,7 +1,10 @@
 package com.crud.controller;
 
+import com.crud.controller.dto.customer.CustomerRequest;
+import com.crud.controller.dto.customer.CustomerResponse;
 import com.crud.model.Customer;
 import com.crud.usecases.impl.CustomerUseCaseImpl;
+import com.crud.utils.UserConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,24 +15,27 @@ public class CustomerController {
   @Autowired
   CustomerUseCaseImpl customerService;
 
+  @PostMapping ("customer")
+  public CustomerResponse createCustomer(@RequestBody CustomerRequest customerDTO){
+    Customer customer = customerService.create(UserConvert.toEntity(customerDTO));
+    return UserConvert.toResponse(customer);
+  }
+
   @GetMapping("/customer")
-  public List<Customer> getCustomer(){
-    return customerService.list();
+  public List<CustomerResponse> getCustomer(){
+    List<Customer> listCustomer = customerService.list();
+    return UserConvert.toListResponse(listCustomer);
   }
 
   @GetMapping("/customer/{document}")
-  public Customer getCustomerByDocument(@PathVariable String document){
-    return customerService.findByDocument(document);
+  public CustomerResponse getCustomerByDocument(@PathVariable String document){
+    Customer customer = customerService.findByDocument(document);
+    return UserConvert.toResponse(customer);
   }
 
   @GetMapping("/customer/name/{name}")
-  public List<Customer> getCustomerByName(@PathVariable String name){
-    return customerService.findByName(name);
-  }
-
-  @PostMapping ("customer")
-  public Customer createCustomer(@RequestBody Customer customer){
-    customerService.create(customer);
-    return customer;
+  public List<CustomerResponse> getCustomerByName(@PathVariable String name){
+    List<Customer> listCustomer =  customerService.findByName(name);
+    return UserConvert.toListResponse(listCustomer);
   }
 }
