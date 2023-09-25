@@ -7,7 +7,7 @@ import com.crud.model.Customer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserConvert {
+public class CustomerConvert {
   public static Customer toEntity(CustomerRequest customerRequest){
     Customer customer = new Customer();
     customer.setName(customerRequest.getName());
@@ -26,6 +26,6 @@ public class UserConvert {
   }
 
   public static List<CustomerResponse> toListResponse(List<Customer> listCustomer){
-    return listCustomer.stream().map(UserConvert::toResponse).collect(Collectors.toList());
+    return listCustomer.stream().map(CustomerConvert::toResponse).collect(Collectors.toList());
   }
 }
