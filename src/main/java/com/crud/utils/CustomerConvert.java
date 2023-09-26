@@ -26,6 +26,8 @@ public class CustomerConvert {
   }
 
   public static List<CustomerResponse> toListResponse(List<Customer> listCustomer){
-    return listCustomer.stream().map(CustomerConvert::toResponse).collect(Collectors.toList());
+    return listCustomer.stream()
+            .map(CustomerConvert::toResponse)
+            .collect(Collectors.toList());
   }
 }
