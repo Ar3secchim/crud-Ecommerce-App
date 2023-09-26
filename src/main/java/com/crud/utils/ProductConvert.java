@@ -29,6 +29,8 @@ public class ProductConvert {
   }
 
   public static List<ProductResponse> toListResponse(List<Product> listProduct){
-    return listProduct.stream().map(ProductConvert::toResponse).collect(Collectors.toList());
+    return listProduct.stream()
+            .map(ProductConvert::toResponse)
+            .collect(Collectors.toList());
   }
 }

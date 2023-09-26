@@ -9,4 +9,6 @@ public interface ProductRepository extends JpaRepository<Product, String> {
   List<Product> findByDescription(String description);
 
   Product findByBarcode(String barcode);
+
+  Product deleteProductById(Integer id);
 }
