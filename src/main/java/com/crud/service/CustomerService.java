@@ -1,7 +1,9 @@
 package com.crud.service;
 
+import com.crud.controller.dto.customer.CustomerResponse;
 import com.crud.model.Customer;
 import com.crud.repository.CustomerRepository;
+import com.crud.utils.CustomerConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,33 +20,37 @@ public class CustomerService{
     return customer;
   }
 
-  public List<Customer> listAll() {
-    return repository.findAll();
+  public List<CustomerResponse> listAll() {
+    List<Customer> listCustomer = repository.findAll();
+    return CustomerConvert.toListResponse(listCustomer);
   }
 
-  public Customer findByDocument(String document) {
+  public CustomerResponse findByDocument(String document) {
     Customer found = null;
+
     if (document != null) {
       found = repository.findByDocument(document);
     }
-    return found;
+
+    return CustomerConvert.toResponse(found);
   }
 
-  public List<Customer> findByName(String name) {
+  public List<CustomerResponse> findByName(String name) {
     List<Customer> found = new ArrayList<>();
 
     if (name != null) {
       found = repository.findByName(name);
     }
-    return found;
+
+    return CustomerConvert.toListResponse(found);
   }
 
-  public Customer findById(String id) {
+  public CustomerResponse findById(String id) {
     Customer found = null;
 
     if (id != null) {
       found = repository.findById(id);
     }
-    return found;
+    return CustomerConvert.toResponse(found);
   }
 }

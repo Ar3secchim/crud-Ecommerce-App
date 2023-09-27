@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class OrderConvert {
   public static Order toEntity(OrderRequest orderRequest, Customer customer){
     Order order = new Order();
+
     order.setCustomer(customer);
     order.setStatus(OrderStatus.OPEN);
     order.setItems(new ArrayList<>());
@@ -33,9 +34,11 @@ public class OrderConvert {
     return orderResponse;
   }
 
-  public static List<OrderResponse> toListResponse(List<Order> listOrder){
-    return listOrder.stream()
-            .map(OrderConvert::toResponseOrder)
-            .collect(Collectors.toList());
+  public static List<OrderResponse> toResponseList(List<Order> orders){
+    List<OrderResponse> ordersResponse = new ArrayList<>();
+    for(Order order: orders){
+      ordersResponse.add(toResponseOrder(order));
+    }
+    return ordersResponse;
   }
 }

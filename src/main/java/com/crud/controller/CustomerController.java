@@ -6,7 +6,6 @@ import com.crud.model.Customer;
 import com.crud.service.CustomerService;
 import com.crud.utils.CustomerConvert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,26 +22,22 @@ public class CustomerController {
   }
 
   @GetMapping("/customer")
-  public ResponseEntity<List<CustomerResponse>> getCustomer(){
-    List<Customer> listCustomer = customerService.listAll();
-    return ResponseEntity.ok(CustomerConvert.toListResponse(listCustomer));
+  public List<CustomerResponse> getCustomer(){
+    return customerService.listAll();
   }
 
   @GetMapping("/customer/document/{document}")
   public CustomerResponse getCustomerByDocument(@PathVariable String document){
-    Customer customer = customerService.findByDocument(document);
-    return CustomerConvert.toResponse(customer);
+    return  customerService.findByDocument(document);
   }
 
   @GetMapping("/customer/{id}")
   public CustomerResponse getCustomerById(@PathVariable String id){
-    Customer customer = customerService.findById(id);
-    return CustomerConvert.toResponse(customer);
+    return customerService.findById(id);
   }
 
   @GetMapping("/customer/name/{name}")
   public List<CustomerResponse> getCustomerByName(@PathVariable String name){
-    List<Customer> listCustomer =  customerService.findByName(name);
-    return CustomerConvert.toListResponse(listCustomer);
+    return customerService.findByName(name);
   }
 }
