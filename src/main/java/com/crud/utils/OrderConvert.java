@@ -1,34 +1,35 @@
 package com.crud.utils;
 
+import com.crud.controller.dto.OrderItem.OrderItemResponse;
 import com.crud.controller.dto.order.OrderRequest;
 import com.crud.controller.dto.order.OrderResponse;
-import com.crud.model.Customer;
-import com.crud.model.Order;
-import com.crud.model.OrderStatus;
+import com.crud.model.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class OrderConvert {
-  public static Order toEntity(OrderRequest orderRequest, Customer customer){
+  public static Order toEntity(Customer customer){
     Order order = new Order();
 
     order.setCustomer(customer);
     order.setStatus(OrderStatus.OPEN);
-    order.setItems(new ArrayList<>());
-    order.setOrderedAt(LocalDateTime.now());
-    order.setShippingAddress(orderRequest.getShippingAddress());
+    order.setOrderItens(new ArrayList<>());
+    order.setCreatedAt(LocalDateTime.now());
+    order.setUpdatedAt(LocalDateTime.now());
+    order.setTotal(0.0);
     return order;
   }
 
   public static OrderResponse toResponseOrder(Order order){
     OrderResponse orderResponse = new OrderResponse();
+    List<OrderItemResponse> orderItemsResponse = OrdemItemConvert.toResponseList(order.getOrderItens());
+
 
     orderResponse.setId(order.getId());
-    orderResponse.setCustomer(order.getCustomer());
-    orderResponse.setItems(order.getItems());
+    orderResponse.setCustomer(order.getCustomer().getId());
+    orderResponse.setItems(orderItemsResponse);
     orderResponse.setStatus(order.getStatus());
 
     return orderResponse;

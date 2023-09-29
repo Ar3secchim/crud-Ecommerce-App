@@ -6,14 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-@AllArgsConstructor
+import java.util.Set;
+
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-
-@Entity
+@Entity(name = "order")
 @Table(name = "orders")
 public class Order {
   @Id
@@ -21,23 +23,26 @@ public class Order {
   private Integer id;
 
   @ManyToOne
-  @JoinColumn(name = "customers_id")
+  @JoinColumn(name = "customer_id", nullable = false)
   private Customer customer;
 
-  @ManyToMany
-  @JoinTable(
-          name = "order_order_item", // Nome da tabela de junção
-          joinColumns = @JoinColumn(name = "order_id"), // Nome da coluna da tabela "Orders"
-          inverseJoinColumns = @JoinColumn(name = "order_item_id") // Nome da coluna da tabela "OrderItem"
+  @OneToMany(
+    fetch = FetchType.EAGER,//carregar itens associados obs: desempenho
+    mappedBy = "order" //associação bidirecional
   )
-  private List<OrderItem> items;
+  private List<OrderItem> orderItens;
 
-  @Column(name = "ordered_at")
-  private LocalDateTime orderedAt;
+  @Column(nullable = false)
+  private Double total;
 
-  @Column
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
   private OrderStatus status;
 
-  @Column(name ="shipping_address")
-  private String shippingAddress;
+  @Column(name = "created_at", nullable = false)
+  private LocalDateTime createdAt;
+
+  @Column(name = "updated_at", nullable = false)
+  private LocalDateTime updatedAt;
+
 }

@@ -1,36 +1,54 @@
 package com.crud.controller;
 
 import com.crud.controller.dto.OrderItem.OrderItemRequest;
+import com.crud.controller.dto.OrderItem.OrderItemResponse;
 import com.crud.controller.dto.order.OrderRequest;
 import com.crud.controller.dto.order.OrderResponse;
+import com.crud.service.CustomerService;
 import com.crud.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/order")
 public class OrderController {
-
   @Autowired
   OrderService orderService;
+  @Autowired
+  CustomerService customerService;
 
   @PostMapping
-  public OrderResponse createOrder(@RequestBody OrderRequest orderRequest){
-    return orderService.create(orderRequest);
+  public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest orderRequest){
+    OrderResponse orderResponse = orderService.create(orderRequest);
+    return ResponseEntity
+            .created(URI.create("/order/"+orderResponse.getId()))
+            .body(orderResponse);
   }
 
   @GetMapping
-  //TODO error  Index 48 out of bounds for length 5
-  public List<OrderResponse> getOrder(){
-    return orderService.findAllOrders();
+  public ResponseEntity<List<OrderResponse>> listOrder(){
+    return ResponseEntity.ok(orderService.findAll());
   }
 
-//  @PostMapping("/order/{orderId}")
-////  public OrderResponse addItem(@PathVariable Integer orderId, @RequestBody OrderItemRequest orderItem){
-////    return orderService.addItem(orderId, orderItem);
-////  }
+  @GetMapping("/{id}")
+  public ResponseEntity<OrderResponse> listOrderById(@PathVariable Integer id){
+    return ResponseEntity.ok(orderService.findById(id));
+  }
+
+  @PostMapping("/{id}")
+  public ResponseEntity<OrderItemResponse> addItemOrder(
+          @PathVariable Integer id,
+          @RequestBody OrderItemRequest orderItemRequest
+  ){
+    OrderItemResponse orderItemResponse = orderService.addItem(id, orderItemRequest);
+    return ResponseEntity
+            .created(URI.create("/order/"+orderItemResponse.getOrder()))
+            .body(orderItemResponse);
+  }
 
 }
