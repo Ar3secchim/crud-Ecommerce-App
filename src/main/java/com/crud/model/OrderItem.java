@@ -13,19 +13,27 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 
-@Entity
-@Table(name = "OrderItem")
+@Entity(name = "OrderItem")
+@Table(name = "Order_item")
 public class OrderItem {
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   @ManyToOne
-  @JoinColumn(name = "products_id")
+  @JoinColumn(name = "order_id")
+  private Order order;
+
+  @ManyToOne
+  @JoinColumn(name = "product_id", nullable = false)
   private Product product;
 
-  @Column
-  private BigDecimal saleValue;
-
-  @Column
+  @Column(nullable = false)
   private Integer amount;
+
+  @Column(nullable = false)
+  private Double price;
+
+  @Column(nullable = false)
+  private Double total;
 }
