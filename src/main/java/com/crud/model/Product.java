@@ -6,24 +6,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
-
-@Entity
+@Getter
+@Setter
+@Entity(name = "product")
 @Table(name = "products")
 public class Product {
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column
+  @Column(nullable = false)
+  private String name;
+
+  @Column(nullable = false)
   private String description;
 
-  @Column
-  private String barcode;
-
-  @Column
-  private BigDecimal price;
+  @Column(nullable = false)
+  private Double price;
 }

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Setter @Getter
 public class ProductRequest {
   private Integer id;
-  private String barcode;
+  private String name;
   private String description;
-  private BigDecimal price;
+  private Double price;
 }

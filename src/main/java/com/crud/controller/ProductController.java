@@ -6,8 +6,10 @@ import com.crud.model.Product;
 import com.crud.service.ProductService;
 import com.crud.utils.ProductConvert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -17,27 +19,27 @@ public class ProductController {
   ProductService productService;
 
   @PostMapping
-  public ProductResponse createCustomer(@RequestBody ProductRequest productRequest){
-    Product product =  productService.create(ProductConvert.toEntity(productRequest));
-    return ProductConvert.toResponse(product);
+  public ResponseEntity<ProductResponse> create(@RequestBody ProductRequest productRequest){
+    ProductResponse productResponse =  productService.create(ProductConvert.toEntity(productRequest));
+    return ResponseEntity
+            .created(URI.create("/product/"+productResponse.getId()))
+            .body(productResponse);
   }
 
   @GetMapping
-  public List<ProductResponse> getProduct(){
-    return productService.listAll();
+  public ResponseEntity<List<ProductResponse>> getProduct(){
+    return ResponseEntity.ok(productService.listAll());
   }
 
-  @GetMapping("/id")
-  public ProductResponse getProduct(
-          @RequestParam(name = "productBarcode", required = false) String productBarcode,
-          @RequestParam(name = "productId", required = false) Integer productId
-  ){
-    return productService.getAllProduct(productBarcode, productId);
+  @GetMapping("/{productId}")
+  public ResponseEntity<ProductResponse> getProductById (@PathVariable  Integer productId){
+    ProductResponse product = productService.findById(productId);
+    return ResponseEntity.ok(product);
   }
 
   @DeleteMapping("/{id}")
-  public ProductResponse deleteProductById(@PathVariable Integer id){
-    return productService.deleteProductById(id);
+  public ResponseEntity<ProductResponse>  deleteProductById(@PathVariable Integer id){
+    productService.delete(id);
+    return ResponseEntity.noContent().build();
   }
-
 }

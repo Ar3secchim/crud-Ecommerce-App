@@ -14,17 +14,17 @@ public class ProductConvert {
 
     product.setId(productRequest.getId());
     product.setDescription(productRequest.getDescription());
-    product.setBarcode(productRequest.getBarcode());
+    product.setName(productRequest.getName());
     product.setPrice(productRequest.getPrice());
     return product;
   }
 
-  public static ProductResponse toResponse(Product productRequest){
+  public static ProductResponse toResponse(Product product){
     ProductResponse productResponse = new ProductResponse();
 
-    productResponse.setId(productRequest.getId());
-    productResponse.setBarcode(productRequest.getBarcode());
-    productResponse.setPrice(productRequest.getPrice());
+    productResponse.setId(product.getId());
+    productResponse.setName(product.getName());
+    productResponse.setPrice(product.getPrice());
     return productResponse;
   }
 

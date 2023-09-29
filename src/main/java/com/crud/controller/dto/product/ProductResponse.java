@@ -9,6 +9,6 @@ import java.math.BigDecimal;
 @Setter @Getter
 public class ProductResponse {
   private Integer id;
-  private String barcode;
-  private BigDecimal price;
+  private String name;
+  private Double price;
 }

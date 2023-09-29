@@ -2,6 +2,7 @@ package com.crud.service;
 
 import com.crud.controller.dto.product.ProductResponse;
 import com.crud.model.Product;
+import com.crud.usecases.IProductUseCase;
 import com.crud.repository.ProductRepository;
 import com.crud.utils.ProductConvert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,56 +11,45 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductService {
+public class ProductService implements IProductUseCase {
   @Autowired
   ProductRepository repository;
 
-  public Product create(Product product) {
-    return repository.save(product);
+  public ProductResponse create(Product product) {
+    Product productResponse = repository.save(product);
+    return ProductConvert.toResponse(productResponse);
   }
 
   public List<ProductResponse> listAll() {
-    List<Product> listProduct = repository.findAll();
-    return ProductConvert.toListResponse(listProduct);
-  }
-
-  public ProductResponse getAllProduct(String productBarcode, Integer productId) {
-    ProductResponse found = null;
-
-
-    if (productBarcode != null) {
-      found = findByBarcode(productBarcode);
-    }
-
-    if(productId != null){
-      found = findById(productId);
-    }
-
-    return found;
-  }
-
-  private ProductResponse findByBarcode(String productBarcode) {
-    Product found = null;
-    if (productBarcode != null) {
-      found = repository.findByBarcode(productBarcode);
-    }
-    return ProductConvert.toResponse(found);
+    return ProductConvert.toListResponse(repository.findAll());
   }
 
   public ProductResponse findById(Integer id) {
     Product found = null;
+
     if (id != null) {
-      found = repository.findAllById(id);
+      found = repository.findProductById(id);
     }
     return ProductConvert.toResponse(found);
   }
 
-  public ProductResponse deleteProductById(Integer id) {
+  //TODO implementar FindByName product
+  @Override
+  public Product findByName(String name) {
+    return null;
+  }
+
+  //TODO implementar update product
+  @Override
+  public void update(Product product) {
+  }
+
+  @Override
+  public ProductResponse delete(Integer id) {
     Product found = null;
     if (id != null) {
       found = repository.deleteProductById(id);
     }
     return ProductConvert.toResponse(found);
   }
-
 }
