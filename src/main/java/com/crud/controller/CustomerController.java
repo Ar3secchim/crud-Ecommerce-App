@@ -2,42 +2,48 @@ package com.crud.controller;
 
 import com.crud.controller.dto.customer.CustomerRequest;
 import com.crud.controller.dto.customer.CustomerResponse;
-import com.crud.model.Customer;
 import com.crud.service.CustomerService;
 import com.crud.utils.CustomerConvert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
+@RequestMapping("/customer")
 public class CustomerController {
   @Autowired
   CustomerService customerService;
 
-  @PostMapping ("customer")
-  public CustomerResponse createCustomer(@RequestBody CustomerRequest customerDTO){
-    Customer customer = customerService.create(CustomerConvert.toEntity(customerDTO));
-    return CustomerConvert.toResponse(customer);
+  @PostMapping
+  public ResponseEntity<CustomerResponse> createCustomer(@RequestBody CustomerRequest customerDTO){
+    CustomerResponse customerResponse = customerService.create(CustomerConvert.toEntity(customerDTO));
+    return ResponseEntity.created(
+            URI.create("/customer/"+customerResponse.getId()))
+            .body(customerResponse);
   }
 
-  @GetMapping("/customer")
-  public List<CustomerResponse> getCustomer(){
-    return customerService.listAll();
+  @GetMapping
+  public ResponseEntity<List<CustomerResponse>> getAllCustomer(){
+    return ResponseEntity.ok(customerService.listAll());
   }
 
-  @GetMapping("/customer/document/{document}")
-  public CustomerResponse getCustomerByDocument(@PathVariable String document){
-    return  customerService.findByDocument(document);
+  @GetMapping("document/{email}")
+  public ResponseEntity<CustomerResponse> getCustomerByEmail(@PathVariable String email){
+    return  ResponseEntity.ok(customerService.findByEmail(email));
   }
 
-  @GetMapping("/customer/{id}")
-  public CustomerResponse getCustomerById(@PathVariable String id){
-    return customerService.findById(id);
+  @GetMapping("/{id}")
+  public ResponseEntity<CustomerResponse> getCustomerById(@PathVariable Integer id){
+    return ResponseEntity.ok(customerService.findById(id));
   }
 
-  @GetMapping("/customer/name/{name}")
-  public List<CustomerResponse> getCustomerByName(@PathVariable String name){
-    return customerService.findByName(name);
+  @GetMapping("/name/{name}")
+  public ResponseEntity<List<CustomerResponse>> getCustomerByName(@PathVariable String name){
+    return ResponseEntity.ok(customerService.findByName(name));
   }
+
+  //TODO delete customer
 }

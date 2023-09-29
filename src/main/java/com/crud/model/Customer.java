@@ -1,27 +1,28 @@
 package com.crud.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
-
-@Entity
+@Getter
+@Setter
+@Entity(name = "customer")
 @Table(name = "customers")
 public class Customer {
-  @Id @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-  @Column
+  @Column(nullable = false)
   private String name;
 
-  @Column
-  private String document;
-
-  @Column
+  @Column(unique = true, nullable = false)
   private String email;
 
-  @Column
-  private String telephone;
+  @Column(nullable = false)
+  private String address;
 }

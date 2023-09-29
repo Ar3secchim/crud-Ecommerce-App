@@ -11,9 +11,8 @@ public class CustomerConvert {
   public static Customer toEntity(CustomerRequest customerRequest){
     Customer customer = new Customer();
     customer.setName(customerRequest.getName());
-    customer.setDocument(customerRequest.getDocument());
     customer.setEmail(customerRequest.getEmail());
-    customer.setTelephone(customerRequest.getTelephone());
+    customer.setAddress(customerRequest.getAddress());
     return customer;
   }
 

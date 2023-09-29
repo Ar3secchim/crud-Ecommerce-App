@@ -7,7 +7,6 @@ import lombok.Setter;
 public class CustomerRequest {
   private String id;
   private String name;
-  private String document;
   private String email;
-  private String telephone;
+  private String address;
 }
