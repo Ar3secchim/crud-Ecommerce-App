@@ -1,6 +1,0 @@
-CREATE TABLE products (
-  id INT PRIMARY KEY NOT NULL,
-  description VARCHAR(4000) NULL,
-  barcode VARCHAR(255) UNIQUE NOT NULL,
-  price DECIMAL NOT NULL
-)

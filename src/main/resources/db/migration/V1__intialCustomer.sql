@@ -1,7 +1,0 @@
-CREATE TABLE customers (
-    id VARCHAR(36) PRIMARY KEY NOT NULL ,
-    name VARCHAR(36) NOT NULL,
-    document VARCHAR(24) UNIQUE NOT NULL,
-    email VARCHAR(255) NULL,
-    telephone VARCHAR(36) NULL
-)
