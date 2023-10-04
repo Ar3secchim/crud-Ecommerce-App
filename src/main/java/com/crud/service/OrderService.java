@@ -15,8 +15,6 @@ import com.crud.repository.OrderRepository;
 import com.crud.repository.ProductRepository;
 import com.crud.utils.OrdemItemConvert;
 import com.crud.utils.OrderConvert;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,7 +59,7 @@ public class OrderService implements IOrderUseCase {
     ordemItemRepository.save(newItem);
     order.getOrderItens().add(newItem);
 
-    update(order);
+    update(order.getId());
     return OrdemItemConvert.toResponseOrderItem(newItem);
   }
 
@@ -77,20 +75,50 @@ public class OrderService implements IOrderUseCase {
   }
 
   @Override
-  public Order update(Order order) {
-    Order inserted = orderRepository.findById(order.getId()).get();
+  public OrderResponse update(Integer order) {
+    Order inserted = orderRepository.findById(order).get();
 
-    inserted.setCustomer(order.getCustomer());
-    inserted.setStatus(order.getStatus());
-    inserted.setOrderItens(order.getOrderItens());
+    inserted.setCustomer(inserted.getCustomer());
+    inserted.setStatus(inserted.getStatus());
+    inserted.setOrderItens(inserted.getOrderItens());
     inserted.setUpdatedAt(LocalDateTime.now());
-    inserted.setTotal(order.getTotal());
+    inserted.setTotal(inserted.getTotal());
 
-    return orderRepository.save(inserted);
+    orderRepository.save(inserted);
+    return OrderConvert.toResponseOrder(inserted);
   }
 
-  @Override
-  public void removeItem(Order order, Product product) {
-    //TODO remoce item order
+  public void removeItem(Integer order, Integer productId) {
+    Order inserted = orderRepository.findById(order).get();
+    List<OrderItem> listItems = inserted.getOrderItens();
+    Product product = productRepository.findProductById(productId);
+    Product itemDelete = null;
+
+    for (OrderItem item : listItems) {
+      if (item.getProduct() == product) {
+        itemDelete =  item.getProduct();
+        break;
+      }
+    }
+
+    if (itemDelete == null) {
+      throw new IllegalStateException("Produto não encontrado");
+    }
+
+    for (OrderItem item : listItems) {
+      if (item.getProduct().equals(itemDelete)) {
+        listItems.remove(item);
+        break;
+      }
+    }
+    inserted.setOrderItens(listItems);
+
+    update(inserted.getId());
+  }
+
+  public void deleteOrder(Integer id) {
+    if (id != null) {
+      orderRepository.deleteById(id);
+    }
   }
 }
