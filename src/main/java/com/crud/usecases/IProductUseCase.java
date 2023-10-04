@@ -11,5 +11,4 @@ public interface IProductUseCase {
   ProductResponse findById(Integer id);
   Product findByName(String name);
   void update(Product product);
-  ProductResponse delete(Integer id);
 }

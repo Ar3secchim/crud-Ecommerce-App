@@ -44,12 +44,9 @@ public class ProductService implements IProductUseCase {
   public void update(Product product) {
   }
 
-  @Override
-  public ProductResponse delete(Integer id) {
-    Product found = null;
+  public void delete(Integer id) {
     if (id != null) {
-      found = repository.deleteProductById(id);
+     repository.deleteProductById(id);
     }
-    return ProductConvert.toResponse(found);
   }
 }
