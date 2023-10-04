@@ -25,7 +25,7 @@ public class CustomerController {
   public ResponseEntity<CustomerResponse> createCustomer(@RequestBody CustomerRequest customerDTO){
     CustomerResponse customerResponse = customerService.create(CustomerConvert.toEntity(customerDTO));
     return ResponseEntity.created(
-            URI.create("/customer/"+customerResponse.getId()))
+              URI.create("/customer/"+customerResponse.getId()))
             .body(customerResponse);
   }
 
