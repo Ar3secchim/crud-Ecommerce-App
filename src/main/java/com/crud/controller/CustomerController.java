@@ -2,8 +2,12 @@ package com.crud.controller;
 
 import com.crud.controller.dto.customer.CustomerRequest;
 import com.crud.controller.dto.customer.CustomerResponse;
+import com.crud.controller.dto.product.ProductResponse;
+import com.crud.model.QCustomer;
+import com.crud.repository.CustomerRepository;
 import com.crud.service.CustomerService;
 import com.crud.utils.CustomerConvert;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +35,8 @@ public class CustomerController {
   }
 
   @GetMapping("document/{email}")
-  public ResponseEntity<CustomerResponse> getCustomerByEmail(@PathVariable String email){
-    return  ResponseEntity.ok(customerService.findByEmail(email));
+  public ResponseEntity<CustomerResponse> getCustomerByEmail( @PathVariable String email){
+    return ResponseEntity.ok(customerService.findByEmail(email));
   }
 
   @GetMapping("/{id}")
@@ -46,4 +50,9 @@ public class CustomerController {
   }
 
   //TODO delete customer
+  @DeleteMapping("/{id}")
+  public ResponseEntity<ProductResponse> deleteCustomer(@PathVariable Integer id){
+    customerService.delete(id);
+    return ResponseEntity.noContent().build();
+  }
 }

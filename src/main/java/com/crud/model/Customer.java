@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Entity(name = "customer")
 @Table(name = "customers")
-public class Customer {
+public class Customer{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
@@ -25,4 +25,7 @@ public class Customer {
 
   @Column(nullable = false)
   private String address;
+
+  @Column(nullable = false)
+  private String password;
 }

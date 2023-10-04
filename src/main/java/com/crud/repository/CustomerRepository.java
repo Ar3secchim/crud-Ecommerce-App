@@ -3,10 +3,11 @@ package com.crud.repository;
 import com.crud.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import java.util.List;
 
-public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+public interface CustomerRepository extends JpaRepository<Customer, Integer>, QuerydslPredicateExecutor<Customer> {
   Customer findByEmail(String email);
 
   @Query(value = "SELECT * FROM customers WHERE id = :id", nativeQuery = true)

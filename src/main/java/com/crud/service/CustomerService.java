@@ -2,9 +2,11 @@ package com.crud.service;
 
 import com.crud.controller.dto.customer.CustomerResponse;
 import com.crud.model.Customer;
+import com.crud.model.QCustomer;
 import com.crud.usecases.ICustomerUseCase;
 import com.crud.repository.CustomerRepository;
 import com.crud.utils.CustomerConvert;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +27,10 @@ public class CustomerService implements ICustomerUseCase {
   }
 
   public CustomerResponse findByEmail(String email) {
-    Customer found = null;
+    QCustomer qCustomer = QCustomer.customer;
+    BooleanExpression booleanExpression =  qCustomer.email.eq(email);
 
-    if (email != null) {
-      found = repository.findByEmail(email);
-    }
-
-    return CustomerConvert.toResponse(found);
+    return CustomerConvert.toResponse(repository.findOne(booleanExpression).get());
   }
 
   public CustomerResponse findById(Integer id) {
@@ -52,5 +51,11 @@ public class CustomerService implements ICustomerUseCase {
     }
 
     return CustomerConvert.toListResponse(found);
+  }
+
+  public void delete(Integer id){
+    if (id != null) {
+      repository.deleteById(id);
+    }
   }
 }
