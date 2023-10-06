@@ -95,32 +95,30 @@ public class OrderService implements IOrderUseCase {
     return OrderConvert.toResponseOrder(updatedOrder);
   }
 
-  public void removeItem(Integer order, Integer productId) {
-    Order inserted = orderRepository.findById(order).get();
-    List<OrderItem> listItems = inserted.getOrderItens();
-    Product product = productRepository.findProductById(productId);
-    Product itemDelete = null;
+  public void removeItem(Integer orderItem, Integer productId) {
+    OrderItem inserted = ordemItemRepository.findById(orderItem).get();
+    Order order = ordemItemRepository.findById(orderItem).get().getOrder();
 
-    for (OrderItem item : listItems) {
-      if (item.getProduct() == product) {
-        itemDelete =  item.getProduct();
-        break;
-      }
-    }
+    Product items = inserted.getProduct();
+    Product product = productRepository.findProductById(items.getId());
 
-    if (itemDelete == null) {
+
+    List<OrderItem> listItems = order.getOrderItens();
+
+    if (product == null) {
       throw new IllegalStateException("Produto não encontrado");
     }
 
     for (OrderItem item : listItems) {
-      if (item.getProduct().equals(itemDelete)) {
-        listItems.remove(item);
+      if (item.getProduct().equals(items)) {
+        listItems.remove(0);
         break;
       }
     }
-    inserted.setOrderItens(listItems);
 
-    update(inserted.getId(), inserted);
+    order.setOrderItens(listItems);
+
+    update(order.getId(), order);
   }
 
   public void deleteOrder(Integer id) {

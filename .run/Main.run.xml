@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <envs>
+      <env name="TOKEN_SECRET_KEY" value="D~?+cuHs" />
+    </envs>
+    <module name="crud" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.crud.Main" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

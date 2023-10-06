@@ -51,6 +51,14 @@ public class OrderController {
     return ResponseEntity.ok(orderService.findById(id));
   }
 
+  @PutMapping("/{id}")
+  public ResponseEntity<OrderItemResponse> updateOrder(
+          @PathVariable Integer id,
+          @RequestBody OrderItemRequest order
+  ){
+    return ResponseEntity.ok(orderService.changeAmountItem(id, order));
+  }
+
   @PutMapping("/ordemItem/{id}")
   public ResponseEntity<OrderItemResponse>removeItemOrder(
           @PathVariable Integer id,
@@ -60,13 +68,6 @@ public class OrderController {
    return ResponseEntity.noContent().build();
   }
 
-  @PutMapping("/{id}")
-  public ResponseEntity<OrderItemResponse> updateOrder(
-          @PathVariable Integer id,
-          @RequestBody OrderItemRequest order
-  ){
-    return ResponseEntity.ok(orderService.changeAmountItem(id, order));
-  }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<OrderResponse> deleteOrder(@PathVariable Integer id){
