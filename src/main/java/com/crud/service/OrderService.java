@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService implements IOrderUseCase {
@@ -50,6 +51,7 @@ public class OrderService implements IOrderUseCase {
     return OrderConvert.toResponseOrder(orderRepository.findById(orderId).get());
   }
 
+
   @Override
   public OrderItemResponse addItem(Integer orderId, OrderItemRequest orderItemRequest) {
     Order order = orderRepository.findById(orderId).get();
@@ -59,14 +61,18 @@ public class OrderService implements IOrderUseCase {
     ordemItemRepository.save(newItem);
     order.getOrderItens().add(newItem);
 
-    update(order.getId());
+    update(order.getId(), order);
     return OrdemItemConvert.toResponseOrderItem(newItem);
   }
 
   @Override
   public OrderItem changeAmountItem(Order order, Product product, Integer amount) {
-    //TODO Change Amaount Item order
     return null;
+  }
+
+  public OrderItemResponse changeAmountItem(Integer orderId, OrderItemRequest orderRequest) {
+   //changeAmountItem
+    return  null;
   }
 
   @Override
@@ -75,17 +81,18 @@ public class OrderService implements IOrderUseCase {
   }
 
   @Override
-  public OrderResponse update(Integer order) {
-    Order inserted = orderRepository.findById(order).get();
+  public OrderResponse update(Integer orderId, Order orderRequest) {
+    Optional<Order> optionalOrder = orderRepository.findById(orderId);
+    Order existingOrder = optionalOrder.get();
 
-    inserted.setCustomer(inserted.getCustomer());
-    inserted.setStatus(inserted.getStatus());
-    inserted.setOrderItens(inserted.getOrderItens());
-    inserted.setUpdatedAt(LocalDateTime.now());
-    inserted.setTotal(inserted.getTotal());
+    existingOrder.setStatus(orderRequest.getStatus());
+    existingOrder.setUpdatedAt(LocalDateTime.now());
+    existingOrder.setTotal(orderRequest.getTotal());
+    existingOrder.setOrderItens(orderRequest.getOrderItens());
 
-    orderRepository.save(inserted);
-    return OrderConvert.toResponseOrder(inserted);
+    Order updatedOrder = orderRepository.save(existingOrder);
+
+    return OrderConvert.toResponseOrder(updatedOrder);
   }
 
   public void removeItem(Integer order, Integer productId) {
@@ -113,7 +120,7 @@ public class OrderService implements IOrderUseCase {
     }
     inserted.setOrderItens(listItems);
 
-    update(inserted.getId());
+    update(inserted.getId(), inserted);
   }
 
   public void deleteOrder(Integer id) {

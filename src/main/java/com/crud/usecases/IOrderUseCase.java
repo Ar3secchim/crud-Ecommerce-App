@@ -22,7 +22,7 @@ public interface IOrderUseCase {
 
   Order findByCustomer(Customer customer);
 
-  OrderResponse update(Integer orderId);
+  OrderResponse update(Integer orderId, Order OrderRequest);
 
   void removeItem(Integer order,Integer product);
 }

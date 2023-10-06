@@ -26,11 +26,11 @@ public class OrderConvert {
     OrderResponse orderResponse = new OrderResponse();
     List<OrderItemResponse> orderItemsResponse = OrdemItemConvert.toResponseList(order.getOrderItens());
 
-
     orderResponse.setId(order.getId());
     orderResponse.setCustomer(order.getCustomer().getId());
     orderResponse.setItems(orderItemsResponse);
     orderResponse.setStatus(order.getStatus());
+    orderResponse.setTotal(order.getTotal());
 
     return orderResponse;
   }

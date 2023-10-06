@@ -1,15 +1,14 @@
 package com.crud.controller.dto.OrderItem;
 
-import com.crud.model.Product;
+import com.crud.controller.dto.product.ProductResponse;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.math.BigDecimal;
 
 @Setter
 @Getter
 public class OrderItemResponse {
-  private Integer order;
-  private Product product;
+  private Integer OrderId;
+  private ProductResponse product;
+  private Integer amount;
   private Double total;
 }

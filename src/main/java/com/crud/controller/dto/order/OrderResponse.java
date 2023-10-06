@@ -13,4 +13,5 @@ public class OrderResponse {
   private Integer customer;
   private List<OrderItemResponse> items;
   private OrderStatus status;
+  private Double total;
 }

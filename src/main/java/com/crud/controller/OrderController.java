@@ -4,8 +4,6 @@ import com.crud.controller.dto.OrderItem.OrderItemRequest;
 import com.crud.controller.dto.OrderItem.OrderItemResponse;
 import com.crud.controller.dto.order.OrderRequest;
 import com.crud.controller.dto.order.OrderResponse;
-import com.crud.controller.dto.product.ProductResponse;
-import com.crud.model.Order;
 import com.crud.service.CustomerService;
 import com.crud.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +30,17 @@ public class OrderController {
             .body(orderResponse);
   }
 
+  @PostMapping("/{id}")
+  public ResponseEntity<OrderItemResponse> addItemOrder(
+          @PathVariable Integer id,
+          @RequestBody OrderItemRequest orderItemRequest
+  ){
+    OrderItemResponse orderItemResponse = orderService.addItem(id, orderItemRequest);
+    return ResponseEntity
+            .created(URI.create("/order/"+id))
+            .body(orderItemResponse);
+  }
+
   @GetMapping
   public ResponseEntity<List<OrderResponse>> listOrder(){
     return ResponseEntity.ok(orderService.findAll());
@@ -42,18 +51,7 @@ public class OrderController {
     return ResponseEntity.ok(orderService.findById(id));
   }
 
-  @PostMapping("/{id}")
-  public ResponseEntity<OrderItemResponse> addItemOrder(
-          @PathVariable Integer id,
-          @RequestBody OrderItemRequest orderItemRequest
-  ){
-    OrderItemResponse orderItemResponse = orderService.addItem(id, orderItemRequest);
-    return ResponseEntity
-            .created(URI.create("/order/"+orderItemResponse.getOrder()))
-            .body(orderItemResponse);
-  }
-
-  @PutMapping("/{id}")
+  @PutMapping("/ordemItem/{id}")
   public ResponseEntity<OrderItemResponse>removeItemOrder(
           @PathVariable Integer id,
           @RequestBody OrderItemRequest orderItemRequest
@@ -62,10 +60,12 @@ public class OrderController {
    return ResponseEntity.noContent().build();
   }
 
-  @PatchMapping("/{id}")
-  public ResponseEntity<OrderResponse> updateOrder(@PathVariable Integer id){
-    orderService.update(id);
-    return ResponseEntity.noContent().build();
+  @PutMapping("/{id}")
+  public ResponseEntity<OrderItemResponse> updateOrder(
+          @PathVariable Integer id,
+          @RequestBody OrderItemRequest order
+  ){
+    return ResponseEntity.ok(orderService.changeAmountItem(id, order));
   }
 
   @DeleteMapping("/{id}")
