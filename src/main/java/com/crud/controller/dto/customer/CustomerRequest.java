@@ -15,4 +15,5 @@ public class CustomerRequest {
   @Email
   private String email;
   private String address;
+  private String password;
 }

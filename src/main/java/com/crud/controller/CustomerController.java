@@ -3,11 +3,11 @@ package com.crud.controller;
 import com.crud.controller.dto.customer.CustomerRequest;
 import com.crud.controller.dto.customer.CustomerResponse;
 import com.crud.controller.dto.product.ProductResponse;
-import com.crud.model.QCustomer;
-import com.crud.repository.CustomerRepository;
+import com.crud.controller.exception.PasswordValidationError;
+import com.crud.controller.exception.ValidationError;
 import com.crud.service.CustomerService;
 import com.crud.utils.CustomerConvert;
-import com.querydsl.core.types.dsl.BooleanExpression;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +21,11 @@ public class CustomerController {
   @Autowired
   CustomerService customerService;
 
+
   @PostMapping
-  public ResponseEntity<CustomerResponse> createCustomer(@RequestBody CustomerRequest customerDTO){
+  public ResponseEntity<CustomerResponse> createCustomer(
+          @Valid @RequestBody CustomerRequest customerDTO
+  ) throws PasswordValidationError, ValidationError {
     CustomerResponse customerResponse = customerService.create(CustomerConvert.toEntity(customerDTO));
     return ResponseEntity.created(
               URI.create("/customer/"+customerResponse.getId()))
@@ -34,7 +37,7 @@ public class CustomerController {
     return ResponseEntity.ok(customerService.listAll());
   }
 
-  @GetMapping("document/{email}")
+  @GetMapping("email/{email}")
   public ResponseEntity<CustomerResponse> getCustomerByEmail( @PathVariable String email){
     return ResponseEntity.ok(customerService.findByEmail(email));
   }
@@ -49,7 +52,6 @@ public class CustomerController {
     return ResponseEntity.ok(customerService.findByName(name));
   }
 
-  //TODO delete customer
   @DeleteMapping("/{id}")
   public ResponseEntity<ProductResponse> deleteCustomer(@PathVariable Integer id){
     customerService.delete(id);

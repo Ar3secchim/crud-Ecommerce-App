@@ -13,6 +13,7 @@ public class CustomerConvert {
     customer.setName(customerRequest.getName());
     customer.setEmail(customerRequest.getEmail());
     customer.setAddress(customerRequest.getAddress());
+    customer.setPassword(customerRequest.getPassword());
     return customer;
   }
 
