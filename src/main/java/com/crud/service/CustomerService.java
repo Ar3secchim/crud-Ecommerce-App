@@ -1,5 +1,6 @@
 package com.crud.service;
 
+import com.crud.controller.dto.customer.CustomerRequest;
 import com.crud.controller.dto.customer.CustomerResponse;
 import com.crud.controller.exception.PasswordValidationError;
 import com.crud.controller.exception.ValidationError;
@@ -61,6 +62,12 @@ public class CustomerService implements ICustomerUseCase {
     }
 
     return CustomerConvert.toListResponse(found);
+  }
+
+  public CustomerResponse updateCustomer(Integer id, CustomerRequest customerRequest) {
+    Customer customer = CustomerConvert.toEntity(customerRequest);
+    customer.setId(id);
+    return CustomerConvert.toResponse(repository.save(customer));
   }
 
   public void delete(Integer id){

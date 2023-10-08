@@ -21,7 +21,6 @@ public class CustomerController {
   @Autowired
   CustomerService customerService;
 
-
   @PostMapping
   public ResponseEntity<CustomerResponse> createCustomer(
           @Valid @RequestBody CustomerRequest customerDTO
@@ -50,6 +49,12 @@ public class CustomerController {
   @GetMapping("/name/{name}")
   public ResponseEntity<List<CustomerResponse>> getCustomerByName(@PathVariable String name){
     return ResponseEntity.ok(customerService.findByName(name));
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<CustomerResponse> updateCustomer(@PathVariable Integer id,
+                                                         @RequestBody CustomerRequest customerRequest){
+    return ResponseEntity.ok(customerService.updateCustomer(id, customerRequest));
   }
 
   @DeleteMapping("/{id}")

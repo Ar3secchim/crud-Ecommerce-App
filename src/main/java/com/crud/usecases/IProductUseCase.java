@@ -1,5 +1,6 @@
 package com.crud.usecases;
 
+import com.crud.controller.dto.product.ProductRequest;
 import com.crud.controller.dto.product.ProductResponse;
 import com.crud.model.Product;
 
@@ -9,6 +10,5 @@ public interface IProductUseCase {
   ProductResponse create(Product product);
   List<ProductResponse> listAll();
   ProductResponse findById(Integer id);
-  Product findByName(String name);
-  void update(Product product);
+  ProductResponse updateProduct(Integer id, ProductRequest productRequest);
 }

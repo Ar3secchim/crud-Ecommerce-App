@@ -11,9 +11,6 @@ import java.util.List;
 public interface CustomerRepository extends JpaRepository<Customer, Integer>{
   UserDetails findByEmail(String email);
 
-//  @Query(value = "SELECT * FROM customers WHERE id = :id", nativeQuery = true)
-//  Customer getCustomerByEmail(String email);
-
   @Query(value = "SELECT * FROM customers WHERE id = :id", nativeQuery = true)
   Customer findCustomerById(Integer id);
 

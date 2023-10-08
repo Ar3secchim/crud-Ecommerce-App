@@ -1,5 +1,7 @@
 package com.crud.controller;
 
+import com.crud.controller.dto.customer.CustomerRequest;
+import com.crud.controller.dto.customer.CustomerResponse;
 import com.crud.controller.dto.product.ProductRequest;
 import com.crud.controller.dto.product.ProductResponse;
 import com.crud.model.Product;
@@ -36,6 +38,13 @@ public class ProductController {
     ProductResponse product = productService.findById(productId);
     return ResponseEntity.ok(product);
   }
+
+  @PutMapping("/{productId}")
+  public ResponseEntity<ProductResponse> updateProduct(@RequestBody ProductRequest productRequest,
+                                                       @PathVariable Integer productId){
+    return ResponseEntity.ok(productService.updateProduct(productId, productRequest));
+  }
+
 
   @DeleteMapping("/{id}")
   public ResponseEntity<ProductResponse>  deleteProduct(@PathVariable Integer id){

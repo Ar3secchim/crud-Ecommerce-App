@@ -1,5 +1,6 @@
 package com.crud.service;
 
+import com.crud.controller.dto.product.ProductRequest;
 import com.crud.controller.dto.product.ProductResponse;
 import com.crud.model.Product;
 import com.crud.usecases.IProductUseCase;
@@ -33,20 +34,17 @@ public class ProductService implements IProductUseCase {
     return ProductConvert.toResponse(found);
   }
 
-  //TODO implementar FindByName product
-  @Override
-  public Product findByName(String name) {
-    return null;
-  }
-
-  //TODO implementar update product
-  @Override
-  public void update(Product product) {
-  }
-
   public void delete(Integer id) {
+    Product product = repository.findProductById(id);
     if (id != null) {
-     repository.deleteProductById(id);
+      repository.delete(product);
     }
+  }
+
+  @Override
+  public ProductResponse updateProduct(Integer id, ProductRequest productRequest) {
+    Product product = ProductConvert.toEntity(productRequest);
+    product.setId(id);
+    return ProductConvert.toResponse(repository.save(product));
   }
 }
