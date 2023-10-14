@@ -14,7 +14,7 @@
 	<name>crud</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>20</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -107,9 +107,10 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>9.21.0</version>
 				<configuration>
-					<url>jdbc:mysql://localhost:3306/crud</url>
+					<url>jdbc:mysql://localhost:3306</url>
 					<user>root</user>
 					<password>root</password>
+					<schemas>crud</schemas>
 				</configuration>
 			</plugin>
 
