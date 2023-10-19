@@ -15,6 +15,7 @@ import com.crud.repository.OrderRepository;
 import com.crud.repository.ProductRepository;
 import com.crud.utils.OrdemItemConvert;
 import com.crud.utils.OrderConvert;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,19 +61,34 @@ public class OrderService implements IOrderUseCase {
     OrderItem newItem = OrdemItemConvert.toEntity(orderItemRequest, order, product);
     ordemItemRepository.save(newItem);
     order.getOrderItens().add(newItem);
+    order.setTotal(calculateNewTotal(order));
 
     update(order.getId(), order);
     return OrdemItemConvert.toResponseOrderItem(newItem);
   }
 
   @Override
-  public OrderItem changeAmountItem(Order order, Product product, Integer amount) {
-    return null;
-  }
+  public OrderItemResponse changeAmountItem(Integer orderItemID, OrderItemRequest orderItemRequest) {
+    Optional<OrderItem> optionalOrderItem = ordemItemRepository.findById(orderItemID);
 
-  public OrderItemResponse changeAmountItem(Integer orderId, OrderItemRequest orderRequest) {
-   //changeAmountItem
-    return  null;
+    if (optionalOrderItem.isPresent()) {
+      OrderItem orderItem = optionalOrderItem.get();
+      Product product = productRepository.findProductById(orderItemRequest.getProduct());
+
+      orderItem.setAmount(orderItemRequest.getAmount());
+      orderItem.setTotal(orderItemRequest.getAmount() * product.getPrice());
+
+      ordemItemRepository.save(orderItem);
+
+      Order order = orderItem.getOrder();
+      order.setTotal(calculateNewTotal(order));
+
+      orderRepository.save(order);
+
+      return OrdemItemConvert.toResponseOrderItem(orderItem);
+    } else {
+      throw new EntityNotFoundException("Item de pedido não encontrado com ID: " + orderItemID);
+    }
   }
 
   @Override
@@ -95,13 +111,12 @@ public class OrderService implements IOrderUseCase {
     return OrderConvert.toResponseOrder(updatedOrder);
   }
 
-  public void removeItem(Integer orderItem, Integer productId) {
+  public void removeItem(Integer orderItem) {
     OrderItem inserted = ordemItemRepository.findById(orderItem).get();
     Order order = ordemItemRepository.findById(orderItem).get().getOrder();
 
     Product items = inserted.getProduct();
     Product product = productRepository.findProductById(items.getId());
-
 
     List<OrderItem> listItems = order.getOrderItens();
 
@@ -125,5 +140,17 @@ public class OrderService implements IOrderUseCase {
     if (id != null) {
       orderRepository.deleteById(id);
     }
+  }
+
+  private Double calculateNewTotal(Order order) {
+    List<OrderItem> orderItems = order.getOrderItens();
+    double newTotal = 0.0;
+
+    for (OrderItem item : orderItems) {
+      Double itemTotal = item.getTotal();
+      newTotal = newTotal + itemTotal;
+    }
+
+    return newTotal;
   }
 }

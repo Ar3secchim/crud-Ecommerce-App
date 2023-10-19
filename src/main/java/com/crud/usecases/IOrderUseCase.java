@@ -6,8 +6,6 @@ import com.crud.controller.dto.order.OrderRequest;
 import com.crud.controller.dto.order.OrderResponse;
 import com.crud.model.Customer;
 import com.crud.model.Order;
-import com.crud.model.OrderItem;
-import com.crud.model.Product;
 
 import java.util.List;
 
@@ -16,7 +14,7 @@ public interface IOrderUseCase {
 
   OrderItemResponse addItem(Integer orderId, OrderItemRequest orderItemRequest);
 
-  OrderItem changeAmountItem(Order order, Product product, Integer amount);
+  OrderItemResponse changeAmountItem(Integer orderItemID, OrderItemRequest orderItemRequest);
 
   List<OrderResponse> findAll();
 
@@ -24,5 +22,5 @@ public interface IOrderUseCase {
 
   OrderResponse update(Integer orderId, Order OrderRequest);
 
-  void removeItem(Integer order,Integer product);
+  void removeItem(Integer ordem);
 }
