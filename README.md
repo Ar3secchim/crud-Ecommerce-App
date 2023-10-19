@@ -9,83 +9,109 @@ Este é um projeto de exemplo de um aplicativo de comércio eletrônico que demo
 - 📦 Gerenciamento de clientes.
 - 💻 Autenticação com Jwt
 
-#### 1. Create (Criar)
+## 1. Create (Criar)
    O CRUD começa com a operação de criação, que envolve adicionar novos registros ou objetos a uma fonte de dados, como um banco de dados. No contexto de um sistema de comércio eletrônico, isso pode significar adicionar novos produtos ao catálogo.
 
-Exemplo de Criação (Create) - Adicionar um Produto:
-``` java
-// Criando um novo produto
-Product newProduct = new Product();
-newProduct.setName("Camiseta");
-newProduct.setPrice(BigDecimal.valueOf(19.99));
-newProduct.setDescription("Camiseta de algodão");
+Exemplo de Criação (Create) - Criando uma order:
 
-// Salvando o produto no banco de dados
-productRepository.save(newProduct);
+###  POST addProduct
+
+``http://localhost:8081/order/:idOrder``
+
+#### Request Headers
+
+| Authorization      |                                                                                                                                                                                                                                         |
+| ----------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Bearer      | eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyc0BnbWFpbC5jb20iLCJpZCI6MTAsIm5hbWUiOiJSZSBTZWNjaGltIiwiZXhwIjoxNjk2NjA0MzM1LCJpc3MiOiJjcnVkIn0.bFuiN9q461ayOz5OLUqDhWyGj2SF0rt-1OmUiWnjqx95mTscVKD5L2wN1bfpHEZldSaKfsBe7ukmDDpyaJHbSw |
+
+#### Body 
+```json
+  {
+  "product": {
+    "id": 1,
+    "name": "camera canon",
+    "price": 586.56
+  },
+  "amount": 2,
+  "total": 1173.12,
+  "orderId": 1
+}
 ```
 
-#### 2. Read (Ler)
+Exemplo de Criação (Create) - Adicionar um Produto:
+###  POST createOrder
+
+``http://localhost:8081/order``
+
+#### Request Headers
+
+| Authorization      |                                                                                                                                                                                                                                         |
+| ----------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Bearer      | eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyc0BnbWFpbC5jb20iLCJpZCI6MTAsIm5hbWUiOiJSZSBTZWNjaGltIiwiZXhwIjoxNjk2NjA0MzM1LCJpc3MiOiJjcnVkIn0.bFuiN9q461ayOz5OLUqDhWyGj2SF0rt-1OmUiWnjqx95mTscVKD5L2wN1bfpHEZldSaKfsBe7ukmDDpyaJHbSw |
+
+#### Body
+```json
+  {
+    "customer": 10
+  }
+```
+
+### 2. Read (Ler)
    A operação de leitura envolve a recuperação de registros ou objetos da fonte de dados. Isso é usado para visualizar ou listar informações existentes.
 
 Exemplo de Leitura (Read) - Listar Produtos:
 
-``` java
-// Recuperando todos os produtos do banco de dados
-List<Product> products = productRepository.findAll();
+###  GET getOrderById
 
-// Exibindo os produtos
-for (Product product : products) {
-    System.out.println("Nome: " + product.getName());
-    System.out.println("Preço: " + product.getPrice());
-    System.out.println("Descrição: " + product.getDescription());
-}
+``http://localhost:8081/order/9``
+
+#### Body reponse
+```json
+  {
+    "product": 2,
+    "amount": 2
+  }
 ```
+
 
 #### 3. Update (Atualizar)
 A operação de atualização envolve modificar registros ou objetos existentes na fonte de dados. Isso permite fazer alterações nos dados.
 
 Exemplo de Atualização (Update) - Alterar o Preço de um Produto:
 
-``` java
-// Recuperando um produto específico por ID
-Product productToUpdate = productRepository.findById(1L);
+###  PUT updateOrder
 
-// Alterando o preço do produto
-productToUpdate.setPrice(BigDecimal.valueOf(24.99));
+``http://localhost:8081/order/ordemItem/9``
 
-// Salvando as alterações no banco de dados
-productRepository.save(productToUpdate);
-
+#### Body
+```json
+  {
+    "product": 1,
+    "amount": 4
+  }
 ```
 
 #### 4. Delete (Excluir)
 A operação de exclusão envolve a remoção de registros ou objetos da fonte de dados.
 
-Exemplo de Exclusão (Delete) - Remover um Produto:
+Exemplo de Exclusão (Delete) - Remover uma Order:
 
-``` java
-// Recuperando um produto específico por ID
-Product productToDelete = productRepository.findById(2L);
+###  DELETE updateOrder
 
-if (productToDelete != null) {
-    // Removendo o produto do banco de dados
-    productRepository.delete(productToDelete);
-} else {
-    System.out.println("Produto não encontrado.");
-}
-```
+``http://localhost:8081/order/4``
+
 
 ## Tecnologias Utilizadas
 - 💻 Linguagem de Programação: Java
 
 ## Funcionalidades em produção
-- 💻 Autenticação com Jwt 
-- 📦 Banco de Dados: Banco de Dados Relacional (por exemplo, MySQL)
+- Implementação de Clean Architecture
 - 🌈 Frontend: interface a ser desenvolvida com React
-
 
 ## Maiores Desafios
 
-- Sair de linguagens que não são tipada e começar ligar com JAVA que é fortemente tipado
+- Sair de linguagens que não são tipada e começar a lidar com JAVA que é 
+  fortemente tipado
 - POO (programação orientada objeto), não utilizava esse paradigma para 
   programar.
+- Aplicação de design SOLID 
