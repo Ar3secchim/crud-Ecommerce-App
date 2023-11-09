@@ -3,6 +3,41 @@
 
 Este é um projeto de exemplo de um aplicativo de comércio eletrônico que demonstra operações CRUD (Create, Read, Update, Delete) em relação a produtos, pedidos e clientes. O aplicativo oferece funcionalidades básicas de gerenciamento de um comércio eletrônico, permitindo adicionar, visualizar, atualizar e excluir produtos, realizar pedidos e gerenciar informações de clientes.
 
+## Funcionalidades Principais
+- 🔒 Cadastro, leitura, atualização e exclusão de produtos e usuários.
+- 🚀 Realização de pedidos.
+- 📦 Gerenciamento de clientes.
+- 💻 Autenticação com Jwt
+
+## Tecnologias Utilizadas
+- 💻 Linguagem de Programação: Java
+- 📦 Banco de Dados: Banco de Dados Relacional (por exemplo, MySQL)
+
+## Funcionalidades em produção
+- 💻 Implementação de Clean Architecture
+- 💻 Pensamento de DDD- Domain Drive Design
+
+## Pré-requisitos
+Antes de iniciar, certifique-se de ter as seguintes dependências instaladas:
+
+Java Development Kit (JDK) - Versão 17 ou superior.
+Maven
+
+## Configuração
+1. Clone o repositório:
+
+```
+	git clone https://github.com/Ar3secchim/crud-Ecommerce-App
+	cd buy-foreign-currency
+```
+
+2. Subir o container do banco de dados
+```
+	docker compose -f docker-compose.yml
+```
+
+4. Fazer as migrações para o banco de dados (projeto está usando flyway com gerenciador de migration)
+
 ### POST Login
 ```
 http://localhost:8081/login/
