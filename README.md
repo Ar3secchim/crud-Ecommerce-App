@@ -12,8 +12,8 @@ Este é um pedido POST para realizar o login. O Response fornece um token de aut
 
 ```json
 {
-	"email": "nomeemail@email.com".
-	"password": "@Awq1dffgdd".
+	"email": "nomeemail@email.com",
+	"password": "@Awq1dffgdd",
 }
 ```
 Senha tem seguir regras de um caractér especial, uma letra maiuscula, uma letra minuscula e um numero.
