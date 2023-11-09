@@ -4,6 +4,9 @@ import com.crud.controller.dto.TokenResponse;
 import com.crud.controller.dto.login.LoginRequest;
 import com.crud.infra.security.TokenService;
 import com.crud.model.Customer;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,11 @@ public class AuthenticationController {
   @Autowired
   TokenService tokenService;
 
+  @Operation(summary = "Login authentication", description = "Returns a token")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "Authentication"),
+          @ApiResponse(responseCode = "403", description = "Forbidden"),
+  })
   @PostMapping
   public ResponseEntity login(@RequestBody @Valid LoginRequest loginRequest){
 

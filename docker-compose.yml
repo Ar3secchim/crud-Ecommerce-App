@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  mysql:
+    image: mysql
+    container_name: crud
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    command: "--character-set-server=utf8"

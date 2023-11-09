@@ -1,117 +1,280 @@
-# Crud Ecommerce App
+🚀 Get started here
+===================
 
 Este é um projeto de exemplo de um aplicativo de comércio eletrônico que demonstra operações CRUD (Create, Read, Update, Delete) em relação a produtos, pedidos e clientes. O aplicativo oferece funcionalidades básicas de gerenciamento de um comércio eletrônico, permitindo adicionar, visualizar, atualizar e excluir produtos, realizar pedidos e gerenciar informações de clientes.
 
-## Funcionalidades Principais
+### POST Login
+```
+http://localhost:8081/login/
+```
 
-- 🔒 Cadastro, leitura, atualização e exclusão de produtos e usuários.
-- 🚀 Realização de pedidos.
-- 📦 Gerenciamento de clientes.
-- 💻 Autenticação com Jwt
+Este é um pedido POST para realizar o login. O Response fornece um token de autorização.
 
-## 1. Create (Criar)
-   O CRUD começa com a operação de criação, que envolve adicionar novos registros ou objetos a uma fonte de dados, como um banco de dados. No contexto de um sistema de comércio eletrônico, isso pode significar adicionar novos produtos ao catálogo.
-
-Exemplo de Criação (Create) - Criando uma order:
-
-###  POST addProduct
-
-``http://localhost:8081/order/:idOrder``
-
-#### Request Headers
-
-| Authorization      |                                                                                                                                                                                                                                         |
-| ----------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Bearer      | eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyc0BnbWFpbC5jb20iLCJpZCI6MTAsIm5hbWUiOiJSZSBTZWNjaGltIiwiZXhwIjoxNjk2NjA0MzM1LCJpc3MiOiJjcnVkIn0.bFuiN9q461ayOz5OLUqDhWyGj2SF0rt-1OmUiWnjqx95mTscVKD5L2wN1bfpHEZldSaKfsBe7ukmDDpyaJHbSw |
-
-#### Body 
+**Body** (json)
 ```json
-  {
-  "product": {
-    "id": 1,
-    "name": "camera canon",
-    "price": 586.56
-  },
-  "amount": 2,
-  "total": 1173.12,
-  "orderId": 1
+{
+  "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyc2Rhc2Rzc0BnbWFpbC5jb20iLCJpZCI6MSwibmFtZSI6IlJlIFNlY2NoaW0iLCJleHAiOjE2OTc3MjMyNTUsImlzcyI6ImNydWQifQ.Agz6MfCfvPqM6odXkb9Rt3InOMciiue9fOTnI3wG0LoQRph3Syat8kwy-KSaHfvotDO-w5CQ-LiWKr6\_u2GXqw"
+}
+```
+Customer
+--------
+
+Esta seção descreve os métodos relacionados aos clientes.
+
+### GET Get List Customer
+
+```
+http://localhost:8081/customer
+```
+
+Este é um pedido GET e é usado para "obter" dados de um ponto final. Não há corpo de pedido para um pedido GET, mas você pode usar parâmetros de consulta para especificar o recurso do qual deseja obter dados (por exemplo, neste pedido, temos `id=1`).
+
+Uma resposta GET bem-sucedida terá um status de `200 OK` e deve incluir algum tipo de corpo de resposta - por exemplo, conteúdo da web HTML ou dados JSON.
+
+### GET Get List Customer By Id
+
+```
+http://localhost:8081/customer
+```
+
+Este é um pedido GET e é usado para "obter" dados de um ponto final. Não há corpo de pedido para um pedido GET, mas você pode usar parâmetros de consulta para especificar o recurso do qual deseja obter dados (por exemplo, neste pedido, temos `id=1`).
+
+Uma resposta GET bem-sucedida terá um status de `200 OK` e deve incluir algum tipo de corpo de resposta - por exemplo, conteúdo da web HTML ou dados JSON.
+
+### GET Get List Customer By Name
+
+```
+http://localhost:8081/customer/name/renara
+```
+Este é um pedido GET e é usado para "obter" dados de um ponto final. Não há corpo de pedido para um pedido GET, mas você pode usar parâmetros de consulta para especificar o recurso do qual deseja obter dados (por exemplo, neste pedido, temos `id=1`).
+
+Uma resposta GET bem-sucedida terá um status de `200 OK` e deve incluir algum tipo de corpo de resposta - por exemplo, conteúdo da web HTML ou dados JSON.
+
+### POST Create Customer
+
+```
+http://localhost:8081/customer
+```
+
+Este é um pedido POST, que envia dados para uma API por meio do corpo do pedido. Este pedido envia dados em formato JSON, e os dados são refletidos na resposta.
+
+Um pedido POST bem-sucedido normalmente retorna um código de resposta `200 OK` ou `201 Created`.
+
+**Body** (json)
+
+```json
+{
+	"name": "Re Secchim",
+	"email": "renarasecchim@gmail.com",
+	"address": "rua joão balbi, 917",
+	"password":"@Ar3secchim"
+}
+```
+PUT Update customer
+---------------
+
+```
+http://localhost:8081/customer/10
+```
+
+Este é um pedido PUT e é usado para substituir uma peça de dados existente. Por exemplo, após criar uma entidade com um pedido POST, você pode querer modificá-la posteriormente. Isso pode ser feito usando um pedido PUT. Normalmente, você identifica a entidade sendo atualizada incluindo um identificador na URL (por exemplo, `id=1`).
+
+Um pedido PUT bem-sucedido normalmente retorna um código de resposta `200 OK`.
+
+**Body** (json)
+
+```json
+{
+	"name": "Secchim",
+	"email": "r@gmail.com",
+	"address": "rua joão balbi, 917",
+	"password":"@Ar3secchim"
+}
+```
+DELETE Delete customer
+----------------------
+
+```
+http://localhost:8081/customer/8
+```
+Este é um pedido DELETE e é usado para excluir dados que foram criados anteriormente por meio de um pedido POST. Normalmente, você identifica a entidade a ser excluída incluindo um identificador na URL (por exemplo, `id=1`).
+
+Um pedido DELETE bem-sucedido normalmente retorna um código de resposta `200 OK`, `202 Accepted` ou `204 No Content`.
+
+Product
+-------
+
+Esta seção descreve os métodos relacionados aos produtos.
+
+### GET Get List Product
+
+```
+http://localhost:8081/product
+```
+
+**Request Headers**
+
+Authorization
+
+Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyc2Rhc2Rzc0BnbWFpbC5jb20iLCJpZCI6MSwibmFtZSI6IlJlIFNlY2NoaW0iLCJleHAiOjE2OTc3MjMyNTUsImlzcyI6ImNydWQifQ.Agz6MfCfvPqM6odXkb9Rt3InOMciiue9fOTnI3wG0LoQRph3Syat8kwy-KSaHfvotDO-w5CQ-LiWKr6\_u2GXqw
+
+### GET Get Product By Id
+```
+http://localhost:8081/product/1
+```
+
+Este é um pedido GET e é usado para "obter" dados de um ponto final. Não há corpo de pedido para um pedido GET, mas você pode usar parâmetros de consulta para especificar o recurso do qual deseja obter dados.
+
+### POST Create Product
+
+```
+http://localhost:8081/product
+```
+Este é um pedido POST, que envia dados para uma API por meio do corpo do pedido. Este pedido envia dados em formato JSON, e os dados são refletidos na resposta.
+
+**Request Headers**
+
+| Authorization |
+| --- |
+| Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyc2Rhc2Rzc0BnbWFpbC5jb20iLCJpZCI6MSwibmFtZSI6IlJlIFNlY2NoaW0iLCJleHAiOjE2OTc3MjMyNTUsImlzcyI6ImNydWQifQ.Agz6MfCfvPqM6odXkb9Rt3InOMciiue9fOTnI3wG0LoQRph3Syat8kwy-KSaHfvotDO-w5CQ-LiWKr6_u2GXqw |
+
+**Body** (json)
+
+```json
+{ 	
+    "name": "PS5", 	
+    "description": "console game com ssd 1 terabyte", 	
+    "price": 4586.57 
 }
 ```
 
-Exemplo de Criação (Create) - Adicionar um Produto:
-###  POST createOrder
 
-``http://localhost:8081/order``
+### DELETE Delete Product By Id
 
-#### Request Headers
-
-| Authorization      |                                                                                                                                                                                                                                         |
-| ----------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Bearer      | eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyc0BnbWFpbC5jb20iLCJpZCI6MTAsIm5hbWUiOiJSZSBTZWNjaGltIiwiZXhwIjoxNjk2NjA0MzM1LCJpc3MiOiJjcnVkIn0.bFuiN9q461ayOz5OLUqDhWyGj2SF0rt-1OmUiWnjqx95mTscVKD5L2wN1bfpHEZldSaKfsBe7ukmDDpyaJHbSw |
-
-#### Body
-```json
-  {
-    "customer": 10
-  }
+```
+http://localhost:8081/product/1
 ```
 
-### 2. Read (Ler)
-   A operação de leitura envolve a recuperação de registros ou objetos da fonte de dados. Isso é usado para visualizar ou listar informações existentes.
+Este é um pedido DELETE para excluir um produto com um ID específico.
 
-Exemplo de Leitura (Read) - Listar Produtos:
+**Body** (json)
 
-###  GET getOrderById
-
-``http://localhost:8081/order/9``
-
-#### Body reponse
 ```json
-  {
-    "product": 2,
-    "amount": 2
-  }
+{ 	
+    "name": "PS5", 	
+    "description": "console game com ssd 1 terabyte", 	
+    "price": 4586.57 
+}
+```
+Order
+-----
+
+Esta seção descreve os métodos relacionados aos pedidos.
+
+### POST Create Order
+
+```
+http://localhost:8081/order
 ```
 
+Este é um pedido POST para criar um novo pedido. O pedido cria um pedido com base nos dados fornecidos no corpo da solicitação.
 
-#### 3. Update (Atualizar)
-A operação de atualização envolve modificar registros ou objetos existentes na fonte de dados. Isso permite fazer alterações nos dados.
+**Request Headers**
 
-Exemplo de Atualização (Update) - Alterar o Preço de um Produto:
+| Authorization |
+| --- |
+| Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyc2Rhc2Rzc0BnbWFpbC5jb20iLCJpZCI6MSwibmFtZSI6IlJlIFNlY2NoaW0iLCJleHAiOjE2OTc3MjMyNTUsImlzcyI6ImNydWQifQ.Agz6MfCfvPqM6odXkb9Rt3InOMciiue9fOTnI3wG0LoQRph3Syat8kwy-KSaHfvotDO-w5CQ-LiWKr6_u2GXqw |
 
-###  PUT updateOrder
+**Body** (json)
 
-``http://localhost:8081/order/ordemItem/9``
-
-#### Body
 ```json
-  {
-    "product": 1,
-    "amount": 4
-  }
+{
+  "customer": 1
+}
 ```
 
-#### 4. Delete (Excluir)
-A operação de exclusão envolve a remoção de registros ou objetos da fonte de dados.
+### GET Get Order
 
-Exemplo de Exclusão (Delete) - Remover uma Order:
+```
+http://localhost:8081/order
+```
 
-###  DELETE updateOrder
+Este é um pedido GET para obter a lista de pedidos. Ele retorna a lista de todos os pedidos disponíveis.
 
-``http://localhost:8081/order/4``
+**Request Headers**
+
+| Authorization |
+| --- |
+| Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyc2Rhc2Rzc0BnbWFpbC5jb20iLCJpZCI6MSwibmFtZSI6IlJlIFNlY2NoaW0iLCJleHAiOjE2OTc3MjMyNTUsImlzcyI6ImNydWQifQ.Agz6MfCfvPqM6odXkb9Rt3InOMciiue9fOTnI3wG0LoQRph3Syat8kwy-KSaHfvotDO-w5CQ-LiWKr6_u2GXqw |
+
+### GET Get Order By Id
+
+```
+http://localhost:8081/order/1
+```
+
+Este é um pedido GET para obter detalhes de um pedido específico com base no ID fornecido.
+
+### DELETE Delete Order
+
+```
+http://localhost:8081/order/1
+```
+Este é um pedido DELETE para excluir um pedido com um ID específico.
 
 
-## Tecnologias Utilizadas
-- 💻 Linguagem de Programação: Java
+### OrderItem
 
-## Funcionalidades em produção
-- Implementação de Clean Architecture
-- 🌈 Frontend: interface a ser desenvolvida com React
+Esta seção descreve os métodos relacionados aos itens de pedido.
 
-## Maiores Desafios
+### POST Add Item Order
 
-- Sair de linguagens que não são tipada e começar a lidar com JAVA que é 
-  fortemente tipado
-- POO (programação orientada objeto), não utilizava esse paradigma para 
-  programar.
-- Aplicação de design SOLID 
+```
+http://localhost:8081/order/1
+```
+Este é um pedido POST para adicionar um item a um pedido específico com base no ID fornecido.
+
+**Request Headers**
+
+| Authorization |
+| --- |
+| Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyc2Rhc2Rzc0BnbWFpbC5jb20iLCJpZCI6MSwibmFtZSI6IlJlIFNlY2NoaW0iLCJleHAiOjE2OTc3MjMyNTUsImlzcyI6ImNydWQifQ.Agz6MfCfvPqM6odXkb9Rt3InOMciiue9fOTnI3wG0LoQRph3Syat8kwy-KSaHfvotDO-w5CQ-LiWKr6_u2GXqw |
+
+**Body** (json)
+
+```json
+{
+  "product": 1, 	
+  "amount": 1
+}
+```
+
+### DELETE Delete OrderItem
+
+```
+http://localhost:8081/order/ordemItem/2
+```
+Este é um pedido DELETE para excluir um item de pedido com um ID específico.
+
+
+### PUT Update Order
+
+```
+http://localhost:8081/order/ordemItem/2
+```
+Este é um pedido PUT e é usado para atualizar um item de pedido existente. Normalmente, você identifica o item sendo atualizado incluindo um identificador na URL.
+
+**Request Headers**
+
+| Authorization |
+| --- |
+| Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyc2Rhc2Rzc0BnbWFpbC5jb20iLCJpZCI6MSwibmFtZSI6IlJlIFNlY2NoaW0iLCJleHAiOjE2OTc3MjMyNTUsImlzcyI6ImNydWQifQ.Agz6MfCfvPqM6odXkb9Rt3InOMciiue9fOTnI3wG0LoQRph3Syat8kwy-KSaHfvotDO-w5CQ-LiWKr6_u2GXqw |
+
+**Body** (json)
+
+```json
+{
+  "product": 1, 	
+  "amount": 1
+}
+```
