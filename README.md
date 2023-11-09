@@ -10,7 +10,15 @@ http://localhost:8081/login/
 
 Este é um pedido POST para realizar o login. O Response fornece um token de autorização.
 
-**Body** (json)
+```json
+{
+	"email": "nomeemail@email.com".
+	"password": "@Awq1dffgdd".
+}
+```
+Senha tem seguir regras de um caractér especial, uma letra maiuscula, uma letra minuscula e um numero.
+
+**Reponse** (json)
 ```json
 {
   "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyc2Rhc2Rzc0BnbWFpbC5jb20iLCJpZCI6MSwibmFtZSI6IlJlIFNlY2NoaW0iLCJleHAiOjE2OTc3MjMyNTUsImlzcyI6ImNydWQifQ.Agz6MfCfvPqM6odXkb9Rt3InOMciiue9fOTnI3wG0LoQRph3Syat8kwy-KSaHfvotDO-w5CQ-LiWKr6\_u2GXqw"
