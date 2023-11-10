@@ -47,7 +47,7 @@ Este é um pedido POST para realizar o login. O Response fornece um token de aut
 
 ```json
 {
-	"email": "nomeemail@email.com",
+	"email": "nameLastName@email.com",
 	"password": "@Awq1dffgdd",
 }
 ```
@@ -107,10 +107,10 @@ Um pedido POST bem-sucedido normalmente retorna um código de resposta `200 OK` 
 
 ```json
 {
-	"name": "Re Secchim",
-	"email": "renarasecchim@gmail.com",
-	"address": "rua joão balbi, 917",
-	"password":"@Ar3secchim"
+  "name": "Name LastName",
+  "email": "nomeLastName@email.com",
+  "address": "rua maria jose, 000",
+  "password":"@Awq1dffgdd"
 }
 ```
 PUT Update customer
@@ -128,10 +128,10 @@ Um pedido PUT bem-sucedido normalmente retorna um código de resposta `200 OK`.
 
 ```json
 {
-	"name": "Secchim",
-	"email": "r@gmail.com",
-	"address": "rua joão balbi, 917",
-	"password":"@Ar3secchim"
+	"name": "Name LastName",
+	"email": "nomeLastName@email.com",
+	"address": "rua maria jose, 000",
+	"password":"@Awq1dffgdd"
 }
 ```
 DELETE Delete customer
