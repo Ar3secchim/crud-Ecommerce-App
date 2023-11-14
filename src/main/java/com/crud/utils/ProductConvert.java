@@ -1,10 +1,11 @@
 package com.crud.utils;
 
-import com.crud.controller.dto.product.ProductRequest;
-import com.crud.controller.dto.product.ProductResponse;
-import com.crud.model.Product;
+import com.crud.modules.product.DTO.ProductRequest;
+import com.crud.modules.product.DTO.ProductResponse;
+import com.crud.modules.product.entity.Product;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class ProductConvert {
@@ -12,7 +13,7 @@ public class ProductConvert {
   public static Product toEntity(ProductRequest productRequest){
     Product product = new Product();
 
-    product.setId(productRequest.getId());
+    product.setSku(UUID.randomUUID().toString());
     product.setDescription(productRequest.getDescription());
     product.setName(productRequest.getName());
     product.setPrice(productRequest.getPrice());
@@ -22,7 +23,7 @@ public class ProductConvert {
   public static ProductResponse toResponse(Product product){
     ProductResponse productResponse = new ProductResponse();
 
-    productResponse.setId(product.getId());
+    productResponse.setSku(product.getSku());
     productResponse.setName(product.getName());
     productResponse.setPrice(product.getPrice());
     return productResponse;

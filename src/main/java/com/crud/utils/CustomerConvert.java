@@ -1,15 +1,18 @@
 package com.crud.utils;
 
-import com.crud.controller.dto.customer.CustomerRequest;
-import com.crud.controller.dto.customer.CustomerResponse;
-import com.crud.model.Customer;
+import com.crud.modules.customers.DTO.CustomerRequest;
+import com.crud.modules.customers.DTO.CustomerResponse;
+import com.crud.modules.customers.entity.Customer;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class CustomerConvert {
   public static Customer toEntity(CustomerRequest customerRequest){
     Customer customer = new Customer();
+
+    customer.setSku(UUID.randomUUID().toString());
     customer.setName(customerRequest.getName());
     customer.setEmail(customerRequest.getEmail());
     customer.setAddress(customerRequest.getAddress());
@@ -19,7 +22,7 @@ public class CustomerConvert {
 
   public static CustomerResponse toResponse(Customer customer){
     CustomerResponse customerResponse = new CustomerResponse();
-    customerResponse.setId(customer.getId());
+    customerResponse.setSku(customer.getSku());
     customerResponse.setName(customer.getName());
     customerResponse.setEmail(customer.getEmail());
     return customerResponse;
