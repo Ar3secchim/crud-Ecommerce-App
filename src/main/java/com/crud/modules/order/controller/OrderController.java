@@ -1,15 +1,16 @@
 package com.crud.modules.order.controller;
 
-import com.crud.modules.order.usecase.impl.CreateOrderUseCaseImpl;
-import com.crud.modules.order.usecase.impl.FindOrderUseCaseImpl;
+import com.crud.infra.exception.BadRequestClient;
+import com.crud.modules.order.usecase.CreateOrder;
+import com.crud.modules.order.usecase.FindOrder;
 import com.crud.modules.orderItem.DTO.OrderItemRequest;
 import com.crud.modules.orderItem.DTO.OrderItemResponse;
 import com.crud.modules.order.DTO.OrderRequest;
 import com.crud.modules.order.DTO.OrderResponse;
-import com.crud.modules.order.usecase.impl.DeleteOrderUseCaseImpl;
-import com.crud.modules.orderItem.usecase.impl.AddItemOrderItemUseCaseImpl;
-import com.crud.modules.orderItem.usecase.impl.ChangeAmountItemUseCaseImpl;
-import com.crud.modules.orderItem.usecase.impl.DeleteItemOrderUseCaseImpl;
+import com.crud.modules.order.usecase.DeleteOrder;
+import com.crud.modules.orderItem.usecase.AddItemOrderItem;
+import com.crud.modules.orderItem.usecase.ChangeAmountItem;
+import com.crud.modules.orderItem.usecase.DeleteItemOrder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -24,19 +25,18 @@ import java.util.List;
 @RequestMapping("/order")
 public class OrderController {
   @Autowired
-  CreateOrderUseCaseImpl createOrderService;
+  CreateOrder createOrder;
   @Autowired
-  DeleteOrderUseCaseImpl deleteOrderService;
+  DeleteOrder deleteOrder;
   @Autowired
-  FindOrderUseCaseImpl findOrderService;
+  FindOrder findOrder;
 
   @Autowired
-  DeleteItemOrderUseCaseImpl deleteItemOrderService;
+  DeleteItemOrder deleteItemOrder;
   @Autowired
-  AddItemOrderItemUseCaseImpl addItemOrderService;
+  AddItemOrderItem addItemOrder;
   @Autowired
-  ChangeAmountItemUseCaseImpl changeAmountItemService;
-
+  ChangeAmountItem changeAmountItem;
 
   @Operation(summary = "Create a Order", description = "Returns a Order")
   @ApiResponses(value = {
@@ -45,7 +45,7 @@ public class OrderController {
   })
   @PostMapping
   public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest orderRequest){
-    OrderResponse orderResponse = createOrderService.create(orderRequest);
+    OrderResponse orderResponse = createOrder.execute(orderRequest);
     return ResponseEntity
             .created(URI.create("/order/"+orderResponse.getSku()))
             .body(orderResponse);
@@ -61,7 +61,7 @@ public class OrderController {
           @PathVariable String id,
           @RequestBody OrderItemRequest orderItemRequest
   ){
-    OrderItemResponse orderItemResponse = addItemOrderService.addItem(id, orderItemRequest);
+    OrderItemResponse orderItemResponse = addItemOrder.execute(id, orderItemRequest);
     return ResponseEntity
             .created(URI.create("/order/"+id))
             .body(orderItemResponse);
@@ -74,7 +74,7 @@ public class OrderController {
   })
   @GetMapping
   public ResponseEntity<List<OrderResponse>> listOrder(){
-    return ResponseEntity.ok(findOrderService.findAll());
+    return ResponseEntity.ok(findOrder.findAll());
   }
 
   @Operation(summary = "Get a Order by id", description = "Returns a Order")
@@ -84,7 +84,7 @@ public class OrderController {
   })
   @GetMapping("/{id}")
   public ResponseEntity<OrderResponse> listOrderById(@PathVariable String id){
-    return ResponseEntity.ok(findOrderService.findById(id));
+    return ResponseEntity.ok(findOrder.findById(id));
   }
 
   @Operation(summary = "Update Item a Order", description = "Returns a Order")
@@ -96,15 +96,12 @@ public class OrderController {
   public ResponseEntity<OrderItemResponse> updateOrder(
           @PathVariable String idOrderItem,
           @RequestBody OrderItemRequest orderItemRequest
-  ){
-    OrderItemResponse orderItemResponse = changeAmountItemService.changeAmountItem(idOrderItem, orderItemRequest);
-
-    return ResponseEntity
-            .created(URI.create("/order/ordemItem"+idOrderItem))
-            .body(orderItemResponse);
+  ) throws BadRequestClient {
+    OrderItemResponse orderItemResponse = changeAmountItem.changeAmountItem(idOrderItem, orderItemRequest);
+    return ResponseEntity.ok().body(orderItemResponse);
   }
 
-  @Operation(summary = "Delete Item a Order", description = "Returns a Order upadate")
+  @Operation(summary = "Delete Item a Order", description = "Returns a Order update")
   @ApiResponses(value = {
           @ApiResponse(responseCode = "200", description = "Successfully retrieved"),
           @ApiResponse(responseCode = "400", description = "Not possible remove item a order")
@@ -113,7 +110,7 @@ public class OrderController {
   public ResponseEntity<OrderItemResponse> deleteOrderItem(
           @PathVariable String idOrderItem
   ){
-    deleteItemOrderService.deleteItem(idOrderItem);
+    deleteItemOrder.execute(idOrderItem);
     return ResponseEntity.noContent().build();
   }
 
@@ -124,7 +121,7 @@ public class OrderController {
   })
   @DeleteMapping("/{id}")
   public ResponseEntity<OrderResponse> deleteOrder(@PathVariable String id){
-    deleteOrderService.deleteOrder(id);
+    deleteOrder.execute(id);
     return ResponseEntity.noContent().build();
   }
 }

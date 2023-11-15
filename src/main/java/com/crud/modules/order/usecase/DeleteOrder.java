@@ -1,16 +1,15 @@
-package com.crud.modules.order.usecase.impl;
+package com.crud.modules.order.usecase;
 
 import com.crud.modules.order.repository.OrderRepository;
-import com.crud.modules.order.usecase.IDeleteOrderUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DeleteOrderUseCaseImpl implements IDeleteOrderUseCase {
+public class DeleteOrder{
   @Autowired
   OrderRepository orderRepository;
 
-  public void deleteOrder(String id) {
+  public void execute(String id) {
    var order = orderRepository.findOrderById(id);
 
     if (id != null) {

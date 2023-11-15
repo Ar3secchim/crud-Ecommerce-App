@@ -1,22 +1,16 @@
-package com.crud.modules.product.usecase.impl;
+package com.crud.modules.product.usecase;
 
-import com.crud.modules.product.DTO.ProductRequest;
-import com.crud.modules.product.DTO.ProductResponse;
 import com.crud.modules.product.entity.Product;
 import com.crud.modules.product.repository.ProductRepository;
-import com.crud.modules.product.usecase.IDeleteProductUseCase;
-import com.crud.utils.ProductConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class DeleteProductUseCaseImpl implements IDeleteProductUseCase {
+public class DeleteProduct {
   @Autowired
   ProductRepository repository;
 
-  public void delete(String id) {
+  public void execute(String id) {
     Product product = repository.findProductById(id);
 
     if (product.getSku() == null){

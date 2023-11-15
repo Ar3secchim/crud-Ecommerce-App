@@ -2,10 +2,10 @@ package com.crud.modules.product.controller;
 
 import com.crud.modules.product.DTO.ProductRequest;
 import com.crud.modules.product.DTO.ProductResponse;
-import com.crud.modules.product.usecase.impl.CreateProductUseCase;
-import com.crud.modules.product.usecase.impl.DeleteProductUseCaseImpl;
-import com.crud.modules.product.usecase.impl.FindProductUseCaseImpl;
-import com.crud.modules.product.usecase.impl.UpdateProductUseCaseImpl;
+import com.crud.modules.product.usecase.CreateProduct;
+import com.crud.modules.product.usecase.DeleteProduct;
+import com.crud.modules.product.usecase.FindProduct;
+import com.crud.modules.product.usecase.UpdateProduct;
 import com.crud.utils.ProductConvert;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,13 +21,13 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
   @Autowired
-  CreateProductUseCase createProductService;
+  CreateProduct createProductService;
   @Autowired
-  FindProductUseCaseImpl findProductService;
+  FindProduct findProductService;
   @Autowired
-  UpdateProductUseCaseImpl updateProductService;
+  UpdateProduct updateProductService;
   @Autowired
-  DeleteProductUseCaseImpl deleteProductService;
+  DeleteProduct deleteProductService;
 
   @Operation(summary = "Create a product", description = "Returns a product")
   @ApiResponses(value = {
@@ -37,7 +37,7 @@ public class ProductController {
   })
   @PostMapping
   public ResponseEntity<ProductResponse> create(@RequestBody ProductRequest productRequest){
-    ProductResponse productResponse =  createProductService.create(ProductConvert.toEntity(productRequest));
+    ProductResponse productResponse =  createProductService.execute(ProductConvert.toEntity(productRequest));
     return ResponseEntity
             .created(URI.create("/product/"+productResponse.getSku()))
             .body(productResponse);
@@ -76,7 +76,7 @@ public class ProductController {
   @PutMapping("/{productId}")
   public ResponseEntity<ProductResponse> updateProduct(@RequestBody ProductRequest productRequest,
                                                        @PathVariable Integer productId){
-    return ResponseEntity.ok(updateProductService.update(productId, productRequest));
+    return ResponseEntity.ok(updateProductService.execute(productId, productRequest));
   }
 
   @Operation(summary = "Delete a product by id")
@@ -87,7 +87,7 @@ public class ProductController {
   })
   @DeleteMapping("/{id}")
   public ResponseEntity<ProductResponse> deleteProduct(@PathVariable String id){
-    deleteProductService.delete(id);
+    deleteProductService.execute(id);
     return ResponseEntity.noContent().build();
   }
 }
