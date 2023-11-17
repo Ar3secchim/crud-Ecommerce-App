@@ -37,7 +37,7 @@ public class ProductController {
   })
   @PostMapping
   public ResponseEntity<ProductResponse> create(@RequestBody ProductRequest productRequest){
-    ProductResponse productResponse =  createProductService.execute(ProductConvert.toEntity(productRequest));
+    ProductResponse productResponse =  createProductService.execute(productRequest);
     return ResponseEntity
             .created(URI.create("/product/"+productResponse.getSku()))
             .body(productResponse);
