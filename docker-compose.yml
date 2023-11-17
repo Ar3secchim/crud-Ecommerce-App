@@ -8,3 +8,15 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     restart: always
+
+  rabbit:
+    image: rabbitmq:3-management
+    container_name: rabbitmq_management
+
+    ports:
+      - 5672:5672 # (erlang) communication between the nodes and CLI tool
+      - 15672:15672 # communication with the web management API
+    environment:
+      - RABBITMQ_DEFAULT_USER=guess
+      - RABBITMQ_DEFAULT_PASS=guess
+    restart: always

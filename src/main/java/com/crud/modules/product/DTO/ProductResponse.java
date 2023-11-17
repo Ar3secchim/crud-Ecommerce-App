@@ -2,6 +2,7 @@ package com.crud.modules.product.DTO;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,10 @@ public class ProductResponse {
 
   @Schema(name = "name", example = "console-ps5", required = true)
   private String name;
+
+  @Schema(name = "quantity", example = "50", required = true)
+  @NotBlank()
+  private int quantityStock;
 
   @Schema(name = "price", example = "125.56", required = true)
   private Double price;

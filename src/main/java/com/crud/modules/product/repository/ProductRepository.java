@@ -1,7 +1,6 @@
 package com.crud.modules.product.repository;
 
 import com.crud.modules.product.entity.Product;
-import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,5 +1,7 @@
 package com.crud.modules.orderItem.usecase;
 
+import com.crud.infra.queue.DTO.StockReservationRequest;
+import com.crud.infra.queue.ReservationItemStockProducer;
 import com.crud.modules.order.entity.Order;
 import com.crud.modules.order.repository.OrderRepository;
 import com.crud.modules.order.usecase.UpdateOrder;
@@ -11,10 +13,14 @@ import com.crud.modules.orderItem.repository.OrdemItemRepository;
 import com.crud.modules.product.entity.Product;
 import com.crud.modules.product.repository.ProductRepository;
 import com.crud.utils.OrdemItemConvert;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class AddItemOrderItem {
   @Autowired
   OrderRepository orderRepository;
@@ -24,6 +30,8 @@ public class AddItemOrderItem {
   OrdemItemRepository ordemItemRepository;
   @Autowired
   UpdateOrder updateOrder;
+  @Autowired
+  ReservationItemStockProducer ReservationItemStock;
 
   CalculateTotal calculateTotal= new CalculateTotal();
 
@@ -34,10 +42,26 @@ public class AddItemOrderItem {
     OrderItem newItem = OrdemItemConvert.toEntity(orderItemRequest, order, product);
     ordemItemRepository.save(newItem);
     order.getOrderItens().add(newItem);
+
+
+    reservarItems(orderId, product);
     order.setTotal(calculateTotal.calculateNewTotal(order));
 
     updateOrder.execute(orderId, order);
+
     return OrdemItemConvert.toResponseOrderItem(newItem);
   }
 
+  private void reservarItems(String skuId, Product item) {
+    StockReservationRequest reservarEstoqueRequest = new StockReservationRequest();
+    reservarEstoqueRequest.setSkuId(skuId);
+    reservarEstoqueRequest.setItem(item);
+
+    try {
+      ReservationItemStock.enviar(reservarEstoqueRequest);
+    } catch (JsonProcessingException e) {
+      log.error("Não foi possível enviar a mensagem ao destinatário", e);
+      throw new RuntimeException(e);
+    }
+  }
 }

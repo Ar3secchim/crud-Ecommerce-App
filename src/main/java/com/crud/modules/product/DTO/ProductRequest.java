@@ -19,6 +19,10 @@ public class ProductRequest {
   @Schema(name = "description", example = "console ps5, 128gb...")
   private String description;
 
+  @Schema(name = "quantity", example = "50", required = true)
+  @NotBlank()
+  private int quantityStock;
+
   @Schema(name = "price", example = "125.56", required = true)
   @NotBlank()
   private Double price;

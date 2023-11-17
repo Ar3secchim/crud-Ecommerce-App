@@ -16,6 +16,7 @@ public class ProductConvert {
     product.setSku(UUID.randomUUID().toString());
     product.setDescription(productRequest.getDescription());
     product.setName(productRequest.getName());
+    product.setQuantityStock(product.getQuantityStock());
     product.setPrice(productRequest.getPrice());
     return product;
   }
@@ -26,6 +27,7 @@ public class ProductConvert {
     productResponse.setSku(product.getSku());
     productResponse.setName(product.getName());
     productResponse.setPrice(product.getPrice());
+    productResponse.setQuantityStock(product.getQuantityStock());
     return productResponse;
   }
 

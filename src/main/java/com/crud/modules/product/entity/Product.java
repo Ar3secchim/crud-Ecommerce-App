@@ -22,6 +22,9 @@ public class Product {
   @Column(nullable = false)
   private String description;
 
+  @Column(nullable = false, name = "quantity_stock")
+  private int quantityStock;
+
   @Column(nullable = false)
   private Double price;
 }
