@@ -14,26 +14,22 @@ import com.crud.modules.product.entity.Product;
 import com.crud.modules.product.repository.ProductRepository;
 import com.crud.utils.OrdemItemConvert;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class AddItemOrderItem {
-  @Autowired
-  OrderRepository orderRepository;
-  @Autowired
-  ProductRepository productRepository;
-  @Autowired
-  OrdemItemRepository ordemItemRepository;
-  @Autowired
-  UpdateOrder updateOrder;
-  @Autowired
-  ReservationItemStockProducer ReservationItemStock;
+  private final OrderRepository orderRepository;
+  private final ProductRepository productRepository;
+  private final OrdemItemRepository ordemItemRepository;
+  private final UpdateOrder updateOrder;
+  private final ReservationItemStockProducer ReservationItemStock;
 
-  CalculateTotal calculateTotal= new CalculateTotal();
+  private final CalculateTotal calculateTotal= new CalculateTotal();
+
 
   public OrderItemResponse execute(String orderId, OrderItemRequest orderItemRequest) {
     Order order = orderRepository.findOrderById(orderId);
