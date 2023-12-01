@@ -4,16 +4,16 @@ import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
 import com.crud.utils.CustomerConvert;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class FindCustomer {
-  @Autowired
-  CustomerRepository repository;
+  private final CustomerRepository repository;
 
   public CustomerResponse findByEmail(String email) {
     Customer customer = repository.findByEmail(email);
@@ -21,7 +21,7 @@ public class FindCustomer {
   }
 
   public CustomerResponse findById(String id) {
-    Customer customer = repository.findCustomerById(id);
+    Customer customer = repository.findById(id).get();
     return CustomerConvert.toResponse(customer);
   }
 
@@ -34,5 +34,4 @@ public class FindCustomer {
 
     return CustomerConvert.toListResponse(found);
   }
-
 }

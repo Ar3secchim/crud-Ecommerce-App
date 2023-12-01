@@ -41,7 +41,7 @@ class RegisterCustomerTest {
 
   @Test
   @DisplayName("should register customer when everything success")
-  public void registeCustomerWithSuccess() throws PasswordValidationError, ValidationError {
+  public void registerCustomerWithSuccess() throws PasswordValidationError, ValidationError {
 
     when(passwordEncoder.encode(customer.getPassword())).thenReturn(customer.getPassword());
 
@@ -97,7 +97,7 @@ class RegisterCustomerTest {
   }
 
   @Test
-  @DisplayName("should ctustomer when password is cryptographic")
+  @DisplayName("should customer when password is cryptographic")
   public void registerCustomerWithPasswordEncode() throws PasswordValidationError, ValidationError {
     registerCustomer.execute(customer);
     verify(passwordEncoder, times(1)).encode(any());

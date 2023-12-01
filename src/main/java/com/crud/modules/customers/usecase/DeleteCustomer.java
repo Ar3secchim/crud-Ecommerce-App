@@ -10,10 +10,10 @@ public class DeleteCustomer {
   CustomerRepository repository;
 
   public void execute(String id){
-    var customer = repository.findCustomerById(id);
+    var customer = repository.findById(id);
 
     if (customer != null) {
-      repository.delete(customer);
+      repository.delete(customer.get());
     }
   }
 }

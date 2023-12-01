@@ -18,7 +18,7 @@ public class CreateOrder{
   CustomerRepository customerRepository;
 
   public OrderResponse execute(OrderRequest OrderRequest) {
-    Customer customer = customerRepository.findCustomerById(OrderRequest.getCustomerSku());
+    Customer customer = customerRepository.findById(OrderRequest.getCustomerSku()).get();
     Order order = OrderConvert.toEntity(customer);
     return OrderConvert.toResponseOrder(orderRepository.save(order));
   }

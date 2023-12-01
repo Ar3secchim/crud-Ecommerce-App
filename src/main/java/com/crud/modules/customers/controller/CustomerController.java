@@ -3,6 +3,7 @@ package com.crud.modules.customers.controller;
 import com.crud.infra.exception.ValidationError;
 import com.crud.modules.customers.DTO.CustomerRequest;
 import com.crud.modules.customers.DTO.CustomerResponse;
+import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.usecase.*;
 import com.crud.modules.product.DTO.ProductResponse;
 import com.crud.infra.exception.PasswordValidationError;
@@ -63,7 +64,7 @@ public class CustomerController {
           @ApiResponse(responseCode = "400", description = "Not possible get customers")
   })
   @GetMapping("email/{email}")
-  public ResponseEntity<CustomerResponse> getCustomerByEmail( @PathVariable String email){
+  public ResponseEntity<CustomerResponse> getCustomerByEmail(@PathVariable String email){
     return ResponseEntity.ok(findCustomer.findByEmail(email));
   }
 
