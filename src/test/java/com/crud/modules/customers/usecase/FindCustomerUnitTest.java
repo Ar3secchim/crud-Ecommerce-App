@@ -3,11 +3,13 @@ package com.crud.modules.customers.usecase;
 import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,19 +17,21 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class FindCustomerTest {
+@ExtendWith(SpringExtension.class)
+class FindCustomerUnitTest {
+  @Mock
   private CustomerRepository repository;
+  @InjectMocks
   private FindCustomer findCustomer;
+
   private Customer customer;
 
   @BeforeEach
   public void setup(){
-    repository = Mockito.mock(CustomerRepository.class);
-    findCustomer = new FindCustomer(repository);
-
     customer = new Customer();
     customer.setSku(UUID.randomUUID().toString());
     customer.setEmail("validEmail@email.com");
@@ -74,10 +78,10 @@ class FindCustomerTest {
 
     List<CustomerResponse> result = findCustomer.findByName("name");
 
-    verify(repository, times(1)).findByName("name");
+    verify(repository, times(1)).findByName(any());
 
     for (CustomerResponse currentCustomer : result) {
-      assertEquals(true, currentCustomer.getName().contains("name"), "Unexpected customer name");
+      assertTrue(currentCustomer.getName().contains("name"), "Unexpected customer name");
     }
   }
 }

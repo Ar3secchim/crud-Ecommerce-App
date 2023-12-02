@@ -105,7 +105,7 @@ public class CustomerController {
           @ApiResponse(responseCode = "404", description = "Not found - The customer was not found")
   })
   @DeleteMapping("/{id}")
-  public ResponseEntity<ProductResponse> deleteCustomer(@PathVariable String id){
+  public ResponseEntity<ProductResponse> deleteCustomer(@PathVariable String id) throws Exception {
     deleteCustomer.execute(id);
     return ResponseEntity.noContent().build();
   }
