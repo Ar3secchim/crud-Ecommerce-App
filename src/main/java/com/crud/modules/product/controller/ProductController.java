@@ -86,7 +86,7 @@ public class ProductController {
           @ApiResponse(responseCode = "404", description = "Not found - The product was not found")
   })
   @DeleteMapping("/{id}")
-  public ResponseEntity<ProductResponse> deleteProduct(@PathVariable String id){
+  public ResponseEntity<ProductResponse> deleteProduct(@PathVariable String id) throws Exception {
     deleteProductService.execute(id);
     return ResponseEntity.noContent().build();
   }

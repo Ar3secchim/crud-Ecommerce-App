@@ -1,6 +1,5 @@
 package com.crud.modules.product.usecase;
 
-import com.crud.infra.exception.ValidationError;
 import com.crud.modules.product.DTO.ProductRequest;
 import com.crud.modules.product.DTO.ProductResponse;
 import com.crud.modules.product.entity.Product;

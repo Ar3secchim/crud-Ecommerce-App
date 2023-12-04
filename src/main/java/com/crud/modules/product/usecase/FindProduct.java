@@ -20,7 +20,6 @@ public class FindProduct {
 
   public ProductResponse findById(String id) {
     Product product = repository.findProductById(id);
-
     return ProductConvert.toResponse(product);
   }
 }
