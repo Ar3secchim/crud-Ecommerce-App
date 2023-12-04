@@ -7,27 +7,31 @@ import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
 import com.crud.utils.CustomerConvert;
 import com.crud.utils.Validator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RegisterCustomer {
-  @Autowired
-  CustomerRepository repository;
-
-  @Autowired
-  PasswordEncoder passwordEncoder;
+  private final CustomerRepository repository;
+  private final PasswordEncoder passwordEncoder;
 
   public CustomerResponse execute(Customer customer) throws PasswordValidationError, ValidationError {
+    if(!Validator.name(customer.getName())) throw new ValidationError(customer.getName(), "Nome menor que dois " +
+            "character");
+
+    if(!Validator.passwordValidate(customer.getPassword())) throw new PasswordValidationError("Senha deve seguir o " +
+            "padrão");
+
+    if(!Validator.emailValidate(customer.getEmail())) throw new ValidationError(customer.getEmail(), "Email inválido");
+
     String encodePassword = passwordEncoder.encode(customer.getPassword());
     customer.setPassword(encodePassword);
 
-    if(!Validator.name(customer.getEmail())) throw new ValidationError(customer.getName(), "Nome menor que dois " +
-            "character");
-    if(!Validator.emailValidate(customer.getEmail())) throw new ValidationError(customer.getEmail(), "Email inválido");
-    if(!Validator.passwordValidate(customer.getPassword())) throw new PasswordValidationError("Senha deve seguir o " +
-            "padrão");
-    return CustomerConvert.toResponse(repository.save(customer));
+    repository.save(customer);
+
+    return CustomerConvert.toResponse(customer);
   }
 }

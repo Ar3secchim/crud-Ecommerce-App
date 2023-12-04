@@ -9,7 +9,7 @@ public class Validator {
     return email.matches("^\\S{3,}@\\w{2,}\\.[a-zA-Z]{2,}$");
   }
 
-  public static Boolean name(String email){
-    return email.matches("^\\S{3,}");
+  public static Boolean name(String name){
+    return name.matches("^\\S{3,}");
   }
 }
