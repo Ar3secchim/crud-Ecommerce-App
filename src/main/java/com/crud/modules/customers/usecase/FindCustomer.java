@@ -16,6 +16,7 @@ public class FindCustomer {
   private final CustomerRepository repository;
 
   public CustomerResponse findByEmail(String email) {
+
     Customer customer = repository.findByEmail(email);
     return CustomerConvert.toResponse(customer);
   }
