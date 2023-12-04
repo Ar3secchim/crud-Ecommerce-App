@@ -36,7 +36,7 @@ public class ProductController {
           @ApiResponse(responseCode = "400", description = "Not possible create product")
   })
   @PostMapping
-  public ResponseEntity<ProductResponse> create(@RequestBody ProductRequest productRequest){
+  public ResponseEntity<ProductResponse> create(@RequestBody ProductRequest productRequest) throws Exception {
     ProductResponse productResponse =  createProductService.execute(productRequest);
     return ResponseEntity
             .created(URI.create("/product/"+productResponse.getSku()))
