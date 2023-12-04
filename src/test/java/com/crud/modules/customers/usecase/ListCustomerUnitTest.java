@@ -40,7 +40,7 @@ class ListCustomerUnitTest {
     List<CustomerResponse> listAllCustomer = listCustomer.execute();
 
     verify(repository, times(1)).findAll();
-    assertEquals(4, listAllCustomer.size(), "Unexpected customer name");
+    assertEquals(4, listAllCustomer.size());
 
   }
 }
