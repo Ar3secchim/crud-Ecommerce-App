@@ -13,9 +13,14 @@ public class UpdateProduct {
   @Autowired
   ProductRepository repository;
 
-  public ProductResponse execute(Integer id, ProductRequest productRequest) {
+  public ProductResponse execute(String id, ProductRequest productRequest) throws Exception {
+    if(repository.findProductById(id) == null){
+      throw new Exception("Not exist product");
+    }
+
     Product product = ProductConvert.toEntity(productRequest);
-    product.setId(id);
-    return ProductConvert.toResponse(repository.save(product));
+    product.setSku(id);
+    repository.save(product);
+    return ProductConvert.toResponse(product);
   }
 }

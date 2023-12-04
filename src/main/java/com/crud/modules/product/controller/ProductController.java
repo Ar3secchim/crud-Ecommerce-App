@@ -75,7 +75,7 @@ public class ProductController {
   })
   @PutMapping("/{productId}")
   public ResponseEntity<ProductResponse> updateProduct(@RequestBody ProductRequest productRequest,
-                                                       @PathVariable Integer productId){
+                                                       @PathVariable String productId) throws Exception {
     return ResponseEntity.ok(updateProductService.execute(productId, productRequest));
   }
 
