@@ -16,7 +16,7 @@ public class UpdateCustomer {
   CustomerRepository repository;
 
   public CustomerResponse execute(String id, CustomerRequest customerRequest) {
-    Customer customer = repository.findCustomerById(id);
+    Customer customer = repository.findById(id).get();
 
     customer.setName(customerRequest.getName());
     customer.setAddress(customer.getAddress());
