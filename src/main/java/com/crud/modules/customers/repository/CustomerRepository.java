@@ -12,7 +12,7 @@ public interface CustomerRepository extends JpaRepository<Customer, String>{
   Customer findByEmail(String email);
 
   @Query(value = "SELECT * FROM customers WHERE sku = :id", nativeQuery = true)
-  Optional<Customer> findById(String id);
+  Customer findBySku(String id);
 
   @Query(value = "SELECT * FROM customers WHERE name LIKE '%s:name%' = :name", nativeQuery = true)
   List<Customer> findByName(String name);

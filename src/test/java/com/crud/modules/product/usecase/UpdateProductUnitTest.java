@@ -48,7 +48,7 @@ class UpdateProductUnitTest {
 
   @Test
   @DisplayName("Should update product invalid")
-  void UpdateProductIdInvalid() throws Exception {
+  void UpdateProductIdInvalid(){
     ProductRequest productRequest = new ProductRequest();
 
     when(repository.findProductById("uni-test")).thenReturn(new Product());
