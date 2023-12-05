@@ -28,14 +28,12 @@ class ListCustomerUnitTest {
   @DisplayName("should all customer")
   void ListAllCustomer(){
     Customer customerTest = new Customer();
-    Customer customerTest2 = new Customer();
-    List<Customer> listCustomers = Arrays.asList(customerTest2, customerTest);
-    when(repository.findAll()).thenReturn(listCustomers);
+    when(repository.findAll()).thenReturn(List.of(customerTest));
 
     List<CustomerResponse> listAllCustomerResponse = listAllCustomer.execute();
 
     verify(repository, times(1)).findAll();
-    assertEquals(2, listAllCustomerResponse.size());
+    assertEquals(1, listAllCustomerResponse.size());
 
   }
 }

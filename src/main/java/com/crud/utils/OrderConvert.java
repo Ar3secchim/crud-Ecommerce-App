@@ -1,5 +1,6 @@
 package com.crud.utils;
 
+import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.orderItem.DTO.OrderItemResponse;
 import com.crud.modules.order.DTO.OrderResponse;
 import com.crud.modules.customers.entity.Customer;
@@ -8,6 +9,7 @@ import com.crud.modules.order.entity.Order;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class OrderConvert {
   public static Order toEntity(Customer customer){
@@ -37,10 +39,8 @@ public class OrderConvert {
   }
 
   public static List<OrderResponse> toResponseList(List<Order> orders){
-    List<OrderResponse> ordersResponse = new ArrayList<>();
-    for(Order order: orders){
-      ordersResponse.add(toResponseOrder(order));
-    }
-    return ordersResponse;
+    return orders.stream()
+            .map(OrderConvert::toResponseOrder)
+            .collect(Collectors.toList());
   }
 }

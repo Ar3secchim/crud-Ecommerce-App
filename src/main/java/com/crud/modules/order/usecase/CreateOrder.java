@@ -17,9 +17,14 @@ public class CreateOrder{
   @Autowired
   CustomerRepository customerRepository;
 
-  public OrderResponse execute(OrderRequest OrderRequest) {
-    Customer customer = customerRepository.findById(OrderRequest.getCustomerSku()).get();
+  public OrderResponse execute(OrderRequest OrderRequest) throws Exception {
+    Customer customer = customerRepository.findBySku(OrderRequest.getCustomerSku());
+
+    if(customer == null) throw new Exception("Customer not found");
+
     Order order = OrderConvert.toEntity(customer);
-    return OrderConvert.toResponseOrder(orderRepository.save(order));
+    orderRepository.save(order);
+
+    return OrderConvert.toResponseOrder(order);
   }
 }

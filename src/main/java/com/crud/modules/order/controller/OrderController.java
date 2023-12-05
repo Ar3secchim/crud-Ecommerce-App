@@ -44,7 +44,7 @@ public class OrderController {
           @ApiResponse(responseCode = "400", description = "Not possible create order")
   })
   @PostMapping
-  public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest orderRequest){
+  public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest orderRequest) throws Exception {
     OrderResponse orderResponse = createOrder.execute(orderRequest);
     return ResponseEntity
             .created(URI.create("/order/"+orderResponse.getSku()))
@@ -83,7 +83,7 @@ public class OrderController {
           @ApiResponse(responseCode = "400", description = "Not possible a order")
   })
   @GetMapping("/{id}")
-  public ResponseEntity<OrderResponse> listOrderById(@PathVariable String id){
+  public ResponseEntity<OrderResponse> listOrderById(@PathVariable String id) throws Exception {
     return ResponseEntity.ok(findOrder.findById(id));
   }
 

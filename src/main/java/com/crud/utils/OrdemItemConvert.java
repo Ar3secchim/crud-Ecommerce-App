@@ -36,6 +36,9 @@ public class OrdemItemConvert {
 
     public static List<OrderItemResponse> toResponseList(List<OrderItem> orders){
       List<OrderItemResponse> ordersResponse = new ArrayList<>();
+
+      if(orders == null) return new ArrayList<>();
+
       for(OrderItem order: orders){
         ordersResponse.add(toResponseOrderItem(order));
       }
