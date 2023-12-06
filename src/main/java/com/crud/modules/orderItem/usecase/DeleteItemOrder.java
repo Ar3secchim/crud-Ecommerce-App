@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class DeleteItemOrder{
   @Autowired
-  ProductRepository productRepository;
-  @Autowired
   OrdemItemRepository ordemItemRepository;
 
-  public void execute(String id) {
-    OrderItem inserted = ordemItemRepository.findOrderItemById(id);
-    ordemItemRepository.delete(inserted);
+  public void execute(String id) throws Exception {
+    OrderItem orderItem = ordemItemRepository.findOrderItemById(id);
+
+    if(orderItem == null) throw  new Exception("Order not found");
+
+    ordemItemRepository.delete(orderItem);
   }
 }

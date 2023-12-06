@@ -16,20 +16,23 @@ import com.crud.utils.OrdemItemConvert;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 @AllArgsConstructor
 public class AddItemOrderItem {
-  private final OrderRepository orderRepository;
-  private final ProductRepository productRepository;
-  private final OrdemItemRepository ordemItemRepository;
-  private final UpdateOrder updateOrder;
-  private final ReservationItemStockProducer ReservationItemStock;
-
-  private final CalculateTotal calculateTotal= new CalculateTotal();
-
+  @Autowired
+  OrderRepository orderRepository;
+  @Autowired
+  ProductRepository productRepository;
+  @Autowired
+  OrdemItemRepository ordemItemRepository;
+  @Autowired
+  UpdateOrder updateOrder;
+  @Autowired
+  ReservationItemStockProducer ReservationItemStock;
 
   public OrderItemResponse execute(String orderId, OrderItemRequest orderItemRequest) throws Exception {
     Order order = orderRepository.findOrderById(orderId);
@@ -39,9 +42,8 @@ public class AddItemOrderItem {
     ordemItemRepository.save(newItem);
     order.getOrderItens().add(newItem);
 
-
     reservarItems(orderId, product);
-    order.setTotal(calculateTotal.execute(order));
+    order.setTotal(CalculateTotal.execute(order));
 
     updateOrder.execute(orderId, order);
 

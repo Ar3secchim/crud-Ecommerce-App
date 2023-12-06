@@ -96,7 +96,7 @@ public class OrderController {
   public ResponseEntity<OrderItemResponse> updateOrder(
           @PathVariable String idOrderItem,
           @RequestBody OrderItemRequest orderItemRequest
-  ) throws BadRequestClient {
+  ) throws Exception {
     OrderItemResponse orderItemResponse = changeAmountItem.changeAmountItem(idOrderItem, orderItemRequest);
     return ResponseEntity.ok().body(orderItemResponse);
   }
@@ -109,7 +109,7 @@ public class OrderController {
   @DeleteMapping ("/ordemItem/{idOrderItem}")
   public ResponseEntity<OrderItemResponse> deleteOrderItem(
           @PathVariable String idOrderItem
-  ){
+  ) throws Exception {
     deleteItemOrder.execute(idOrderItem);
     return ResponseEntity.noContent().build();
   }

@@ -27,9 +27,7 @@ public class ChangeAmountItem{
   @Autowired
   DeleteItemOrder deleteItemOrder;
 
-  CalculateTotal calculateTotal = new CalculateTotal();
-
-  public OrderItemResponse changeAmountItem(String orderItemID, OrderItemRequest orderItemRequest) throws BadRequestClient {
+  public OrderItemResponse changeAmountItem(String orderItemID, OrderItemRequest orderItemRequest) throws Exception {
 
     OrderItem orderItem = ordemItemRepository.findOrderItemById(orderItemID);
 
@@ -37,22 +35,23 @@ public class ChangeAmountItem{
       throw new BadRequestClient("Order não encontrada");
     }
 
-    if(!deleteOrderAmountEqualsZero(orderItemRequest)){
-      throw new BadRequestClient("Item não pode ser menor que zero caso seja isso por favor exclua o item do pedido");
-    }else{
-      Product product = productRepository.findProductById(orderItem.getProduct().getSku());
+    if(!deleteOrderAmountEqualsZero(orderItemRequest))
+      ordemItemRepository.delete(orderItem);
 
-      orderItem.setAmount(orderItemRequest.getAmount());
-      orderItem.setTotal(product.getPrice().multiply(BigDecimal.valueOf(orderItemRequest.getAmount())));
+    Product product = productRepository.findProductById(orderItem.getProduct().getSku());
 
-      Order order = orderItem.getOrder();
-      order.setTotal(calculateTotal.execute(order));
+    if(product == null) throw new Exception("Product not found");
 
-      ordemItemRepository.save(orderItem);
-      orderRepository.save(order);
+    orderItem.setAmount(orderItemRequest.getAmount());
+    orderItem.setTotal(product.getPrice().multiply(BigDecimal.valueOf(orderItemRequest.getAmount())));
 
-      return OrdemItemConvert.toResponseOrderItem(orderItem);
-    }
+    Order order = orderItem.getOrder();
+    order.setTotal(CalculateTotal.execute(order));
+
+    ordemItemRepository.save(orderItem);
+    orderRepository.save(order);
+
+    return OrdemItemConvert.toResponseOrderItem(orderItem);
   }
 
   private boolean deleteOrderAmountEqualsZero(OrderItemRequest orderItemRequest){
