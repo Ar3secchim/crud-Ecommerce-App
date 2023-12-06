@@ -16,7 +16,7 @@ public class DeleteProduct {
     Product product = repository.findProductById(id);
 
     if (product == null){
-      throw new Exception("Produto não encontrado");
+      throw new Exception("Product not found ");
     }
 
     repository.delete(product);
