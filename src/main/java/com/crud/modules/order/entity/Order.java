@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class Order {
   private List<OrderItem> orderItens;
 
   @Column(nullable = false)
-  private Double total;
+  private BigDecimal total;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)

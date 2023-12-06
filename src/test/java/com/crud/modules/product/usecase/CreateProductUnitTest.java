@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,7 +33,7 @@ class CreateProductUnitTest {
     ProductRequest productRequest = new ProductRequest();
     productRequest.setSku(UUID.randomUUID().toString());
     productRequest.setQuantityStock(10);
-    productRequest.setPrice(250.00);
+    productRequest.setPrice(BigDecimal.valueOf(250));
     productRequest.setDescription("uni-Test");
     productRequest.setName("uni-test");
 

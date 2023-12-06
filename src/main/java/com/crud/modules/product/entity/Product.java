@@ -3,6 +3,8 @@ package com.crud.modules.product.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -26,5 +28,5 @@ public class Product {
   private int quantityStock;
 
   @Column(nullable = false)
-  private Double price;
+  private BigDecimal price;
 }

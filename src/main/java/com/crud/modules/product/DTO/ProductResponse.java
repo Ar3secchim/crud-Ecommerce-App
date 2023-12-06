@@ -21,5 +21,5 @@ public class ProductResponse {
   private Integer quantityStock;
 
   @Schema(name = "price", example = "125.56", required = true)
-  private Double price;
+  private BigDecimal price;
 }

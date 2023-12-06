@@ -7,6 +7,7 @@ import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.order.entity.Order;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ public class OrderConvert {
     order.setOrderItens(new ArrayList<>());
     order.setCreatedAt(LocalDateTime.now());
     order.setUpdatedAt(LocalDateTime.now());
-    order.setTotal(0.0);
+    order.setTotal(BigDecimal.ZERO);
     return order;
   }
 

@@ -60,7 +60,7 @@ public class OrderController {
   public ResponseEntity<OrderItemResponse> addItemOrder(
           @PathVariable String id,
           @RequestBody OrderItemRequest orderItemRequest
-  ){
+  ) throws Exception {
     OrderItemResponse orderItemResponse = addItemOrder.execute(id, orderItemRequest);
     return ResponseEntity
             .created(URI.create("/order/"+id))
@@ -120,7 +120,7 @@ public class OrderController {
           @ApiResponse(responseCode = "400", description = "Not possible delete order")
   })
   @DeleteMapping("/{id}")
-  public ResponseEntity<OrderResponse> deleteOrder(@PathVariable String id){
+  public ResponseEntity<OrderResponse> deleteOrder(@PathVariable String id) throws Exception {
     deleteOrder.execute(id);
     return ResponseEntity.noContent().build();
   }

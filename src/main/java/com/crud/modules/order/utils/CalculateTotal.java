@@ -2,21 +2,20 @@ package com.crud.modules.order.utils;
 
 import com.crud.modules.order.entity.Order;
 import com.crud.modules.orderItem.entity.OrderItem;
-import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-@NoArgsConstructor
 public class CalculateTotal {
-
-  public Double calculateNewTotal(Order order) {
+  public static BigDecimal execute(Order order) {
     List<OrderItem> orderItems = order.getOrderItens();
-    double newTotal = 0.0;
+    BigDecimal newTotal = BigDecimal.ZERO;
 
     for (OrderItem item : orderItems) {
-      Double itemTotal = item.getTotal();
-      newTotal = newTotal + itemTotal;
+      BigDecimal itemTotal = item.getTotal();
+      newTotal = newTotal.add(itemTotal);
     }
+
     return newTotal;
   }
 }

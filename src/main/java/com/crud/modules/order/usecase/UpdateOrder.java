@@ -16,18 +16,18 @@ public class UpdateOrder{
   @Autowired
   OrderRepository orderRepository;
 
-  CalculateTotal calculateTotal = new CalculateTotal();
+  public OrderResponse execute(String orderId, Order orderInput) throws Exception {
+    Order order = orderRepository.findOrderById(orderId);
 
-  public OrderResponse execute(String orderId, Order orderInput) {
-    Order Order = orderRepository.findOrderById(orderId);
+    if(order == null) throw new Exception("Order not found");
 
-    Order.setStatus(orderInput.getStatus());
-    Order.setUpdatedAt(LocalDateTime.now());
-    Order.setTotal(calculateTotal.calculateNewTotal(orderInput));
-    Order.setOrderItens(orderInput.getOrderItens());
+    order.setStatus(orderInput.getStatus());
+    order.setUpdatedAt(LocalDateTime.now());
+    order.setOrderItens(orderInput.getOrderItens());
+    order.setTotal(CalculateTotal.execute(orderInput));
 
-    Order updatedOrder = orderRepository.save(Order);
+    orderRepository.save(order);
 
-    return OrderConvert.toResponseOrder(updatedOrder);
+    return OrderConvert.toResponseOrder(order);
   }
 }

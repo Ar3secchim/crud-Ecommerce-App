@@ -25,5 +25,5 @@ public class ProductRequest {
 
   @Schema(name = "price", example = "125.56", required = true)
   @NotBlank()
-  private Double price;
+  private BigDecimal price;
 }

@@ -9,11 +9,13 @@ public class DeleteOrder{
   @Autowired
   OrderRepository orderRepository;
 
-  public void execute(String id) {
+  public void execute(String id) throws Exception {
    var order = orderRepository.findOrderById(id);
 
-    if (id != null) {
-      orderRepository.delete(order);
+    if (order == null) {
+      throw new Exception("Order not found");
     }
+
+    orderRepository.delete(order);
   }
 }

@@ -31,7 +31,7 @@ public class AddItemOrderItem {
   private final CalculateTotal calculateTotal= new CalculateTotal();
 
 
-  public OrderItemResponse execute(String orderId, OrderItemRequest orderItemRequest) {
+  public OrderItemResponse execute(String orderId, OrderItemRequest orderItemRequest) throws Exception {
     Order order = orderRepository.findOrderById(orderId);
     Product product = productRepository.findProductById(orderItemRequest.getProductSku());
 
@@ -41,7 +41,7 @@ public class AddItemOrderItem {
 
 
     reservarItems(orderId, product);
-    order.setTotal(calculateTotal.calculateNewTotal(order));
+    order.setTotal(calculateTotal.execute(order));
 
     updateOrder.execute(orderId, order);
 

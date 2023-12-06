@@ -13,7 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(SpringExtension.class)
@@ -27,11 +27,24 @@ class DeleteProductUnitTest {
   @Test
   @DisplayName("Should exception a delete customer not exist")
   public void deleteCustomerEquals(){
-    when(repository.findById("uni-test")).thenReturn(Optional.of(new Product()));
+    when(repository.findProductById("uni-test")).thenReturn(new Product());
 
     Exception exception = assertThrows(
             Exception.class, () -> deleteProduct.execute("unit-test"));
 
-    assertEquals("Produto não encontrado", exception.getMessage());
+    assertEquals("Product not found ", exception.getMessage());
+  }
+
+  @Test
+  @DisplayName("Should exception a delete customer")
+  public void deleteCustomer() throws Exception {
+    Product product = new Product();
+    product.setSku("unit-test");
+
+    when(repository.findProductById("uni-test")).thenReturn(product);
+
+    deleteProduct.execute("uni-test");
+
+    verify(repository, times(1)).delete(any());
   }
 }

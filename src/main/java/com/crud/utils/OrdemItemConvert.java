@@ -6,6 +6,7 @@ import com.crud.modules.order.entity.Order;
 import com.crud.modules.orderItem.entity.OrderItem;
 import com.crud.modules.product.entity.Product;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +20,7 @@ public class OrdemItemConvert {
       orderItem.setProduct(product);
       orderItem.setAmount(orderItemRequest.getAmount());
       orderItem.setPrice(product.getPrice());
-      orderItem.setTotal((orderItemRequest.getAmount() * product.getPrice()));
+      orderItem.setTotal(product.getPrice().multiply(BigDecimal.valueOf(orderItemRequest.getAmount())));
       return orderItem;
     }
 

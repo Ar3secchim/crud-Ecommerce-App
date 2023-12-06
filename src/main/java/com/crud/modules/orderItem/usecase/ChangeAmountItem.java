@@ -14,6 +14,8 @@ import com.crud.utils.OrdemItemConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class ChangeAmountItem{
   @Autowired
@@ -41,10 +43,10 @@ public class ChangeAmountItem{
       Product product = productRepository.findProductById(orderItem.getProduct().getSku());
 
       orderItem.setAmount(orderItemRequest.getAmount());
-      orderItem.setTotal(orderItemRequest.getAmount() * product.getPrice());
+      orderItem.setTotal(product.getPrice().multiply(BigDecimal.valueOf(orderItemRequest.getAmount())));
 
       Order order = orderItem.getOrder();
-      order.setTotal(calculateTotal.calculateNewTotal(order));
+      order.setTotal(calculateTotal.execute(order));
 
       ordemItemRepository.save(orderItem);
       orderRepository.save(order);

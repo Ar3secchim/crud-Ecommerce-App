@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -37,7 +38,7 @@ class FindProductUnitTest {
     for (int i = 0; i < 4; i++) {
       productTest.setSku("unit-test" +i);
       productTest.setQuantityStock(i);
-      productTest.setPrice(i + .00);
+      productTest.setPrice(BigDecimal.valueOf(i));
       productTest.setDescription("uni-Test " + i);
       productTest.setName("uni-test");
       listProducts.add(productTest);

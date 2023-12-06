@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -35,8 +37,8 @@ public class OrderItem {
   private Integer amount;
 
   @Column(nullable = false)
-  private Double price;
+  private BigDecimal price;
 
   @Column(nullable = false)
-  private Double total;
+  private BigDecimal total;
 }
