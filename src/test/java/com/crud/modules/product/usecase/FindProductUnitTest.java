@@ -35,7 +35,7 @@ class FindProductUnitTest {
     Product productTest = new Product();
 
     for (int i = 0; i < 4; i++) {
-      productTest.setSku(UUID.randomUUID().toString());
+      productTest.setSku("unit-test" +i);
       productTest.setQuantityStock(i);
       productTest.setPrice(i + .00);
       productTest.setDescription("uni-Test " + i);
@@ -64,5 +64,17 @@ class FindProductUnitTest {
 
     verify(repository, times(1)).findProductById(any());
     assertEquals("uni-Test", productResponse.getSku());
+  }
+
+  @Test
+  @DisplayName("Should product find by id invalid")
+  public void findProductByIdInvalid(){
+    when(repository.findProductById("unit-test")).thenReturn(null);
+
+    Exception exception = assertThrows(Exception.class,
+            () -> findProduct.findById("unit-test"));
+
+    verify(repository, times(1)).findProductById(any());
+    assertEquals("Product not found with ID: " + "unit-test", exception.getMessage());
   }
 }
