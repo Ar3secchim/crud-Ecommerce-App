@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -33,7 +32,7 @@ class FindCustomerUnitTest {
   @BeforeEach
   public void setup(){
     customer = new Customer();
-    customer.setSku(UUID.randomUUID().toString());
+    customer.setSku("unit-test");
     customer.setEmail("validEmail@email.com");
     customer.setAddress("validAddress,999");
     customer.setName("ValidName");
@@ -43,12 +42,23 @@ class FindCustomerUnitTest {
   @Test
   @DisplayName("Should customer find by id")
   public void findCustomerById(){
-    when(repository.findById(customer.getSku())).thenReturn(Optional.ofNullable(customer));
+    when(repository.findBySku(customer.getSku())).thenReturn(customer);
 
     CustomerResponse customerTest = findCustomer.findById(customer.getSku());
 
-    verify(repository, times(1)).findById(any());
+    verify(repository, times(1)).findBySku(any());
     assertEquals(customer.getSku(), customerTest.getSku(), "Unexpected customer id");
+  }
+
+  @Test
+  @DisplayName("Should customer find by id invalid")
+  public void findCustomerByIdInvalid(){
+    when(repository.findBySku(customer.getSku())).thenReturn(null);
+
+    var execption = assertThrows(Exception.class, () -> findCustomer.findById(customer.getSku()));
+
+    assertEquals("Customer not found with ID: " + "unit-test", execption.getMessage());
+    verify(repository, times(1)).findBySku(any());
   }
 
   @Test
@@ -60,6 +70,16 @@ class FindCustomerUnitTest {
 
     verify(repository, times(1)).findByEmail(any());
     assertEquals("validEmail@email.com", customerTest.getEmail(), "Unexpected customer email");
+  }
+
+  @Test
+  @DisplayName("Should customer find by email invalid")
+  public void findCustomerByEmailInvalid(){
+    when(repository.findByEmail(customer.getEmail())).thenReturn(null);
+
+    var execption = assertThrows(Exception.class, () -> findCustomer.findByEmail(customer.getEmail()));
+    assertEquals("Customer not found with email: " + "validEmail@email.com", execption.getMessage());
+    verify(repository, times(1)).findByEmail(any());
   }
 
   @Test
@@ -83,5 +103,15 @@ class FindCustomerUnitTest {
     for (CustomerResponse currentCustomer : result) {
       assertTrue(currentCustomer.getName().contains("name"), "Unexpected customer name");
     }
+  }
+
+  @Test
+  @DisplayName("Should customer find by name for equals null")
+  public void findCustomerByNameEqualsNull(){
+    when(repository.findByName(null)).thenReturn(null);
+
+    var execption = assertThrows(Exception.class, () ->  findCustomer.findByName(null));
+
+    assertEquals("Name not null", execption.getMessage());
   }
 }
