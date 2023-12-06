@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,26 +22,18 @@ class ListCustomerUnitTest {
   @Mock
   private CustomerRepository repository;
   @InjectMocks
-  private ListCustomer listCustomer;
+  private ListCustomer listAllCustomer;
 
   @Test
   @DisplayName("should all customer")
   void ListAllCustomer(){
-    ArrayList<Customer> listCustomers = new ArrayList<>();
     Customer customerTest = new Customer();
+    when(repository.findAll()).thenReturn(List.of(customerTest));
 
-    for (int i = 0; i < 4; i++) {
-      customerTest.setName("name " + i);
-      customerTest.setEmail("email" + i+ "@email.com");
-      listCustomers.add(customerTest);
-    }
-
-    when(repository.findAll()).thenReturn(listCustomers);
-
-    List<CustomerResponse> listAllCustomer = listCustomer.execute();
+    List<CustomerResponse> listAllCustomerResponse = listAllCustomer.execute();
 
     verify(repository, times(1)).findAll();
-    assertEquals(4, listAllCustomer.size());
+    assertEquals(1, listAllCustomerResponse.size());
 
   }
 }

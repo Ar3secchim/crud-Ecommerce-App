@@ -36,7 +36,7 @@ public class ProductController {
           @ApiResponse(responseCode = "400", description = "Not possible create product")
   })
   @PostMapping
-  public ResponseEntity<ProductResponse> create(@RequestBody ProductRequest productRequest){
+  public ResponseEntity<ProductResponse> create(@RequestBody ProductRequest productRequest) throws Exception {
     ProductResponse productResponse =  createProductService.execute(productRequest);
     return ResponseEntity
             .created(URI.create("/product/"+productResponse.getSku()))
@@ -75,7 +75,7 @@ public class ProductController {
   })
   @PutMapping("/{productId}")
   public ResponseEntity<ProductResponse> updateProduct(@RequestBody ProductRequest productRequest,
-                                                       @PathVariable Integer productId){
+                                                       @PathVariable String productId) throws Exception {
     return ResponseEntity.ok(updateProductService.execute(productId, productRequest));
   }
 
@@ -86,7 +86,7 @@ public class ProductController {
           @ApiResponse(responseCode = "404", description = "Not found - The product was not found")
   })
   @DeleteMapping("/{id}")
-  public ResponseEntity<ProductResponse> deleteProduct(@PathVariable String id){
+  public ResponseEntity<ProductResponse> deleteProduct(@PathVariable String id) throws Exception {
     deleteProductService.execute(id);
     return ResponseEntity.noContent().build();
   }

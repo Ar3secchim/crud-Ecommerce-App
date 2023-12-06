@@ -15,23 +15,16 @@ public class UpdateCustomer {
   @Autowired
   CustomerRepository repository;
 
-  public CustomerResponse execute(String id, CustomerRequest customerRequest) {
-    Customer customer = repository.findById(id).get();
+  public CustomerResponse execute(String id, CustomerRequest customerRequest) throws Exception {
+    Customer customer = repository.findBySku(id);
+
+    if(customer == null) throw new Exception("Customer not found");
 
     customer.setName(customerRequest.getName());
-    customer.setAddress(customer.getAddress());
-
-    if(!Objects.equals(customerRequest.getEmail(), customer.getEmail())) {
-      var email = repository.findByEmail(customerRequest.getEmail());
-
-      if (email == null) {
-        customer.setEmail(customerRequest.getEmail());
-      }
-    }
-
-    customer.setEmail(customer.getEmail());
+    customer.setAddress(customerRequest.getAddress());
     customer.setSku(id);
+    repository.save(customer);
 
-    return CustomerConvert.toResponse(repository.save(customer));
+    return CustomerConvert.toResponse(customer);
   }
 }

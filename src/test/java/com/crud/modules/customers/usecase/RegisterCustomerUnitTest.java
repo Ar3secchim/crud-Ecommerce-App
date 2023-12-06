@@ -57,7 +57,7 @@ class RegisterCustomerUnitTest {
   @Test
   @DisplayName("should throw exception customer when name is invalid")
   public void registerCustomerWithNameLessThanTwoCharacters() {
-    customer.setName("ts");
+    customer.setName("ut");
 
     ValidationError exeption = assertThrows(
             ValidationError.class, () -> {
@@ -74,10 +74,7 @@ class RegisterCustomerUnitTest {
     customer.setEmail("emailInvalid.com");
 
     ValidationError exeption = assertThrows(
-            ValidationError.class, () -> {
-              registerCustomer.execute(customer);
-            }
-    );
+            ValidationError.class, () -> registerCustomer.execute(customer));
 
     assertEquals("Email inválido", exeption.getMessage());
   }
@@ -88,10 +85,7 @@ class RegisterCustomerUnitTest {
     customer.setPassword("12345");
 
     PasswordValidationError exeption = assertThrows(
-            PasswordValidationError.class, () -> {
-              registerCustomer.execute(customer);
-            }
-    );
+            PasswordValidationError.class, () -> registerCustomer.execute(customer));
 
     assertEquals("Senha deve seguir o padrão", exeption.getDescription());
   }

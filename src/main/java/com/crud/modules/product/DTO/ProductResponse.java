@@ -18,7 +18,7 @@ public class ProductResponse {
 
   @Schema(name = "quantity", example = "50", required = true)
   @NotBlank()
-  private int quantityStock;
+  private Integer quantityStock;
 
   @Schema(name = "price", example = "125.56", required = true)
   private Double price;

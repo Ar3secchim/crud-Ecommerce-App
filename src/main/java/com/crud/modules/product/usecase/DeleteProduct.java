@@ -5,16 +5,18 @@ import com.crud.modules.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.ExecutionException;
+
 @Service
 public class DeleteProduct {
   @Autowired
   ProductRepository repository;
 
-  public void execute(String id) {
+  public void execute(String id) throws Exception {
     Product product = repository.findProductById(id);
 
-    if (product.getSku() == null){
-      throw new RuntimeException("Produto não encontrado");
+    if (product == null){
+      throw new Exception("Produto não encontrado");
     }
 
     repository.delete(product);

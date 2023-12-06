@@ -13,8 +13,25 @@ public class CreateProduct {
   @Autowired
   ProductRepository repository;
 
-  public ProductResponse execute(ProductRequest productRequest) {
+  public ProductResponse execute(ProductRequest productRequest) throws Exception {
+    validateProduct(productRequest);
+
     Product product = ProductConvert.toEntity(productRequest);
-    return ProductConvert.toResponse(repository.save(product));
+    repository.save(product);
+    return ProductConvert.toResponse(product);
+  }
+
+  private void validateProduct(ProductRequest productRequest) throws Exception {
+    if (productRequest.getName() == null) {
+      throw new Exception("Name is required");
+    }
+
+    if (productRequest.getQuantityStock() == null) {
+      throw new Exception("Quantity is required");
+    }
+
+    if (productRequest.getPrice() == null) {
+      throw new Exception("Price is required");
+    }
   }
 }

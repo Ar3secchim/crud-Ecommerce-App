@@ -2,12 +2,12 @@ package com.crud.modules.product.DTO;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+
 
 import java.math.BigDecimal;
 
-@Setter @Getter
+@Data
 public class ProductRequest {
   @Schema(name = "Product ID", example = "1", required = true)
   private String sku;
@@ -21,7 +21,7 @@ public class ProductRequest {
 
   @Schema(name = "quantity", example = "50", required = true)
   @NotBlank()
-  private int quantityStock;
+  private Integer quantityStock;
 
   @Schema(name = "price", example = "125.56", required = true)
   @NotBlank()

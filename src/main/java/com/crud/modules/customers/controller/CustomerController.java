@@ -95,7 +95,7 @@ public class CustomerController {
   })
   @PutMapping("/{id}")
   public ResponseEntity<CustomerResponse> updateCustomer(@PathVariable String id,
-                                                         @RequestBody CustomerRequest customerRequest){
+                                                         @RequestBody CustomerRequest customerRequest) throws Exception {
     return ResponseEntity.ok(updateCustomer.execute(id, customerRequest));
   }
 
