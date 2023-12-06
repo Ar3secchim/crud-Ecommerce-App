@@ -27,32 +27,53 @@ public class ChangeAmountItem{
   @Autowired
   DeleteItemOrder deleteItemOrder;
 
-  public OrderItemResponse changeAmountItem(String orderItemID, OrderItemRequest orderItemRequest) throws Exception {
+  public OrderItemResponse execute(String orderItemID, OrderItemRequest orderItemRequest) throws Exception {
+    OrderItem orderItem = validateOrderItem(orderItemID);
 
-    OrderItem orderItem = ordemItemRepository.findOrderItemById(orderItemID);
+    if (!deleteOrderAmountEqualsZero(orderItemRequest)) {
+      deleteOrderItem(orderItem);
+    } 
+    
+    Product product = validateProduct(orderItemRequest.getProductSku());
 
-    if(orderItem == null) throw new BadRequestClient("Order not found");
-
-    if(!deleteOrderAmountEqualsZero(orderItemRequest))
-      ordemItemRepository.delete(orderItem);
-
-    Product product = productRepository.findProductById(orderItemRequest.getProductSku());
-
-    if(product == null) throw new Exception("Product not found");
-
-    orderItem.setAmount(orderItemRequest.getAmount());
-    orderItem.setTotal(product.getPrice().multiply(BigDecimal.valueOf(orderItemRequest.getAmount())));
-
-    Order order = orderItem.getOrder();
-    order.setTotal(CalculateTotal.execute(orderItem.getOrder()));
-
-    ordemItemRepository.save(orderItem);
-    orderRepository.save(order);
+    updateOrderItem(orderItem, orderItemRequest, product);
+    updateOrderTotal(orderItem.getOrder());
 
     return OrdemItemConvert.toResponseOrderItem(orderItem);
   }
 
+  private OrderItem validateOrderItem(String orderItemID) throws BadRequestClient {
+    OrderItem orderItem = ordemItemRepository.findOrderItemById(orderItemID);
+    if (orderItem == null) {
+      throw new BadRequestClient("Order not found");
+    }
+    return orderItem;
+  }
+
   private boolean deleteOrderAmountEqualsZero(OrderItemRequest orderItemRequest){
     return orderItemRequest.getAmount() != 0;
+  }
+
+  private void deleteOrderItem(OrderItem orderItem) {
+    ordemItemRepository.delete(orderItem);
+  }
+
+  private Product validateProduct(String productSku) throws Exception {
+    Product product = productRepository.findProductById(productSku);
+    if (product == null) {
+      throw new Exception("Product not found");
+    }
+    return product;
+  }
+
+  private void updateOrderItem(OrderItem orderItem, OrderItemRequest orderItemRequest, Product product) {
+    orderItem.setAmount(orderItemRequest.getAmount());
+    orderItem.setTotal(product.getPrice().multiply(BigDecimal.valueOf(orderItemRequest.getAmount())));
+    ordemItemRepository.save(orderItem);
+  }
+
+  private void updateOrderTotal(Order order) {
+    order.setTotal(CalculateTotal.execute(order));
+    orderRepository.save(order);
   }
 }

@@ -61,7 +61,7 @@ class ChangeAmountItemUnitTest {
     orderItemUpdate.setProductSku("unit-test-product");
     orderItemUpdate.setAmount(1);
 
-    OrderItemResponse orderItem = changeAmountItem.changeAmountItem("unit-test", orderItemUpdate);
+    OrderItemResponse orderItem = changeAmountItem.execute("unit-test", orderItemUpdate);
 
     verify(ordemItemRepository, times(1)).save(any());
     verify(orderRepository, times(1)).save(any());
@@ -81,7 +81,7 @@ class ChangeAmountItemUnitTest {
     orderItemUpdate.setAmount(1);
 
     Exception exception = assertThrows(Exception.class,
-            () ->  changeAmountItem.changeAmountItem("unit-test", orderItemUpdate));
+            () ->  changeAmountItem.execute("unit-test", orderItemUpdate));
     assertEquals("Order not found",exception.getMessage());
   }
 
@@ -95,7 +95,7 @@ class ChangeAmountItemUnitTest {
     orderItemUpdate.setAmount(1);
 
     Exception exception = assertThrows(Exception.class,
-            () ->  changeAmountItem.changeAmountItem("unit-test", orderItemUpdate));
+            () ->  changeAmountItem.execute("unit-test", orderItemUpdate));
     assertEquals("Product not found",exception.getMessage());
   }
 
@@ -106,7 +106,7 @@ class ChangeAmountItemUnitTest {
     orderItemUpdate.setProductSku("unit-test-product");
     orderItemUpdate.setAmount(0);
 
-    changeAmountItem.changeAmountItem("unit-test", orderItemUpdate);
+    changeAmountItem.execute("unit-test", orderItemUpdate);
 
     verify(ordemItemRepository, times(1)).save(any());
     verify(orderRepository, times(1)).save(any());
