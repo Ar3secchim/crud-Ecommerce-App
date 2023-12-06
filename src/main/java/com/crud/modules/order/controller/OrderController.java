@@ -1,6 +1,5 @@
 package com.crud.modules.order.controller;
 
-import com.crud.infra.exception.BadRequestClient;
 import com.crud.modules.order.usecase.CreateOrder;
 import com.crud.modules.order.usecase.FindOrder;
 import com.crud.modules.orderItem.DTO.OrderItemRequest;
@@ -97,7 +96,7 @@ public class OrderController {
           @PathVariable String idOrderItem,
           @RequestBody OrderItemRequest orderItemRequest
   ) throws Exception {
-    OrderItemResponse orderItemResponse = changeAmountItem.changeAmountItem(idOrderItem, orderItemRequest);
+    OrderItemResponse orderItemResponse = changeAmountItem.execute(idOrderItem, orderItemRequest);
     return ResponseEntity.ok().body(orderItemResponse);
   }
 

@@ -1,5 +1,6 @@
 package com.crud.modules.orderItem.usecase;
 
+import com.crud.infra.exception.BadRequestClient;
 import com.crud.infra.queue.DTO.StockReservationRequest;
 import com.crud.infra.queue.ReservationItemStockProducer;
 import com.crud.modules.order.entity.Order;
@@ -35,20 +36,36 @@ public class AddItemOrderItem {
   ReservationItemStockProducer ReservationItemStock;
 
   public OrderItemResponse execute(String orderId, OrderItemRequest orderItemRequest) throws Exception {
-    Order order = orderRepository.findOrderById(orderId);
-    Product product = productRepository.findProductById(orderItemRequest.getProductSku());
+    Order order = validateOrder(orderId);
 
-    OrderItem newItem = OrdemItemConvert.toEntity(orderItemRequest, order, product);
-    ordemItemRepository.save(newItem);
-    order.getOrderItens().add(newItem);
+    Product product = validateProduct(orderItemRequest.getProductSku());
+
+    OrderItem orderItem = saveOrderItem(order, orderItemRequest, product);
 
     reservarItems(orderId, product);
-    order.setTotal(CalculateTotal.execute(order));
 
+    updateOrderTotal(order);
     updateOrder.execute(orderId, order);
 
-    return OrdemItemConvert.toResponseOrderItem(newItem);
+    return OrdemItemConvert.toResponseOrderItem(orderItem);
   }
+
+  private Order validateOrder(String orderID) throws BadRequestClient {
+    Order order = orderRepository.findOrderById(orderID);
+    if (order == null) {
+      throw new BadRequestClient("Order not found");
+    }
+    return order;
+  }
+
+  private Product validateProduct(String productSku) throws Exception {
+    Product product = productRepository.findProductById(productSku);
+    if (product == null) {
+      throw new Exception("Product not found");
+    }
+    return product;
+  }
+
 
   private void reservarItems(String skuId, Product item) {
     StockReservationRequest reservarEstoqueRequest = new StockReservationRequest();
@@ -61,5 +78,17 @@ public class AddItemOrderItem {
       log.error("Não foi possível enviar a mensagem ao destinatário", e);
       throw new RuntimeException(e);
     }
+  }
+
+  private OrderItem saveOrderItem(Order order, OrderItemRequest orderItemRequest, Product product) {
+    OrderItem newItem = OrdemItemConvert.toEntity(orderItemRequest, order, product);
+    ordemItemRepository.save(newItem);
+    order.getOrderItens().add(newItem);
+    return newItem;
+  }
+
+  private void updateOrderTotal(Order order) {
+    order.setTotal(CalculateTotal.execute(order));
+    orderRepository.save(order);
   }
 }
