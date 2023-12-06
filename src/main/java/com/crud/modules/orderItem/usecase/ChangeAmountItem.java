@@ -31,14 +31,12 @@ public class ChangeAmountItem{
 
     OrderItem orderItem = ordemItemRepository.findOrderItemById(orderItemID);
 
-    if(orderItem == null){
-      throw new BadRequestClient("Order não encontrada");
-    }
+    if(orderItem == null) throw new BadRequestClient("Order not found");
 
     if(!deleteOrderAmountEqualsZero(orderItemRequest))
       ordemItemRepository.delete(orderItem);
 
-    Product product = productRepository.findProductById(orderItem.getProduct().getSku());
+    Product product = productRepository.findProductById(orderItemRequest.getProductSku());
 
     if(product == null) throw new Exception("Product not found");
 
@@ -46,7 +44,7 @@ public class ChangeAmountItem{
     orderItem.setTotal(product.getPrice().multiply(BigDecimal.valueOf(orderItemRequest.getAmount())));
 
     Order order = orderItem.getOrder();
-    order.setTotal(CalculateTotal.execute(order));
+    order.setTotal(CalculateTotal.execute(orderItem.getOrder()));
 
     ordemItemRepository.save(orderItem);
     orderRepository.save(order);

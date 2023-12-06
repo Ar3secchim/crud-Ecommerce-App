@@ -27,8 +27,8 @@ public class OrdemItemConvert {
     public static OrderItemResponse toResponseOrderItem(OrderItem orderItem){
       OrderItemResponse orderItemResponse = new OrderItemResponse();
 
-      orderItemResponse.setOrderSku(orderItem.getSku());
-      orderItemResponse.setProduct(ProductConvert.toResponse(orderItem.getProduct()));
+      orderItemResponse.setOrderSku(orderItem.getOrder().getSku());
+      orderItemResponse.setProduct(orderItem.getProduct());
       orderItemResponse.setAmount(orderItem.getAmount());
       orderItemResponse.setTotal(orderItem.getTotal());
 
