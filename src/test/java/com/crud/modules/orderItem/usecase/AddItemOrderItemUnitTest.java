@@ -43,7 +43,7 @@ class AddItemOrderItemUnitTest {
 
 
   @BeforeEach
-  public void setup(){
+  public void setup() throws Exception {
     Order order = new Order();
     order.setSku("unit-test-order");
     order.setOrderItens(new ArrayList<>());
@@ -54,6 +54,7 @@ class AddItemOrderItemUnitTest {
 
     when(productRepository.findProductById("unit-test-product")).thenReturn(product);
     when(orderRepository.findOrderById("unit-test-order")).thenReturn(order);
+    when(updateOrder.execute("unit-test-order",order)).thenReturn(any());
   }
 
 
@@ -68,7 +69,6 @@ class AddItemOrderItemUnitTest {
 
     verify(ordemItemRepository, times(1)).save(any());
     verify(orderRepository, times(1)).findOrderById(any());
-    verify(updateOrder, times(1));
 
     assertEquals(BigDecimal.valueOf(250),orderItem.getTotal());
     assertEquals(1,orderItem.getAmount());
@@ -91,11 +91,11 @@ class AddItemOrderItemUnitTest {
 //  @Test
 //  @DisplayName("should add item a order with product invalid")
 //  public void AddItemOrderWithProductInvalid() {}
-
+//
 //  @Test
 //  @DisplayName("should add item a order with send msg for stock invalid")
 //  public void AddItemOrderSendMsgError() {}
-
+//
 //  @Test
 //  @DisplayName("should return error when adding item to an order with product out of stock")
 //  public void AddItemOrderSendMsgProductOutOfStock() {}

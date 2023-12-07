@@ -21,17 +21,17 @@ public class CreateProduct {
     return ProductConvert.toResponse(product);
   }
 
-  private void validateProduct(ProductRequest productRequest) throws Exception {
-    if (productRequest.getName() == null) {
-      throw new Exception("Name is required");
+  private void validateProduct(ProductRequest productRequest) {
+    if (productRequest.getName() == null || productRequest.getName().trim().isEmpty()) {
+      throw new IllegalArgumentException("Name is required");
     }
 
     if (productRequest.getQuantityStock() == null) {
-      throw new Exception("Quantity is required");
+      throw new IllegalArgumentException("Quantity is required");
     }
 
     if (productRequest.getPrice() == null) {
-      throw new Exception("Price is required");
+      throw new IllegalArgumentException("Price is required");
     }
   }
 }
