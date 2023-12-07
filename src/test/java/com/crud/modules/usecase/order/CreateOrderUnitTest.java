@@ -1,9 +1,10 @@
-package com.crud.modules.order.usecase;
+package com.crud.modules.usecase.order;
 
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
 import com.crud.modules.order.DTO.OrderRequest;
 import com.crud.modules.order.repository.OrderRepository;
+import com.crud.modules.order.usecase.CreateOrder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,22 +23,22 @@ class CreateOrderUnitTest {
   @Mock
   private OrderRepository orderRepository;
   @InjectMocks
-  private  CreateOrder createOrder;
+  private CreateOrder createOrder;
 
   @Test
   @DisplayName("should register order when everything success")
   public void createOrderSuccess() throws Exception {
     Customer customer = new Customer();
-    customer.setSku("uni-test");
+    customer.setIdTransaction("uni-test");
 
-    when(repository.findBySku(customer.getSku())).thenReturn(customer);
+    when(repository.findByIdTransaction(customer.getIdTransaction())).thenReturn(customer);
 
     OrderRequest order = new OrderRequest();
-    order.setCustomerSku(customer.getSku());
+    order.setCustomerId(customer.getIdTransaction());
 
     createOrder.execute(order);
     verify(orderRepository, times(1)).save(any());
-    assertEquals("uni-test", order.getCustomerSku());
+    assertEquals("uni-test", order.getCustomerId());
   }
 
   @Test

@@ -1,18 +1,15 @@
 package com.crud.modules.customers.controller;
 
-import com.crud.infra.exception.ValidationError;
 import com.crud.modules.customers.DTO.CustomerRequest;
 import com.crud.modules.customers.DTO.CustomerResponse;
-import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.usecase.*;
-import com.crud.modules.product.DTO.ProductResponse;
-import com.crud.infra.exception.PasswordValidationError;
 import com.crud.utils.CustomerConvert;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,10 +38,10 @@ public class CustomerController {
   @PostMapping
   public ResponseEntity<CustomerResponse> createCustomer(
           @Valid @RequestBody CustomerRequest customerDTO
-  ) throws PasswordValidationError, ValidationError {
+  ) throws Exception {
     CustomerResponse customerResponse = registerCustomer.execute(CustomerConvert.toEntity(customerDTO));
     return ResponseEntity.created(
-              URI.create("/customer/"+customerResponse.getSku()))
+              URI.create("/customer/"+ customerResponse.getIdTransaction()))
             .body(customerResponse);
   }
 
@@ -105,8 +102,12 @@ public class CustomerController {
           @ApiResponse(responseCode = "404", description = "Not found - The customer was not found")
   })
   @DeleteMapping("/{id}")
-  public ResponseEntity<ProductResponse> deleteCustomer(@PathVariable String id) throws Exception {
-    deleteCustomer.execute(id);
+  public ResponseEntity<String> deleteCustomer(@PathVariable String id){
+    try{
+      deleteCustomer.execute(id);
+    }catch (Exception e){
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
     return ResponseEntity.noContent().build();
   }
 }

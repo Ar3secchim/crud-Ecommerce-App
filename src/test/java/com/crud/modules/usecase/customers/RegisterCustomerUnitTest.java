@@ -1,10 +1,11 @@
-package com.crud.modules.customers.usecase;
+package com.crud.modules.usecase.customers;
 
 import com.crud.infra.exception.PasswordValidationError;
 import com.crud.infra.exception.ValidationError;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
 
+import com.crud.modules.customers.usecase.RegisterCustomer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,19 +36,20 @@ class RegisterCustomerUnitTest {
   @BeforeEach
   public void setup(){
     customer = new Customer();
-    customer.setSku(UUID.randomUUID().toString());
-    customer.setEmail("validEmail@email.com");
-    customer.setAddress("validAddress,999");
-    customer.setName("ValidName");
-    customer.setPassword("@validPassword123");
+    customer.setIdTransaction(UUID.randomUUID().toString());
+    customer.setEmail("unit-test@email.com");
+    customer.setAddress("unit-test-address,999");
+    customer.setName("unit test");
+    customer.setPassword("@UnitTest123");
 
     when(passwordEncoder.encode(customer.getPassword())).thenReturn(customer.getPassword());
+    when(repository.findByEmail("unit-test@email.com")).thenReturn(null);
   }
 
 
   @Test
   @DisplayName("should register customer when everything success")
-  public void registerCustomerWithSuccess() throws PasswordValidationError, ValidationError {
+  public void registerCustomerWithSuccess() throws Exception {
     registerCustomer.execute(customer);
 
     verify(repository, times(1)).save(any());
@@ -59,13 +61,13 @@ class RegisterCustomerUnitTest {
   public void registerCustomerWithNameLessThanTwoCharacters() {
     customer.setName("ut");
 
-    ValidationError exeption = assertThrows(
-            ValidationError.class, () -> {
+    Exception exception = assertThrows(
+            Exception.class, () -> {
               registerCustomer.execute(customer);
             }
     );
 
-   assertEquals("Nome menor que dois character", exeption.getMessage());
+   assertEquals("Nome menor que três character", exception.getMessage());
   }
 
   @Test
@@ -91,8 +93,21 @@ class RegisterCustomerUnitTest {
   }
 
   @Test
+  @DisplayName("should customer when email is exist")
+  public void registerCustomerWithEmailExist() throws Exception {
+    when(repository.findByEmail("unit-test@email.com")).thenReturn(customer);
+
+    Exception exception = assertThrows(
+            Exception.class, () -> {
+              registerCustomer.execute(customer);
+            }
+    );
+    assertEquals("Email já está em uso", exception.getMessage());
+  }
+
+  @Test
   @DisplayName("should customer when password is cryptographic")
-  public void registerCustomerWithPasswordEncode() throws PasswordValidationError, ValidationError {
+  public void registerCustomerWithPasswordEncode() throws Exception {
     registerCustomer.execute(customer);
     verify(passwordEncoder, times(1)).encode(any());
   }

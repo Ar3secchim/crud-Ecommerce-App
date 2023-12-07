@@ -1,11 +1,10 @@
-package com.crud.modules.customers.usecase;
+package com.crud.modules.usecase.customers;
 
 import com.crud.modules.customers.DTO.CustomerRequest;
 import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
-import com.crud.modules.product.DTO.ProductRequest;
-import com.crud.modules.product.entity.Product;
+import com.crud.modules.customers.usecase.UpdateCustomer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,9 +34,9 @@ class UpdateCustomerUnitTest {
     customerRequest.setAddress("street uni test, 000");
 
     Customer customer = new Customer();
-    customer.setSku("uni-test");
+    customer.setIdTransaction("uni-test");
 
-    when(repository.findBySku("uni-test")).thenReturn(customer);
+    when(repository.findByIdTransaction("uni-test")).thenReturn(customer);
 
     CustomerResponse customerResponse = updateCustomer.execute(customerRequest.getSku(), customerRequest);
 
@@ -50,12 +49,12 @@ class UpdateCustomerUnitTest {
   void UpdateProductIdInvalid(){
     CustomerRequest customerRequest = new CustomerRequest();
 
-    when(repository.findBySku("uni-test")).thenReturn(new Customer());
+    when(repository.findByIdTransaction("uni-test")).thenReturn(new Customer());
 
-    Customer customer = repository.findBySku("uni-test");
+    Customer customer = repository.findByIdTransaction("uni-test");
 
     Exception exception = assertThrows(
-            Exception.class, () -> updateCustomer.execute(customer.getSku(), customerRequest));
+            Exception.class, () -> updateCustomer.execute(customer.getIdTransaction(), customerRequest));
     assertEquals("Customer not found", exception.getMessage());
   }
 }

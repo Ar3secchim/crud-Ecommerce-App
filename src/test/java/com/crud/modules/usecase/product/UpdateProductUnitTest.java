@@ -1,9 +1,10 @@
-package com.crud.modules.product.usecase;
+package com.crud.modules.usecase.product;
 
 import com.crud.modules.product.DTO.ProductRequest;
 import com.crud.modules.product.DTO.ProductResponse;
 import com.crud.modules.product.entity.Product;
 import com.crud.modules.product.repository.ProductRepository;
+import com.crud.modules.product.usecase.UpdateProduct;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,13 +37,13 @@ class UpdateProductUnitTest {
     productRequest.setName("uni-Test");
 
     Product product = new Product();
-    product.setSku("uni-test");
+    product.setSkuId("uni-test");
 
     when(repository.findProductById("uni-test")).thenReturn(product);
 
     Product productValid = repository.findProductById("uni-test");
 
-    ProductResponse productResponse = updateProduct.execute(productValid.getSku(), productRequest);
+    ProductResponse productResponse = updateProduct.execute(productValid.getSkuId(), productRequest);
 
     verify(repository, times(1)).save(any());
     assertEquals("uni-Test", productResponse.getName());
@@ -58,7 +59,7 @@ class UpdateProductUnitTest {
     Product product = repository.findProductById("uni-test");
 
     Exception exception = assertThrows(
-            Exception.class, () -> updateProduct.execute(product.getSku(), productRequest));
+            Exception.class, () -> updateProduct.execute(product.getSkuId(), productRequest));
     assertEquals("Not exist product", exception.getMessage());
   }
 }

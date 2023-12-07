@@ -15,7 +15,7 @@ public class OrdemItemConvert {
     public static OrderItem toEntity(OrderItemRequest orderItemRequest, Order order, Product product){
       OrderItem orderItem = new OrderItem();
 
-      orderItem.setSku(UUID.randomUUID().toString());
+      orderItem.setIdTransaction(UUID.randomUUID().toString());
       orderItem.setOrder(order);
       orderItem.setProduct(product);
       orderItem.setAmount(orderItemRequest.getAmount());
@@ -27,7 +27,7 @@ public class OrdemItemConvert {
     public static OrderItemResponse toResponseOrderItem(OrderItem orderItem){
       OrderItemResponse orderItemResponse = new OrderItemResponse();
 
-      orderItemResponse.setOrderSku(orderItem.getOrder().getSku());
+      orderItemResponse.setOrderId(orderItem.getOrder().getIdTransaction());
       orderItemResponse.setProduct(orderItem.getProduct());
       orderItemResponse.setAmount(orderItem.getAmount());
       orderItemResponse.setTotal(orderItem.getTotal());

@@ -10,6 +10,6 @@ public class Validator {
   }
 
   public static Boolean name(String name){
-    return name.matches("^\\S{3,}");
+    return name.matches("^\\p{L}{3,}(\\s\\p{L}+)*$");
   }
 }

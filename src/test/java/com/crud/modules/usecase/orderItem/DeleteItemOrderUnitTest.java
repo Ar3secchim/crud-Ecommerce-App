@@ -1,8 +1,9 @@
-package com.crud.modules.orderItem.usecase;
+package com.crud.modules.usecase.orderItem;
 
 import com.crud.modules.order.DTO.OrderRequest;
 import com.crud.modules.orderItem.entity.OrderItem;
 import com.crud.modules.orderItem.repository.OrdemItemRepository;
+import com.crud.modules.orderItem.usecase.DeleteItemOrder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

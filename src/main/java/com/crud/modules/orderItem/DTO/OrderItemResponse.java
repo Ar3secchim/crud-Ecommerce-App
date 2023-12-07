@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Data
 public class OrderItemResponse {
-  private String OrderSku;
+  private String orderId;
   private Product product;
   private Integer amount;
   private BigDecimal total;

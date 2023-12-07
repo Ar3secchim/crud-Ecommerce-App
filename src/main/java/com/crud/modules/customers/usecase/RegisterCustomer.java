@@ -8,7 +8,6 @@ import com.crud.modules.customers.repository.CustomerRepository;
 import com.crud.utils.CustomerConvert;
 import com.crud.utils.Validator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,20 +17,29 @@ public class RegisterCustomer {
   private final CustomerRepository repository;
   private final PasswordEncoder passwordEncoder;
 
-  public CustomerResponse execute(Customer customer) throws PasswordValidationError, ValidationError {
-    if(!Validator.name(customer.getName())) throw new ValidationError(customer.getName(), "Nome menor que dois " +
-            "character");
+  public CustomerResponse execute(Customer customer) throws Exception {
+    if(!Validator.name(customer.getName()))
+      throw new ValidationError("name", "Nome menor que três character");
 
-    if(!Validator.passwordValidate(customer.getPassword())) throw new PasswordValidationError("Senha deve seguir o " +
-            "padrão");
+    if(!Validator.passwordValidate(customer.getPassword()))
+      throw new PasswordValidationError("Senha deve seguir o padrão");
 
-    if(!Validator.emailValidate(customer.getEmail())) throw new ValidationError(customer.getEmail(), "Email inválido");
+    checkEmailAvailability(customer.getEmail());
 
     String encodePassword = passwordEncoder.encode(customer.getPassword());
     customer.setPassword(encodePassword);
 
     repository.save(customer);
-
     return CustomerConvert.toResponse(customer);
+  }
+
+  private void checkEmailAvailability(String email) throws Exception {
+    if(!Validator.emailValidate(email))
+      throw new ValidationError("Email", "Email inválido");
+
+    Customer emailExist = repository.findByEmail(email);
+    if  (emailExist != null ) {
+      throw new Exception("Email já está em uso");
+    }
   }
 }

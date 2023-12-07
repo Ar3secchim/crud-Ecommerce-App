@@ -1,7 +1,8 @@
-package com.crud.modules.customers.usecase;
+package com.crud.modules.usecase.customers;
 
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
+import com.crud.modules.customers.usecase.DeleteCustomer;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,11 +28,11 @@ class DeleteCustomerUnitTest {
   @DisplayName("Should customer delete success")
   public void deleteCustomerSuccess() throws Exception {
     Customer customer = new Customer();
-    customer.setSku(UUID.randomUUID().toString());
+    customer.setIdTransaction(UUID.randomUUID().toString());
 
-    when(repository.findBySku(customer.getSku())).thenReturn(customer);
+    when(repository.findByIdTransaction(customer.getIdTransaction())).thenReturn(customer);
 
-    deleteCustomer.execute(customer.getSku());
+    deleteCustomer.execute(customer.getIdTransaction());
 
     verify(repository, times(1)).delete(customer);
   }

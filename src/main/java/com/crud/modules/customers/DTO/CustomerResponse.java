@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Data
 public class CustomerResponse {
-  private String sku;
+  private String idTransaction;
   private String name;
   private String email;
 }

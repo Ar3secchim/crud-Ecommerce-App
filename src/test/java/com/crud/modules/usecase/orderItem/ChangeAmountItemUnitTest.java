@@ -1,4 +1,4 @@
-package com.crud.modules.orderItem.usecase;
+package com.crud.modules.usecase.orderItem;
 
 import com.crud.modules.order.entity.Order;
 import com.crud.modules.order.repository.OrderRepository;
@@ -6,6 +6,7 @@ import com.crud.modules.orderItem.DTO.OrderItemRequest;
 import com.crud.modules.orderItem.DTO.OrderItemResponse;
 import com.crud.modules.orderItem.entity.OrderItem;
 import com.crud.modules.orderItem.repository.OrdemItemRepository;
+import com.crud.modules.orderItem.usecase.ChangeAmountItem;
 import com.crud.modules.product.entity.Product;
 import com.crud.modules.product.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,15 +39,15 @@ class ChangeAmountItemUnitTest {
   @BeforeEach
   public void setup(){
     Order order = new Order();
-    order.setSku("unit-test-order");
+    order.setIdTransaction("unit-test-order");
     order.setOrderItens(new ArrayList<>());
 
     OrderItem orderItemExist = new OrderItem();
-    orderItemExist.setSku("unit-test");
+    orderItemExist.setIdTransaction("unit-test");
     orderItemExist.setOrder(order);
 
     Product product = new Product();
-    product.setSku("unit-test-product");
+    product.setSkuId("unit-test-product");
     product.setPrice(BigDecimal.valueOf(250));
 
     when(ordemItemRepository.findOrderItemById("unit-test")).thenReturn(orderItemExist);
@@ -58,7 +59,7 @@ class ChangeAmountItemUnitTest {
   @DisplayName("should change amount item a orderItem for success")
   public void changeAmountItemSuccess() throws Exception {
     OrderItemRequest orderItemUpdate = new OrderItemRequest();
-    orderItemUpdate.setProductSku("unit-test-product");
+    orderItemUpdate.setProductId("unit-test-product");
     orderItemUpdate.setAmount(1);
 
     OrderItemResponse orderItem = changeAmountItem.execute("unit-test", orderItemUpdate);
@@ -68,7 +69,7 @@ class ChangeAmountItemUnitTest {
 
     assertEquals(BigDecimal.valueOf(250),orderItem.getTotal());
     assertEquals(1,orderItem.getAmount());
-    assertEquals("unit-test-order",orderItem.getOrderSku());
+    assertEquals("unit-test-order",orderItem.getOrderId());
   }
 
   @Test
@@ -77,7 +78,7 @@ class ChangeAmountItemUnitTest {
     when(ordemItemRepository.findOrderItemById("unit-test")).thenReturn(null);
 
     OrderItemRequest orderItemUpdate = new OrderItemRequest();
-    orderItemUpdate.setProductSku("unit-test-product");
+    orderItemUpdate.setProductId("unit-test-product");
     orderItemUpdate.setAmount(1);
 
     Exception exception = assertThrows(Exception.class,
@@ -91,7 +92,7 @@ class ChangeAmountItemUnitTest {
     when(productRepository.findProductById("unit-test-product")).thenReturn(null);
 
     OrderItemRequest orderItemUpdate = new OrderItemRequest();
-    orderItemUpdate.setProductSku("unit-test-product");
+    orderItemUpdate.setProductId("unit-test-product");
     orderItemUpdate.setAmount(1);
 
     Exception exception = assertThrows(Exception.class,
@@ -103,7 +104,7 @@ class ChangeAmountItemUnitTest {
   @DisplayName("should change amount item a orderItem for product equals zero")
   public void changeAmountItemProductEqualsZero() throws Exception {
     OrderItemRequest orderItemUpdate = new OrderItemRequest();
-    orderItemUpdate.setProductSku("unit-test-product");
+    orderItemUpdate.setProductId("unit-test-product");
     orderItemUpdate.setAmount(0);
 
     changeAmountItem.execute("unit-test", orderItemUpdate);

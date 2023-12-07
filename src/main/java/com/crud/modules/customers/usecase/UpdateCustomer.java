@@ -8,21 +8,19 @@ import com.crud.utils.CustomerConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 public class UpdateCustomer {
   @Autowired
   CustomerRepository repository;
 
   public CustomerResponse execute(String id, CustomerRequest customerRequest) throws Exception {
-    Customer customer = repository.findBySku(id);
+    Customer customer = repository.findByIdTransaction(id);
 
     if(customer == null) throw new Exception("Customer not found");
 
     customer.setName(customerRequest.getName());
     customer.setAddress(customerRequest.getAddress());
-    customer.setSku(id);
+    customer.setIdTransaction(id);
     repository.save(customer);
 
     return CustomerConvert.toResponse(customer);

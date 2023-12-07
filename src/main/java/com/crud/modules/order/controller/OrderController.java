@@ -46,7 +46,7 @@ public class OrderController {
   public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest orderRequest) throws Exception {
     OrderResponse orderResponse = createOrder.execute(orderRequest);
     return ResponseEntity
-            .created(URI.create("/order/"+orderResponse.getSku()))
+            .created(URI.create("/order/"+orderResponse.getIdTransaction()))
             .body(orderResponse);
   }
 

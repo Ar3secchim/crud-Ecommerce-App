@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 public class OrderResponse {
-  private String sku;
+  private String idTransaction;
   private String customer;
   private List<OrderItemResponse> items;
   private Order.OrderStatus status;

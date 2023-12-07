@@ -34,7 +34,7 @@ public class ChangeAmountItem{
       deleteOrderItem(orderItem);
     } 
     
-    Product product = validateProduct(orderItemRequest.getProductSku());
+    Product product = validateProduct(orderItemRequest.getProductId());
 
     updateOrderItem(orderItem, orderItemRequest, product);
     updateOrderTotal(orderItem.getOrder());

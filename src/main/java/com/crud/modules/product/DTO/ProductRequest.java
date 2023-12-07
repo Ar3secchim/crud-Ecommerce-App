@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Data
 public class ProductRequest {
   @Schema(name = "Product ID", example = "1", required = true)
-  private String sku;
+  private String skuId;
 
   @Schema(name = "name", example = "console-ps5", required = true)
   @NotBlank()

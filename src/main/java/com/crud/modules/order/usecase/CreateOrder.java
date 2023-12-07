@@ -18,7 +18,7 @@ public class CreateOrder{
   CustomerRepository customerRepository;
 
   public OrderResponse execute(OrderRequest OrderRequest) throws Exception {
-    Customer customer = customerRepository.findBySku(OrderRequest.getCustomerSku());
+    Customer customer = customerRepository.findByIdTransaction(OrderRequest.getCustomerId());
 
     if(customer == null) throw new Exception("Customer not found");
 

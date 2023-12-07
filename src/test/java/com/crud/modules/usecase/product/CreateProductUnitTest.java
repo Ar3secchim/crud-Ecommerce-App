@@ -1,9 +1,10 @@
-package com.crud.modules.product.usecase;
+package com.crud.modules.usecase.product;
 
 import com.crud.modules.product.DTO.ProductRequest;
 import com.crud.modules.product.DTO.ProductResponse;
 import com.crud.modules.product.entity.Product;
 import com.crud.modules.product.repository.ProductRepository;
+import com.crud.modules.product.usecase.CreateProduct;
 import com.crud.utils.ProductConvert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,13 +26,13 @@ class CreateProductUnitTest {
   @Mock
   private  ProductRepository repository;
   @InjectMocks
-  private  CreateProduct createProduct;
+  private CreateProduct createProduct;
 
   @Test
   @DisplayName("should create product when everything success")
   public void createProductWithSuccess() throws Exception {
     ProductRequest productRequest = new ProductRequest();
-    productRequest.setSku(UUID.randomUUID().toString());
+    productRequest.setSkuId(UUID.randomUUID().toString());
     productRequest.setQuantityStock(10);
     productRequest.setPrice(BigDecimal.valueOf(250));
     productRequest.setDescription("uni-Test");

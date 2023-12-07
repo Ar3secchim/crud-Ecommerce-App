@@ -1,10 +1,9 @@
-package com.crud.modules.product.usecase;
+package com.crud.modules.usecase.product;
 
-import com.crud.modules.customers.DTO.CustomerResponse;
-import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.product.DTO.ProductResponse;
 import com.crud.modules.product.entity.Product;
 import com.crud.modules.product.repository.ProductRepository;
+import com.crud.modules.product.usecase.FindProduct;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +14,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -26,7 +24,7 @@ class FindProductUnitTest {
   @Mock
   private ProductRepository repository;
   @InjectMocks
-  private  FindProduct findProduct;
+  private FindProduct findProduct;
 
 
   @Test
@@ -36,7 +34,7 @@ class FindProductUnitTest {
     Product productTest = new Product();
 
     for (int i = 0; i < 4; i++) {
-      productTest.setSku("unit-test" +i);
+      productTest.setSkuId("unit-test" +i);
       productTest.setQuantityStock(i);
       productTest.setPrice(BigDecimal.valueOf(i));
       productTest.setDescription("uni-Test " + i);
@@ -57,14 +55,14 @@ class FindProductUnitTest {
   @DisplayName("Should product find by id")
   public void findProductById(){
     Product product = new Product();
-    product.setSku("uni-Test");
+    product.setSkuId("uni-Test");
 
-    when(repository.findProductById(product.getSku())).thenReturn(product);
+    when(repository.findProductById(product.getSkuId())).thenReturn(product);
 
     ProductResponse productResponse = findProduct.findById("uni-Test");
 
     verify(repository, times(1)).findProductById(any());
-    assertEquals("uni-Test", productResponse.getSku());
+    assertEquals("uni-Test", productResponse.getSkuId());
   }
 
   @Test

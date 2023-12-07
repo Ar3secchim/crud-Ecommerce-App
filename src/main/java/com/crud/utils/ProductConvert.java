@@ -13,7 +13,7 @@ public class ProductConvert {
   public static Product toEntity(ProductRequest productRequest){
     Product product = new Product();
 
-    product.setSku(UUID.randomUUID().toString());
+    product.setSkuId(UUID.randomUUID().toString());
     product.setDescription(productRequest.getDescription());
     product.setName(productRequest.getName());
     product.setQuantityStock(product.getQuantityStock());
@@ -24,7 +24,7 @@ public class ProductConvert {
   public static ProductResponse toResponse(Product product){
     ProductResponse productResponse = new ProductResponse();
 
-    productResponse.setSku(product.getSku());
+    productResponse.setSkuId(product.getSkuId());
     productResponse.setName(product.getName());
     productResponse.setPrice(product.getPrice());
     productResponse.setQuantityStock(product.getQuantityStock());

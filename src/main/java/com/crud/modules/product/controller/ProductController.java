@@ -6,7 +6,6 @@ import com.crud.modules.product.usecase.CreateProduct;
 import com.crud.modules.product.usecase.DeleteProduct;
 import com.crud.modules.product.usecase.FindProduct;
 import com.crud.modules.product.usecase.UpdateProduct;
-import com.crud.utils.ProductConvert;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -39,7 +38,7 @@ public class ProductController {
   public ResponseEntity<ProductResponse> create(@RequestBody ProductRequest productRequest) throws Exception {
     ProductResponse productResponse =  createProductService.execute(productRequest);
     return ResponseEntity
-            .created(URI.create("/product/"+productResponse.getSku()))
+            .created(URI.create("/product/"+productResponse.getSkuId()))
             .body(productResponse);
   }
 

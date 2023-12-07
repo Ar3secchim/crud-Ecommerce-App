@@ -1,7 +1,8 @@
-package com.crud.modules.autentication.usecase;
+package com.crud.modules.usecase.autentication;
 
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
+import com.crud.modules.autentication.usecase.AutenticationService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

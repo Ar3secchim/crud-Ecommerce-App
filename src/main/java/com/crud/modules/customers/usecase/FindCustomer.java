@@ -8,7 +8,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,7 +26,7 @@ public class FindCustomer {
   }
 
   public CustomerResponse findById(String id) {
-    var customer = repository.findBySku(id);
+    var customer = repository.findByIdTransaction(id);
 
     if(customer == null){
       throw new EntityNotFoundException("Customer not found with ID: " + id);

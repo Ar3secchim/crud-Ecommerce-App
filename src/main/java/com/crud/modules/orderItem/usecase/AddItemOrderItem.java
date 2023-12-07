@@ -38,7 +38,7 @@ public class AddItemOrderItem {
   public OrderItemResponse execute(String orderId, OrderItemRequest orderItemRequest) throws Exception {
     Order order = validateOrder(orderId);
 
-    Product product = validateProduct(orderItemRequest.getProductSku());
+    Product product = validateProduct(orderItemRequest.getProductId());
 
     OrderItem orderItem = saveOrderItem(order, orderItemRequest, product);
 

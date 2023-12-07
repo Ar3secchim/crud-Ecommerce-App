@@ -1,19 +1,18 @@
-package com.crud.modules.order.usecase;
+package com.crud.modules.usecase.order;
 
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.order.entity.Order;
 import com.crud.modules.order.repository.OrderRepository;
+import com.crud.modules.order.usecase.FindOrder;
 import org.junit.jupiter.api.DisplayName;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,7 +29,7 @@ class FindOrderUnitTest {
   @DisplayName("should all order")
   public void findAllOrder(){
    Order order = new Order();
-   order.setSku("uni-test");
+   order.setIdTransaction("uni-test");
    order.setCustomer(new Customer());
 
     when(repository.findAll()).thenReturn(List.of(order));
@@ -43,11 +42,11 @@ class FindOrderUnitTest {
   @DisplayName("should order find by id success")
   public void findOrderByIdSuccess() throws Exception {
     Order order = new Order();
-    order.setSku("uni-test");
+    order.setIdTransaction("uni-test");
     order.setCustomer(new Customer());
 
-    when(repository.findOrderById(order.getSku())).thenReturn(order);
-    findOrder.findById(order.getSku());
+    when(repository.findOrderById(order.getIdTransaction())).thenReturn(order);
+    findOrder.findById(order.getIdTransaction());
 
     verify(repository, times(1)).findOrderById(any());
   }

@@ -1,7 +1,8 @@
-package com.crud.modules.order.usecase;
+package com.crud.modules.usecase.order;
 
 import com.crud.modules.order.entity.Order;
 import com.crud.modules.order.repository.OrderRepository;
+import com.crud.modules.order.usecase.DeleteOrder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +37,7 @@ class DeleteOrderUnitTest {
   @DisplayName("Should exception a delete order success")
   public void deleteOrderSuccess() throws Exception {
     Order order = new Order();
-    order.setSku("unit-test");
+    order.setIdTransaction("unit-test");
 
     when(repository.findOrderById("uni-test")).thenReturn(order);
 

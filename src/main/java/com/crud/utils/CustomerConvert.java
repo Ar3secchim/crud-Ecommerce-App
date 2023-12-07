@@ -13,7 +13,7 @@ public class CustomerConvert {
   public static Customer toEntity(CustomerRequest customerRequest){
     Customer customer = new Customer();
 
-    customer.setSku(UUID.randomUUID().toString());
+    customer.setIdTransaction(UUID.randomUUID().toString());
     customer.setName(customerRequest.getName());
     customer.setEmail(customerRequest.getEmail());
     customer.setAddress(customerRequest.getAddress());
@@ -23,7 +23,7 @@ public class CustomerConvert {
 
   public static CustomerResponse toResponse(Customer customer){
     CustomerResponse customerResponse = new CustomerResponse();
-    customerResponse.setSku(customer.getSku());
+    customerResponse.setIdTransaction(customer.getIdTransaction());
     customerResponse.setName(customer.getName());
     customerResponse.setEmail(customer.getEmail());
     return customerResponse;

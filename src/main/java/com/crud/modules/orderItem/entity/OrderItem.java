@@ -22,8 +22,8 @@ public class OrderItem {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(nullable = false)
-  private String sku;
+  @Column(nullable = false, name = "id_transaction")
+  private String idTransaction;
 
   @ManyToOne
   @JoinColumn(name = "order_id")

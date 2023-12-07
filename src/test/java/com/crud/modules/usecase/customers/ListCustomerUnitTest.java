@@ -1,8 +1,9 @@
-package com.crud.modules.customers.usecase;
+package com.crud.modules.usecase.customers;
 
 import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
+import com.crud.modules.customers.usecase.ListCustomer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

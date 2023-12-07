@@ -1,7 +1,8 @@
-package com.crud.modules.product.usecase;
+package com.crud.modules.usecase.product;
 
 import com.crud.modules.product.entity.Product;
 import com.crud.modules.product.repository.ProductRepository;
+import com.crud.modules.product.usecase.DeleteProduct;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,8 +10,6 @@ import org.mockito.InjectMocks;
 
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -22,7 +21,7 @@ class DeleteProductUnitTest {
   private ProductRepository repository;
 
   @InjectMocks
-  private  DeleteProduct deleteProduct;
+  private DeleteProduct deleteProduct;
 
   @Test
   @DisplayName("Should exception a delete customer not exist")
@@ -39,7 +38,7 @@ class DeleteProductUnitTest {
   @DisplayName("Should exception a delete customer")
   public void deleteCustomer() throws Exception {
     Product product = new Product();
-    product.setSku("unit-test");
+    product.setSkuId("unit-test");
 
     when(repository.findProductById("uni-test")).thenReturn(product);
 

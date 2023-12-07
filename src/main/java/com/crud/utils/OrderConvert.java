@@ -1,6 +1,5 @@
 package com.crud.utils;
 
-import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.orderItem.DTO.OrderItemResponse;
 import com.crud.modules.order.DTO.OrderResponse;
 import com.crud.modules.customers.entity.Customer;
@@ -16,7 +15,7 @@ public class OrderConvert {
   public static Order toEntity(Customer customer){
     Order order = new Order();
 
-    order.setSku(UUID.randomUUID().toString());
+    order.setIdTransaction(UUID.randomUUID().toString());
     order.setCustomer(customer);
     order.setStatus(Order.OrderStatus.OPEN);
     order.setOrderItens(new ArrayList<>());
@@ -30,8 +29,8 @@ public class OrderConvert {
     OrderResponse orderResponse = new OrderResponse();
     List<OrderItemResponse> orderItemsResponse = OrdemItemConvert.toResponseList(order.getOrderItens());
 
-    orderResponse.setSku(order.getSku());
-    orderResponse.setCustomer(order.getCustomer().getSku());
+    orderResponse.setIdTransaction(order.getIdTransaction());
+    orderResponse.setCustomer(order.getCustomer().getIdTransaction());
     orderResponse.setItems(orderItemsResponse);
     orderResponse.setStatus(order.getStatus());
     orderResponse.setTotal(order.getTotal());

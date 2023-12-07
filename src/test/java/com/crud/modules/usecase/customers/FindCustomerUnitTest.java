@@ -1,8 +1,9 @@
-package com.crud.modules.customers.usecase;
+package com.crud.modules.usecase.customers;
 
 import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
+import com.crud.modules.customers.usecase.FindCustomer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -32,7 +31,7 @@ class FindCustomerUnitTest {
   @BeforeEach
   public void setup(){
     customer = new Customer();
-    customer.setSku("unit-test");
+    customer.setIdTransaction("unit-test");
     customer.setEmail("validEmail@email.com");
     customer.setAddress("validAddress,999");
     customer.setName("ValidName");
@@ -42,23 +41,23 @@ class FindCustomerUnitTest {
   @Test
   @DisplayName("Should customer find by id")
   public void findCustomerById(){
-    when(repository.findBySku(customer.getSku())).thenReturn(customer);
+    when(repository.findByIdTransaction(customer.getIdTransaction())).thenReturn(customer);
 
-    CustomerResponse customerTest = findCustomer.findById(customer.getSku());
+    CustomerResponse customerTest = findCustomer.findById(customer.getIdTransaction());
 
-    verify(repository, times(1)).findBySku(any());
-    assertEquals(customer.getSku(), customerTest.getSku(), "Unexpected customer id");
+    verify(repository, times(1)).findByIdTransaction(any());
+    assertEquals(customer.getIdTransaction(), customerTest.getIdTransaction(), "Unexpected customer id");
   }
 
   @Test
   @DisplayName("Should customer find by id invalid")
   public void findCustomerByIdInvalid(){
-    when(repository.findBySku(customer.getSku())).thenReturn(null);
+    when(repository.findByIdTransaction(customer.getIdTransaction())).thenReturn(null);
 
-    var execption = assertThrows(Exception.class, () -> findCustomer.findById(customer.getSku()));
+    var execption = assertThrows(Exception.class, () -> findCustomer.findById(customer.getIdTransaction()));
 
     assertEquals("Customer not found with ID: " + "unit-test", execption.getMessage());
-    verify(repository, times(1)).findBySku(any());
+    verify(repository, times(1)).findByIdTransaction(any());
   }
 
   @Test

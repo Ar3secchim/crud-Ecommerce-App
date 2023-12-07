@@ -15,8 +15,8 @@ public class Product {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(nullable = false)
-  private String sku;
+  @Column(nullable = false, name = "sku_id")
+  private String skuId;
 
   @Column(nullable = false)
   private String name;

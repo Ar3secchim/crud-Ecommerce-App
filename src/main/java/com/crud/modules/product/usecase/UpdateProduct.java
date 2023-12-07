@@ -19,7 +19,7 @@ public class UpdateProduct {
     }
 
     Product product = ProductConvert.toEntity(productRequest);
-    product.setSku(id);
+    product.setSkuId(id);
     repository.save(product);
     return ProductConvert.toResponse(product);
   }

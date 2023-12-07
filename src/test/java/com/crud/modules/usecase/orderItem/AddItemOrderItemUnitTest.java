@@ -1,4 +1,4 @@
-package com.crud.modules.orderItem.usecase;
+package com.crud.modules.usecase.orderItem;
 
 import com.crud.infra.queue.ReservationItemStockProducer;
 import com.crud.modules.order.entity.Order;
@@ -6,8 +6,8 @@ import com.crud.modules.order.repository.OrderRepository;
 import com.crud.modules.order.usecase.UpdateOrder;
 import com.crud.modules.orderItem.DTO.OrderItemRequest;
 import com.crud.modules.orderItem.DTO.OrderItemResponse;
-import com.crud.modules.orderItem.entity.OrderItem;
 import com.crud.modules.orderItem.repository.OrdemItemRepository;
+import com.crud.modules.orderItem.usecase.AddItemOrderItem;
 import com.crud.modules.product.entity.Product;
 import com.crud.modules.product.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,17 +39,17 @@ class AddItemOrderItemUnitTest {
   ReservationItemStockProducer reservationItemStock;
 
   @InjectMocks
-  AddItemOrderItem  addItemOrderItem;
+  AddItemOrderItem addItemOrderItem;
 
 
   @BeforeEach
   public void setup() throws Exception {
     Order order = new Order();
-    order.setSku("unit-test-order");
+    order.setIdTransaction("unit-test-order");
     order.setOrderItens(new ArrayList<>());
 
     Product product = new Product();
-    product.setSku("unit-test-product");
+    product.setSkuId("unit-test-product");
     product.setPrice(BigDecimal.valueOf(250));
 
     when(productRepository.findProductById("unit-test-product")).thenReturn(product);
@@ -62,7 +62,7 @@ class AddItemOrderItemUnitTest {
   @DisplayName("should add item a order with success")
   public void AddItemOrderSuccess() throws Exception {
     OrderItemRequest orderItemUpdate = new OrderItemRequest();
-    orderItemUpdate.setProductSku("unit-test-product");
+    orderItemUpdate.setProductId("unit-test-product");
     orderItemUpdate.setAmount(1);
 
     OrderItemResponse orderItem = addItemOrderItem.execute("unit-test-order", orderItemUpdate);
@@ -80,7 +80,7 @@ class AddItemOrderItemUnitTest {
     when(orderRepository.findOrderById("unit-test-order")).thenReturn(null);
 
     OrderItemRequest orderItemUpdate = new OrderItemRequest();
-    orderItemUpdate.setProductSku("unit-test-product");
+    orderItemUpdate.setProductId("unit-test-product");
     orderItemUpdate.setAmount(1);
 
     Exception exception = assertThrows(Exception.class,
