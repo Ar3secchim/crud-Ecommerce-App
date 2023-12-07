@@ -2,6 +2,7 @@ package com.crud.infra.configuration;
 
 import com.crud.infra.exception.BadRequestClient;
 import com.crud.infra.exception.PasswordValidationError;
+import com.crud.infra.exception.ValidationErrorObject;
 import com.crud.infra.exception.ValidationError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -24,14 +26,18 @@ public class ControllerAdvice {
 
   @ResponseStatus(code = HttpStatus.BAD_REQUEST)
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public List<ValidationError> handler(MethodArgumentNotValidException exception){
-    List<ValidationError> errors = new ArrayList<>();
+  @ResponseBody
+  public List<ValidationErrorObject> handler(MethodArgumentNotValidException exception){
+    List<ValidationErrorObject> errors = new ArrayList<>();
     List<FieldError> fieldErros = exception.getBindingResult().getFieldErrors();
 
     fieldErros.forEach( e -> {
       String message = messageSource.getMessage(e, LocaleContextHolder.getLocale());
       ValidationError validationError =  new ValidationError(e.getField(), message);
-      errors.add(validationError);
+      ValidationErrorObject validateErrorObject = new ValidationErrorObject(
+              validationError.getField(), validationError.getMessage());
+
+      errors.add(validateErrorObject);
     });
 
     return errors;
@@ -39,8 +45,8 @@ public class ControllerAdvice {
 
   @ResponseStatus(code = HttpStatus.BAD_REQUEST)
   @ExceptionHandler(PasswordValidationError.class)
-  public String handlerPassword(PasswordValidationError exception){
-    return exception.getDescription();
+  public List<String> handlerPassword(PasswordValidationError exception){
+    return Collections.singletonList(exception.getMessage());
   }
 
   @ResponseStatus(code = HttpStatus.BAD_REQUEST)

@@ -67,18 +67,18 @@ class RegisterCustomerUnitTest {
             }
     );
 
-   assertEquals("Nome menor que três character", exception.getMessage());
+   assertEquals("length must be between 3 and 35", exception.getMessage());
   }
 
   @Test
   @DisplayName("should throw exception customer when email is invalid")
   public void registerCustomerWithEmailInvalid() {
-    customer.setEmail("emailInvalid.com");
+    customer.setEmail("emailInvalid");
 
-    ValidationError exeption = assertThrows(
-            ValidationError.class, () -> registerCustomer.execute(customer));
+    Exception exeption = assertThrows(
+            Exception.class, () -> registerCustomer.execute(customer));
 
-    assertEquals("Email inválido", exeption.getMessage());
+    assertEquals("must be a well-formed email address", exeption.getMessage());
   }
 
   @Test
@@ -89,7 +89,7 @@ class RegisterCustomerUnitTest {
     PasswordValidationError exeption = assertThrows(
             PasswordValidationError.class, () -> registerCustomer.execute(customer));
 
-    assertEquals("Senha deve seguir o padrão", exeption.getDescription());
+    assertEquals("Senha deve seguir o padrão", exeption.getMessage());
   }
 
   @Test

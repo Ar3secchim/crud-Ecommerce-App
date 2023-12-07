@@ -1,6 +1,5 @@
 package com.crud.modules.integration.customers.controller;
 
-import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.usecase.RegisterCustomer;
 import com.crud.utils.CustomerConvert;
@@ -19,25 +18,26 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @AutoConfigureMockMvc
-class CustomerControllerIntegrationTest {
+class CustomerCreateControllerIntegrationTest {
   @MockBean
   private RegisterCustomer registerCustomer;;
 
   @Autowired
   private MockMvc mockMvc;
 
-  @Test
-  void createCustomer() throws Exception {
+  @BeforeEach
+  void setup() throws Exception {
     Mockito.doAnswer(invocationOnMock -> {
       Customer customer = (Customer) invocationOnMock.getArgument(0);
       customer.setIdTransaction(UUID.randomUUID().toString());
       return CustomerConvert.toResponse(customer);
     }).when(registerCustomer).execute(Mockito.any());
+  }
 
+  @Test
+  void createCustomerWithSuccess() throws Exception {
     mockMvc.perform(
             MockMvcRequestBuilders.post("/customer")
                     .content("""
@@ -60,27 +60,51 @@ class CustomerControllerIntegrationTest {
   }
 
   @Test
-  void getAllCustomer() {
-
+  void createCustomerWithNameErrorLengthMust3() throws Exception {
+    mockMvc.perform(
+            MockMvcRequestBuilders.post("/customer")
+                    .content("""
+                            {
+                              "name": "t",
+                              "email": "int-test@gmail.com",
+                              "address": "int-test, 000",
+                              "password":"@Int-test123"
+                            }
+                            """)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+    ).andDo(
+            MockMvcResultHandlers.print()
+    ).andExpect(
+            MockMvcResultMatchers.status().is4xxClientError()
+    ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.[0].message")
+                    .value("length must be between 3 and 35")
+    );
   }
 
   @Test
-  void getCustomerByEmail() {
+  void createCustomerWithEmailError() throws Exception {
+    mockMvc.perform(
+            MockMvcRequestBuilders.post("/customer")
+                    .content("""
+                            {
+                              "name": "int-test",
+                              "email": "int-test",
+                              "address": "int-test, 000",
+                              "password":"@Int-test123"
+                            }
+                            """)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+    ).andDo(
+            MockMvcResultHandlers.print()
+    ).andExpect(
+            MockMvcResultMatchers.status().is4xxClientError()
+    ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.[0].message")
+                    .value("must be a well-formed email address")
+    );
   }
 
-  @Test
-  void getCustomerById() {
-  }
-
-  @Test
-  void getCustomerByName() {
-  }
-
-  @Test
-  void updateCustomer() {
-  }
-
-  @Test
-  void deleteCustomer() {
-  }
 }
