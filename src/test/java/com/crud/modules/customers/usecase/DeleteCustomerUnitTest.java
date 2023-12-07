@@ -30,7 +30,7 @@ class DeleteCustomerUnitTest {
     Customer customer = new Customer();
     customer.setSku(UUID.randomUUID().toString());
 
-    when(repository.findById(customer.getSku())).thenReturn(Optional.of(customer));
+    when(repository.findBySku(customer.getSku())).thenReturn(customer);
 
     deleteCustomer.execute(customer.getSku());
 

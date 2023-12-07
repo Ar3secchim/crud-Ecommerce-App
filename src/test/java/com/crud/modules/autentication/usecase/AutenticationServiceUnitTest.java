@@ -21,7 +21,7 @@ class AutenticationServiceUnitTest {
   private AutenticationService autenticationService;
 
   @Test
-  @DisplayName("Should authentication user")
+  @DisplayName("Should authentication user with success")
   void AuthenticationUserSuccess(){
     Customer customer = new Customer();
     customer.setEmail("uni-Test@email.com");
@@ -33,7 +33,7 @@ class AutenticationServiceUnitTest {
   }
 
   @Test
-  @DisplayName("Should authentication user invalid")
+  @DisplayName("Should authentication user invalid and return exception")
   void AuthenticationUserInvalid(){
     when(repository.findByEmail("uni-test@email.com")).thenReturn(null);
 
