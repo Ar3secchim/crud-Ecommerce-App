@@ -1,5 +1,6 @@
 package com.crud.modules.usecase.customers;
 
+import com.crud.infra.exception.BadRequestClient;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
 import com.crud.modules.customers.usecase.DeleteCustomer;
@@ -40,8 +41,8 @@ class DeleteCustomerUnitTest {
   @Test
   @DisplayName("Should exception a delete customer not exist")
   public void deleteCustomerEquals(){
-    EntityNotFoundException exception = assertThrows(
-            EntityNotFoundException.class, () -> deleteCustomer.execute("unit-test"));
+    BadRequestClient exception = assertThrows(
+            BadRequestClient.class, () -> deleteCustomer.execute("unit-test"));
 
     assertEquals("Customer not found with ID: unit-test", exception.getMessage());
   }

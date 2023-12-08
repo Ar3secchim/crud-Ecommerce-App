@@ -1,5 +1,6 @@
 package com.crud.modules.customers.usecase;
 
+import com.crud.infra.exception.BadRequestClient;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,7 +14,7 @@ public class DeleteCustomer {
 
   public void execute(String id) throws Exception {
     Customer customer = repository.findByIdTransaction(id);
-    if (customer == null) throw new EntityNotFoundException("Customer not found with ID: " + id);
+    if (customer == null) throw new BadRequestClient("Customer not found with ID: " + id);
     repository.delete(customer);
   }
 }

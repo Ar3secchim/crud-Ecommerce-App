@@ -3,19 +3,14 @@ package com.crud.modules.order.entity;
 import com.crud.modules.orderItem.entity.OrderItem;
 import com.crud.modules.customers.entity.Customer;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@Data
 @Entity(name = "order")
 @Table(name = "orders")
 public class Order {

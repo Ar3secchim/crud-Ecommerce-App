@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity(name = "product")

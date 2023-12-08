@@ -3,18 +3,12 @@ package com.crud.modules.orderItem.entity;
 import com.crud.modules.product.entity.Product;
 import com.crud.modules.order.entity.Order;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-
+@Data
 @Entity(name = "OrderItem")
 @Table(name = "Order_item")
 public class OrderItem {

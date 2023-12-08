@@ -39,46 +39,46 @@ class CustomerCreateControllerIntegrationTest {
   @Test
   void createCustomerWithSuccess() throws Exception {
     mockMvc.perform(
-            MockMvcRequestBuilders.post("/customer")
-                    .content("""
-                            {
-                              "name": "int-test",
-                              "email": "int-test@gmail.com",
-                              "address": "int-test, 000",
-                              "password":"@Int-test123"
-                            }
-                            """)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
+      MockMvcRequestBuilders.post("/customer")
+        .content("""
+          {
+            "name": "int-test",
+            "email": "int-test@gmail.com",
+            "address": "int-test, 000",
+            "password":"@Int-test123"
+          }
+          """)
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON)
     ).andDo(
-            MockMvcResultHandlers.print()
+        MockMvcResultHandlers.print()
     ).andExpect(
-            MockMvcResultMatchers.status().isCreated()
+        MockMvcResultMatchers.status().isCreated()
     ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.idTransaction").isNotEmpty()
+        MockMvcResultMatchers.jsonPath("$.idTransaction").isNotEmpty()
     );
   }
 
   @Test
   void createCustomerWithNameErrorLengthMust3() throws Exception {
     mockMvc.perform(
-            MockMvcRequestBuilders.post("/customer")
-                    .content("""
-                            {
-                              "name": "t",
-                              "email": "int-test@gmail.com",
-                              "address": "int-test, 000",
-                              "password":"@Int-test123"
-                            }
-                            """)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
+      MockMvcRequestBuilders.post("/customer")
+        .content("""
+          {
+            "name": "t",
+            "email": "int-test@gmail.com",
+            "address": "int-test, 000",
+            "password":"@Int-test123"
+          }
+          """)
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON)
     ).andDo(
-            MockMvcResultHandlers.print()
+        MockMvcResultHandlers.print()
     ).andExpect(
-            MockMvcResultMatchers.status().is4xxClientError()
+        MockMvcResultMatchers.status().is4xxClientError()
     ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.[0].message")
+        MockMvcResultMatchers.jsonPath("$.[0].message")
                     .value("length must be between 3 and 35")
     );
   }
@@ -86,25 +86,24 @@ class CustomerCreateControllerIntegrationTest {
   @Test
   void createCustomerWithEmailError() throws Exception {
     mockMvc.perform(
-            MockMvcRequestBuilders.post("/customer")
-                    .content("""
-                            {
-                              "name": "int-test",
-                              "email": "int-test",
-                              "address": "int-test, 000",
-                              "password":"@Int-test123"
-                            }
-                            """)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
+      MockMvcRequestBuilders.post("/customer")
+        .content("""
+          {
+            "name": "int-test",
+            "email": "int-test",
+            "address": "int-test, 000",
+            "password":"@Int-test123"
+          }
+          """)
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON)
     ).andDo(
-            MockMvcResultHandlers.print()
+        MockMvcResultHandlers.print()
     ).andExpect(
-            MockMvcResultMatchers.status().is4xxClientError()
+        MockMvcResultMatchers.status().is4xxClientError()
     ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.[0].message")
-                    .value("must be a well-formed email address")
+      MockMvcResultMatchers.jsonPath("$.[0].message")
+              .value("must be a well-formed email address")
     );
   }
-
 }
