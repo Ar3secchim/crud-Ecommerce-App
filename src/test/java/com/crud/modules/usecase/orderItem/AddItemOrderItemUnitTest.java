@@ -88,10 +88,20 @@ class AddItemOrderItemUnitTest {
     assertEquals("Order not found",exception.getMessage());
   }
 
-//  @Test
-//  @DisplayName("should add item a order with product invalid")
-//  public void AddItemOrderWithProductInvalid() {}
-//
+  @Test
+  @DisplayName("should add item a order with product invalid")
+  public void AddItemOrderWithProductInvalid() {
+    when(productRepository.findProductById("unit-test-product")).thenReturn(null);
+
+    OrderItemRequest orderItemUpdate = new OrderItemRequest();
+    orderItemUpdate.setProductId("unit-test-product");
+    orderItemUpdate.setAmount(1);
+
+    Exception exception = assertThrows(Exception.class,
+            () ->  addItemOrderItem.execute("unit-test-order", orderItemUpdate));
+    assertEquals("Product not found",exception.getMessage());
+  }
+
 //  @Test
 //  @DisplayName("should add item a order with send msg for stock invalid")
 //  public void AddItemOrderSendMsgError() {}

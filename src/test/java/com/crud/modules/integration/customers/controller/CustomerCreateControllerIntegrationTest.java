@@ -78,7 +78,7 @@ class CustomerCreateControllerIntegrationTest {
     ).andExpect(
         MockMvcResultMatchers.status().is4xxClientError()
     ).andExpect(
-        MockMvcResultMatchers.jsonPath("$.[0].message")
+        MockMvcResultMatchers.jsonPath("$.errors[0].name")
                     .value("length must be between 3 and 35")
     );
   }
@@ -102,7 +102,7 @@ class CustomerCreateControllerIntegrationTest {
     ).andExpect(
         MockMvcResultMatchers.status().is4xxClientError()
     ).andExpect(
-      MockMvcResultMatchers.jsonPath("$.[0].message")
+      MockMvcResultMatchers.jsonPath("$.errors[0].email")
               .value("must be a well-formed email address")
     );
   }
