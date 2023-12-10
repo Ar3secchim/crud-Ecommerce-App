@@ -2,6 +2,7 @@ package com.crud.modules.customers.controller;
 
 import com.crud.infra.exception.BadRequestClient;
 import com.crud.modules.customers.DTO.CustomerRequest;
+import com.crud.modules.customers.DTO.CustomerRequestUpdate;
 import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.usecase.*;
 import com.crud.utils.CustomerConvert;
@@ -39,9 +40,9 @@ public class CustomerController {
   })
   @PostMapping
   public ResponseEntity<CustomerResponse> createCustomer(
-          @Valid @RequestBody CustomerRequest customerDTO
+          @Valid @RequestBody CustomerRequest customerRequest
   ) throws Exception {
-    CustomerResponse customerResponse = registerCustomer.execute(CustomerConvert.toEntity(customerDTO));
+    CustomerResponse customerResponse = registerCustomer.execute(CustomerConvert.toEntity(customerRequest));
     return ResponseEntity.created(
               URI.create("/customer/"+ customerResponse.getIdTransaction()))
             .body(customerResponse);
@@ -94,7 +95,7 @@ public class CustomerController {
   })
   @PutMapping("/{id}")
   public ResponseEntity<CustomerResponse> updateCustomer(@PathVariable String id,
-                                                         @RequestBody CustomerRequest customerRequest) throws Exception {
+                                                         @RequestBody CustomerRequestUpdate customerRequest) throws Exception {
     return ResponseEntity.ok(updateCustomer.execute(id, customerRequest));
   }
 

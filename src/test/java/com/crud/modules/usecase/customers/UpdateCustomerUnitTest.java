@@ -1,10 +1,11 @@
 package com.crud.modules.usecase.customers;
 
-import com.crud.modules.customers.DTO.CustomerRequest;
+import com.crud.modules.customers.DTO.CustomerRequestUpdate;
 import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
 import com.crud.modules.customers.usecase.UpdateCustomer;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,30 +25,37 @@ class UpdateCustomerUnitTest {
   @InjectMocks
   private UpdateCustomer updateCustomer;
 
+  private Customer customer;
+
+  @BeforeEach
+  public void setup(){
+    customer = new Customer();
+    customer.setIdTransaction("unit-test");
+    customer.setEmail("validEmail@email.com");
+    customer.setAddress("validAddress,999");
+    customer.setName("ValidName");
+    customer.setPassword("@validPassword123");
+  }
+
   @Test
   @DisplayName("Should update customer success")
   public void UpdateCustomerSuccess() throws Exception {
-    CustomerRequest customerRequest = new CustomerRequest();
-    customerRequest.setSku("uni-test");
-    customerRequest.setEmail("unit@teste.com");
-    customerRequest.setName("unit-test");
+    CustomerRequestUpdate customerRequest = new CustomerRequestUpdate();
+    customerRequest.setName("unit test");
     customerRequest.setAddress("street uni test, 000");
 
-    Customer customer = new Customer();
-    customer.setIdTransaction("uni-test");
+    when(repository.findByIdTransaction(customer.getIdTransaction())).thenReturn(customer);
 
-    when(repository.findByIdTransaction("uni-test")).thenReturn(customer);
-
-    CustomerResponse customerResponse = updateCustomer.execute(customerRequest.getSku(), customerRequest);
+    CustomerResponse customerResponse = updateCustomer.execute("unit-test", customerRequest);
 
     verify(repository, times(1)).save(any());
-    assertEquals("unit-test", customerResponse.getName());
+    assertEquals("unit test", customerResponse.getName());
   }
 
   @Test
   @DisplayName("Should update product invalid")
   void UpdateProductIdInvalid(){
-    CustomerRequest customerRequest = new CustomerRequest();
+    CustomerRequestUpdate customerRequest = new CustomerRequestUpdate();
 
     when(repository.findByIdTransaction("uni-test")).thenReturn(new Customer());
 
