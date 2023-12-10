@@ -1,7 +1,6 @@
 package com.crud.modules.usecase.customers;
 
 import com.crud.infra.exception.PasswordValidationError;
-import com.crud.infra.exception.ValidationError;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
 

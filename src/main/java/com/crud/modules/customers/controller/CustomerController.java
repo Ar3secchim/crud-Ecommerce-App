@@ -1,5 +1,6 @@
 package com.crud.modules.customers.controller;
 
+import com.crud.infra.exception.BadRequestClient;
 import com.crud.modules.customers.DTO.CustomerRequest;
 import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.usecase.*;
@@ -62,7 +63,7 @@ public class CustomerController {
           @ApiResponse(responseCode = "400", description = "Not possible get customers")
   })
   @GetMapping("email/{email}")
-  public ResponseEntity<CustomerResponse> getCustomerByEmail(@PathVariable String email){
+  public ResponseEntity<CustomerResponse> getCustomerByEmail(@PathVariable String email) throws BadRequestClient {
     return ResponseEntity.ok(findCustomer.findByEmail(email));
   }
 
@@ -72,7 +73,7 @@ public class CustomerController {
           @ApiResponse(responseCode = "400", description = "Not possible get customers")
   })
   @GetMapping("/{id}")
-  public ResponseEntity<CustomerResponse> getCustomerById(@PathVariable String id){
+  public ResponseEntity<CustomerResponse> getCustomerById(@PathVariable String id) throws BadRequestClient {
     return ResponseEntity.ok(findCustomer.findById(id));
   }
 
@@ -82,7 +83,7 @@ public class CustomerController {
           @ApiResponse(responseCode = "404", description = "Not possible get customer")
   })
   @GetMapping("/name/{name}")
-  public ResponseEntity<List<CustomerResponse>> getCustomerByName(@PathVariable String name){
+  public ResponseEntity<List<CustomerResponse>> getCustomerByName(@PathVariable String name) throws BadRequestClient {
     return ResponseEntity.ok(findCustomer.findByName(name));
   }
 

@@ -1,5 +1,6 @@
 package com.crud.modules.customers.usecase;
 
+import com.crud.infra.exception.BadRequestClient;
 import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
@@ -15,30 +16,29 @@ import java.util.List;
 public class FindCustomer {
   private final CustomerRepository repository;
 
-  public CustomerResponse findByEmail(String email) {
-    var customer = repository.findByEmail(email);
+  public CustomerResponse findByEmail(String email) throws BadRequestClient {
+    Customer customer = repository.findByEmail(email);
 
     if(customer == null){
-      throw new EntityNotFoundException("Customer not found with email: " + email);
+      throw new BadRequestClient("Customer not found with email: " + email);
+    }
+    return CustomerConvert.toResponse(customer);
+  }
+
+  public CustomerResponse findById(String id) throws BadRequestClient {
+    Customer customer = repository.findByIdTransaction(id);
+
+    if(customer == null){
+      throw new BadRequestClient("Customer not found with ID: " + id);
     }
 
     return CustomerConvert.toResponse(customer);
   }
 
-  public CustomerResponse findById(String id) {
-    var customer = repository.findByIdTransaction(id);
-
-    if(customer == null){
-      throw new EntityNotFoundException("Customer not found with ID: " + id);
-    }
-
-    return CustomerConvert.toResponse(customer);
-  }
-
-  public List<CustomerResponse> findByName(String name) {
+  public List<CustomerResponse> findByName(String name) throws BadRequestClient {
 
     if (name == null) {
-      throw new EntityNotFoundException("Name not null");
+      throw new BadRequestClient("Name not null");
     }
 
     List<Customer> found = repository.findByName(name);

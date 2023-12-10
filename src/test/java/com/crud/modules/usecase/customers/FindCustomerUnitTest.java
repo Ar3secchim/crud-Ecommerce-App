@@ -1,5 +1,6 @@
 package com.crud.modules.usecase.customers;
 
+import com.crud.infra.exception.BadRequestClient;
 import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
@@ -40,7 +41,7 @@ class FindCustomerUnitTest {
 
   @Test
   @DisplayName("Should customer find by id")
-  public void findCustomerById(){
+  public void findCustomerById() throws BadRequestClient {
     when(repository.findByIdTransaction(customer.getIdTransaction())).thenReturn(customer);
 
     CustomerResponse customerTest = findCustomer.findById(customer.getIdTransaction());
@@ -62,7 +63,7 @@ class FindCustomerUnitTest {
 
   @Test
   @DisplayName("Should customer find by email")
-  public void findCustomerByEmail(){
+  public void findCustomerByEmail() throws BadRequestClient {
     when(repository.findByEmail(customer.getEmail())).thenReturn(customer);
 
     CustomerResponse customerTest = findCustomer.findByEmail(customer.getEmail());
@@ -83,7 +84,7 @@ class FindCustomerUnitTest {
 
   @Test
   @DisplayName("Should customer find by name")
-  public void findCustomerByName(){
+  public void findCustomerByName() throws BadRequestClient {
     ArrayList<Customer> listCustomer = new ArrayList<>();
     Customer customerTest = new Customer();
 

@@ -2,7 +2,6 @@ package com.crud.modules.customers.usecase;
 
 import com.crud.infra.exception.BadRequestClient;
 import com.crud.infra.exception.PasswordValidationError;
-import com.crud.infra.exception.ValidationError;
 import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
@@ -20,7 +19,7 @@ public class RegisterCustomer {
 
   public CustomerResponse execute(Customer customer) throws Exception {
     if(!Validator.name(customer.getName()))
-      throw new ValidationError("name", "length must be between 3 and 35");
+      throw new Exception("length must be between 3 and 35");
 
     if(!Validator.passwordValidate(customer.getPassword()))
       throw new PasswordValidationError("Senha deve seguir o padrão");
@@ -36,7 +35,7 @@ public class RegisterCustomer {
 
   private void checkEmailAvailability(String email) throws Exception {
     if(!Validator.emailValidate(email))
-      throw new ValidationError("email", "must be a well-formed email address");
+      throw new Exception("must be a well-formed email address");
 
     Customer emailExist = repository.findByEmail(email);
     if  (emailExist != null ) {

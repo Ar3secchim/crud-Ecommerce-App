@@ -1,5 +1,6 @@
 package com.crud.modules.product.usecase;
 
+import com.crud.infra.exception.BadRequestClient;
 import com.crud.modules.product.DTO.ProductRequest;
 import com.crud.modules.product.DTO.ProductResponse;
 import com.crud.modules.product.entity.Product;
@@ -21,17 +22,17 @@ public class CreateProduct {
     return ProductConvert.toResponse(product);
   }
 
-  private void validateProduct(ProductRequest productRequest) {
-    if (productRequest.getName() == null || productRequest.getName().trim().isEmpty()) {
-      throw new IllegalArgumentException("Name is required");
+  private void validateProduct(ProductRequest productRequest) throws Exception {
+    if (productRequest.getName() == null) {
+      throw new Exception("Name is required");
     }
 
     if (productRequest.getQuantityStock() == null) {
-      throw new IllegalArgumentException("Quantity is required");
+      throw new Exception("Quantity is required");
     }
 
     if (productRequest.getPrice() == null) {
-      throw new IllegalArgumentException("Price is required");
+      throw new Exception("Price is required");
     }
   }
 }
