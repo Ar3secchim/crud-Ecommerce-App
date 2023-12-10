@@ -46,5 +46,4 @@ class DeleteCustomerUnitTest {
 
     assertEquals("Customer not found with ID: unit-test", exception.getMessage());
   }
-
 }

@@ -3,7 +3,6 @@ package com.crud.modules.integration.customers.controller;
 import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.usecase.ListCustomer;
-import com.crud.modules.customers.usecase.RegisterCustomer;
 import com.crud.utils.CustomerConvert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,13 +25,13 @@ import java.util.UUID;
 @AutoConfigureMockMvc
 public class CustomerGetAllControllerIntegrationTest {
   @MockBean
-  private ListCustomer listCustomer;;
+  private ListCustomer listCustomer;
 
   @Autowired
   private MockMvc mockMvc;
 
   @BeforeEach
-  void setup() throws Exception {
+  void setup() {
     Customer customer = new Customer();
     customer.setIdTransaction(UUID.randomUUID().toString());
     customer.setName("int-test");
