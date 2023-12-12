@@ -29,9 +29,9 @@ class OrderCreateControllerIntegrationTest {
   @Test
   void createOrderWithSuccess() throws Exception {
     Customer customer = new Customer();
-    customer.setIdTransaction("int-test");
+    customer.setIdTransaction("int-test2");
     customer.setName("int-test");
-    customer.setEmail("int-test@gmail.com");
+    customer.setEmail("int-test2@gmail.com");
     customer.setAddress("int-test, 000");
     customer.setPassword("Int-test1");
     customerRepository.save(customer);
