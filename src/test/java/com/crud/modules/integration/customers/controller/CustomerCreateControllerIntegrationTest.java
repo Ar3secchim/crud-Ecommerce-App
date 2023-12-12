@@ -22,7 +22,7 @@ import java.util.UUID;
 @AutoConfigureMockMvc
 class CustomerCreateControllerIntegrationTest {
   @MockBean
-  private RegisterCustomer registerCustomer;;
+  private RegisterCustomer registerCustomer;
 
   @Autowired
   private MockMvc mockMvc;

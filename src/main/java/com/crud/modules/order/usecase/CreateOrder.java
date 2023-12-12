@@ -1,5 +1,6 @@
 package com.crud.modules.order.usecase;
 
+import com.crud.infra.exception.BadRequestClient;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
 import com.crud.modules.order.DTO.OrderRequest;
@@ -20,7 +21,7 @@ public class CreateOrder{
   public OrderResponse execute(OrderRequest OrderRequest) throws Exception {
     Customer customer = customerRepository.findByIdTransaction(OrderRequest.getCustomerId());
 
-    if(customer == null) throw new Exception("Customer not found");
+    if(customer == null) throw new BadRequestClient("Customer not found");
 
     Order order = OrderConvert.toEntity(customer);
     orderRepository.save(order);
