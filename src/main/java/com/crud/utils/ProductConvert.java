@@ -16,7 +16,7 @@ public class ProductConvert {
     product.setSkuId(UUID.randomUUID().toString());
     product.setDescription(productRequest.getDescription());
     product.setName(productRequest.getName());
-    product.setQuantityStock(product.getQuantityStock());
+    product.setQuantityStock(productRequest.getQuantityStock());
     product.setPrice(productRequest.getPrice());
     return product;
   }
