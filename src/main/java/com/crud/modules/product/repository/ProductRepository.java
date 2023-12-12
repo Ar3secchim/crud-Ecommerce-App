@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface ProductRepository extends JpaRepository<Product, String> {
-  @Query(value = "SELECT * FROM products WHERE sku = :id", nativeQuery = true)
+  @Query(value = "SELECT * FROM products WHERE sku_id = :id", nativeQuery = true)
   Product findProductById(String id);
 }

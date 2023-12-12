@@ -42,7 +42,7 @@ public class AddItemOrderItem {
 
     OrderItem orderItem = saveOrderItem(order, orderItemRequest, product);
 
-    reservarItems(orderId, product);
+    //reservarItems(orderId, product);
 
     updateOrderTotal(order);
     updateOrder.execute(orderId, order);
@@ -65,7 +65,6 @@ public class AddItemOrderItem {
     }
     return product;
   }
-
 
   private void reservarItems(String skuId, Product item) {
     StockReservationRequest reservarEstoqueRequest = new StockReservationRequest();
