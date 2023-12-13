@@ -43,7 +43,7 @@ public class UpdateProductControllerIntegrationTest {
     product.setName("product");
     product.setPrice(BigDecimal.valueOf(100));
     product.setSkuId("productSku");
-    product.setQuantityStock(10);
+    product.setQuantityStock(5);
     product.setDescription("product");
     repository.save(product);
 
@@ -64,7 +64,9 @@ public class UpdateProductControllerIntegrationTest {
                     MockMvcResultHandlers.print()
             ).andExpect(
                     MockMvcResultMatchers.status().isOk()
-            );
+            ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.quantityStock").value(50)
+    );
   }
 
   @Test

@@ -59,9 +59,7 @@ class CreateProductUnitTest {
   @DisplayName("should exception create product name Invalid ")
   public void createProductNameInvalid(){
     productRequest.setName(null);
-    product  = ProductConvert.toEntity(productRequest);
 
-    when(repository.save(product)).thenReturn(product);
     Exception exception = assertThrows(Exception.class,
             () -> createProduct.execute(productRequest));
 
@@ -72,9 +70,7 @@ class CreateProductUnitTest {
   @DisplayName("should exception create product price Invalid ")
   public void createProductPriceInvalid(){
     productRequest.setPrice(null);
-    product  = ProductConvert.toEntity(productRequest);
 
-    when(repository.save(product)).thenReturn(product);
     Exception exception =  assertThrows(Exception.class,
             () -> createProduct.execute(productRequest));
 
@@ -85,9 +81,7 @@ class CreateProductUnitTest {
   @DisplayName("should exception create product quantity Invalid ")
   public void createProductQuantityInvalid(){
     productRequest.setQuantityStock(null);
-    product  = ProductConvert.toEntity(productRequest);
 
-    when(repository.save(product)).thenReturn(product);
     Exception exception =  assertThrows(Exception.class,
             () -> createProduct.execute(productRequest));
 

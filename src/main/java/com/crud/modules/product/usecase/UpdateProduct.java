@@ -8,8 +8,6 @@ import com.crud.utils.ProductConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-
 @Service
 public class UpdateProduct {
   @Autowired
@@ -27,6 +25,7 @@ public class UpdateProduct {
     product.setName(productRequest.getName());
     product.setSkuId(id);
     repository.save(product);
+
     return ProductConvert.toResponse(product);
   }
 }
