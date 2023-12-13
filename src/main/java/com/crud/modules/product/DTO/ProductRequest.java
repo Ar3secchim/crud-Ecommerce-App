@@ -13,7 +13,6 @@ public class ProductRequest {
   private String skuId;
 
   @Schema(name = "name", example = "console-ps5", required = true)
-  @NotBlank()
   private String name;
 
   @Schema(name = "description", example = "console ps5, 128gb...")

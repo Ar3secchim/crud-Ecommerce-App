@@ -8,17 +8,23 @@ import com.crud.utils.ProductConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class UpdateProduct {
   @Autowired
   ProductRepository repository;
 
   public ProductResponse execute(String id, ProductRequest productRequest) throws Exception {
-    if(repository.findProductById(id) == null){
+    Product product = repository.findProductById(id);
+
+    if(product == null){
       throw new Exception("Not exist product");
     }
 
-    Product product = ProductConvert.toEntity(productRequest);
+    product.setDescription(productRequest.getDescription());
+    product.setQuantityStock(productRequest.getQuantityStock());
+    product.setName(productRequest.getName());
     product.setSkuId(id);
     repository.save(product);
     return ProductConvert.toResponse(product);
