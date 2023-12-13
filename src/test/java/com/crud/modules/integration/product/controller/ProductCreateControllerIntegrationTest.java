@@ -51,5 +51,4 @@ public class ProductCreateControllerIntegrationTest {
             MockMvcResultMatchers.jsonPath("$.quantityStock").value(10)
     );
   }
-
 }
