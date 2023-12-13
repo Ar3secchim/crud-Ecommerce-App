@@ -1,5 +1,6 @@
 package com.crud.modules.usecase.product;
 
+import com.crud.infra.exception.BadRequestClient;
 import com.crud.modules.product.DTO.ProductResponse;
 import com.crud.modules.product.entity.Product;
 import com.crud.modules.product.repository.ProductRepository;
@@ -53,7 +54,7 @@ class FindProductUnitTest {
 
   @Test
   @DisplayName("Should product find by id")
-  public void findProductById(){
+  public void findProductById() throws BadRequestClient {
     Product product = new Product();
     product.setSkuId("uni-Test");
 

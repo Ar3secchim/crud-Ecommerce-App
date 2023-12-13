@@ -1,5 +1,6 @@
 package com.crud.modules.product.controller;
 
+import com.crud.infra.exception.BadRequestClient;
 import com.crud.modules.product.DTO.ProductRequest;
 import com.crud.modules.product.DTO.ProductResponse;
 import com.crud.modules.product.usecase.CreateProduct;
@@ -49,7 +50,7 @@ public class ProductController {
           @ApiResponse(responseCode = "404", description = "Not found - The product was not found")
   })
   @GetMapping
-  public ResponseEntity<List<ProductResponse>> getProduct(){
+  public ResponseEntity<List<ProductResponse>> getAllProduct(){
     return ResponseEntity.ok(findProductService.listAll());
   }
 
@@ -61,7 +62,7 @@ public class ProductController {
   })
 
   @GetMapping("/{productId}")
-  public ResponseEntity<ProductResponse> getProductById (@PathVariable  String productId){
+  public ResponseEntity<ProductResponse> getProductById (@PathVariable  String productId) throws BadRequestClient {
     ProductResponse product = findProductService.findById(productId);
     return ResponseEntity.ok(product);
   }
