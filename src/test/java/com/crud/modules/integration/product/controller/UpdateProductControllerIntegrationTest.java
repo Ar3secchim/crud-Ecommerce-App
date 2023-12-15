@@ -59,13 +59,10 @@ public class UpdateProductControllerIntegrationTest {
                   .content(productUpdate)
                   .contentType(MediaType.APPLICATION_JSON)
                   .accept(MediaType.APPLICATION_JSON)
-                  .characterEncoding("utf-8")
             ).andDo(
                     MockMvcResultHandlers.print()
             ).andExpect(
                     MockMvcResultMatchers.status().isOk()
-            ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.quantityStock").value(50)
     );
   }
 

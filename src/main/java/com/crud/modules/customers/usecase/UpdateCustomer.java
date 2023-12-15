@@ -1,5 +1,6 @@
 package com.crud.modules.customers.usecase;
 
+import com.crud.infra.exception.BadRequestClient;
 import com.crud.modules.customers.DTO.CustomerRequestUpdate;
 import com.crud.modules.customers.DTO.CustomerResponse;
 import com.crud.modules.customers.entity.Customer;
@@ -17,7 +18,7 @@ public class UpdateCustomer {
   public CustomerResponse execute(String id, CustomerRequestUpdate customerRequest) throws Exception {
     Customer customer = repository.findByIdTransaction(id);
 
-    if(customer == null) throw new Exception("Customer not found");
+    if(customer == null) throw new BadRequestClient("Customer not found");
 
     if(!Validator.name(customerRequest.getName()))
       throw new Exception("length must be between 3 and 35");
