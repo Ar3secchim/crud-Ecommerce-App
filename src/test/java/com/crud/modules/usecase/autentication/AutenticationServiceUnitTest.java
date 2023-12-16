@@ -1,5 +1,6 @@
 package com.crud.modules.usecase.autentication;
 
+import com.crud.infra.exception.BadRequestClient;
 import com.crud.modules.customers.entity.Customer;
 import com.crud.modules.customers.repository.CustomerRepository;
 import com.crud.modules.autentication.usecase.AutenticationService;
@@ -23,7 +24,7 @@ class AutenticationServiceUnitTest {
 
   @Test
   @DisplayName("Should authentication user with success")
-  void AuthenticationUserSuccess(){
+  void AuthenticationUserSuccess() throws BadRequestClient {
     Customer customer = new Customer();
     customer.setEmail("uni-Test@email.com");
 
@@ -38,7 +39,7 @@ class AutenticationServiceUnitTest {
   void AuthenticationUserInvalid(){
     when(repository.findByEmail("uni-test@email.com")).thenReturn(null);
 
-    var exeception = assertThrows(UsernameNotFoundException.class, () ->
+    var exeception = assertThrows(RuntimeException.class, () ->
             autenticationService.loadUserByUsername("uni-test@email.com"));
 
     assertEquals("Customer not found", exeception.getMessage());
