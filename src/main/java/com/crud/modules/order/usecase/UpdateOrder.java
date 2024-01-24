@@ -27,7 +27,6 @@ public class UpdateOrder{
     order.setTotal(CalculateTotal.execute(orderInput));
 
     orderRepository.save(order);
-
     return OrderConvert.toResponseOrder(order);
   }
 }

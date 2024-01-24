@@ -20,14 +20,11 @@ public class RegisterCustomer {
   public CustomerResponse execute(Customer customer) throws Exception {
     if(!Validator.name(customer.getName()))
       throw new Exception("length must be between 3 and 35");
-
     if(!Validator.passwordValidate(customer.getPassword()))
       throw new PasswordValidationError("Senha deve seguir o padrão");
 
     checkEmailAvailability(customer.getEmail());
-
-    String encodePassword = passwordEncoder.encode(customer.getPassword());
-    customer.setPassword(encodePassword);
+    passwordEncoder(customer);
 
     repository.save(customer);
     return CustomerConvert.toResponse(customer);
@@ -41,5 +38,10 @@ public class RegisterCustomer {
     if  (emailExist != null ) {
       throw new BadRequestClient("Email já está em uso");
     }
+  }
+
+  private void passwordEncoder(Customer customer){
+    var passwordCryptographic = passwordEncoder.encode(customer.getPassword());
+    customer.setPassword(passwordCryptographic);
   }
 }

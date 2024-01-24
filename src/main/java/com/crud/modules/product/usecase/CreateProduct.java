@@ -16,8 +16,7 @@ public class CreateProduct {
 
   public ProductResponse execute(ProductRequest productRequest) throws Exception {
     validateProduct(productRequest);
-
-    Product product = ProductConvert.toEntity(productRequest);
+    var product = ProductConvert.toEntity(productRequest);
     repository.save(product);
     return ProductConvert.toResponse(product);
   }

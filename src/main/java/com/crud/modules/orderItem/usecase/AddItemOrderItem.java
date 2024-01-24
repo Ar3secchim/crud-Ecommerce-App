@@ -36,22 +36,18 @@ public class AddItemOrderItem {
   ReservationItemStockProducer ReservationItemStock;
 
   public OrderItemResponse execute(String orderId, OrderItemRequest orderItemRequest) throws Exception {
-    Order order = validateOrder(orderId);
-
-    Product product = validateProduct(orderItemRequest.getProductId());
-
-    OrderItem orderItem = saveOrderItem(order, orderItemRequest, product);
-
+    var order = validateOrder(orderId);
+    var product = validateProduct(orderItemRequest.getProductId());
+    var orderItem = saveOrderItem(order, orderItemRequest, product);
     //reservarItems(orderId, product);
 
     updateOrderTotal(order);
     updateOrder.execute(orderId, order);
-
     return OrdemItemConvert.toResponseOrderItem(orderItem);
   }
 
   private Order validateOrder(String orderID) throws BadRequestClient {
-    Order order = orderRepository.findOrderById(orderID);
+    var order = orderRepository.findOrderById(orderID);
     if (order == null) {
       throw new BadRequestClient("Order not found");
     }
@@ -59,7 +55,7 @@ public class AddItemOrderItem {
   }
 
   private Product validateProduct(String productSku) throws Exception {
-    Product product = productRepository.findProductById(productSku);
+    var product = productRepository.findProductById(productSku);
     if (product == null) {
       throw new Exception("Product not found");
     }

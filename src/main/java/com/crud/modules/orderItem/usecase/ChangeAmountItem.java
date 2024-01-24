@@ -29,16 +29,13 @@ public class ChangeAmountItem{
 
   public OrderItemResponse execute(String orderItemID, OrderItemRequest orderItemRequest) throws Exception {
     OrderItem orderItem = validateOrderItem(orderItemID);
-
     if (!deleteOrderAmountEqualsZero(orderItemRequest)) {
       deleteOrderItem(orderItem);
     } 
     
-    Product product = validateProduct(orderItemRequest.getProductId());
-
+    var product = validateProduct(orderItemRequest.getProductId());
     updateOrderItem(orderItem, orderItemRequest, product);
     updateOrderTotal(orderItem.getOrder());
-
     return OrdemItemConvert.toResponseOrderItem(orderItem);
   }
 

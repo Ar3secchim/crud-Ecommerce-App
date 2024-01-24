@@ -22,7 +22,6 @@ public class FindOrder {
 
   public OrderResponse findById(String orderId) throws Exception {
     Order order = orderRepository.findOrderById(orderId);
-
     if (order == null) throw new Exception("Order not found");
 
     return OrderConvert.toResponseOrder(order);

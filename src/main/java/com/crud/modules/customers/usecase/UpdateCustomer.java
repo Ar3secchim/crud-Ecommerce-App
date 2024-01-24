@@ -17,7 +17,6 @@ public class UpdateCustomer {
 
   public CustomerResponse execute(String id, CustomerRequestUpdate customerRequest) throws Exception {
     Customer customer = repository.findByIdTransaction(id);
-
     if(customer == null) throw new BadRequestClient("Customer not found");
 
     if(!Validator.name(customerRequest.getName()))

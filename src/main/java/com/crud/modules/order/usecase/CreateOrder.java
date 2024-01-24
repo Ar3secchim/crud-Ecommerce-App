@@ -20,12 +20,10 @@ public class CreateOrder{
 
   public OrderResponse execute(OrderRequest OrderRequest) throws Exception {
     Customer customer = customerRepository.findByIdTransaction(OrderRequest.getCustomerId());
-
     if(customer == null) throw new BadRequestClient("Customer not found");
 
     Order order = OrderConvert.toEntity(customer);
     orderRepository.save(order);
-
     return OrderConvert.toResponseOrder(order);
   }
 }

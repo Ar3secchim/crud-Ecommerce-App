@@ -21,11 +21,9 @@ public class FindProduct {
 
   public ProductResponse findById(String id) throws BadRequestClient {
     Product product = repository.findProductById(id);
-
     if(product == null){
       throw new BadRequestClient("Product not found with ID: " + id);
     }
-
     return ProductConvert.toResponse(product);
   }
 }

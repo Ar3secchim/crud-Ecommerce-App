@@ -14,11 +14,9 @@ public class DeleteProduct {
 
   public void execute(String id) throws Exception {
     Product product = repository.findProductById(id);
-
     if (product == null){
       throw new Exception("Product not found ");
     }
-
     repository.delete(product);
   }
 }

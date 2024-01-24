@@ -13,9 +13,7 @@ public class DeleteItemOrder{
 
   public void execute(String id) throws Exception {
     OrderItem orderItem = ordemItemRepository.findOrderItemById(id);
-
     if(orderItem == null) throw  new Exception("Order not found");
-
     ordemItemRepository.delete(orderItem);
   }
 }
